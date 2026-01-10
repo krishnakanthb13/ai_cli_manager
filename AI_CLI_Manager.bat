@@ -252,10 +252,10 @@ REM ========================================
 cls
 echo.
 echo ================================================
-echo     Installing/Updating All CLIs
+echo     Installing Checks All CLIs
 echo ================================================
 echo.
-echo [%time%] === Install/Update started === >> "%LOG_FILE%"
+echo [%time%] === Installation Checks started === >> "%LOG_FILE%"
 
 where node >nul 2>&1
 if errorlevel 1 (
@@ -357,7 +357,7 @@ echo.
 echo ================================================
 echo All tasks completed!
 echo ================================================
-echo [%time%] === Install/Update completed === >> "%LOG_FILE%"
+echo [%time%] === Installation Checks completed === >> "%LOG_FILE%"
 pause
 goto MAIN_MENU
 
