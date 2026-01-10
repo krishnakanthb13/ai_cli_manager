@@ -12,7 +12,7 @@ As the landscape of AI coding assistants grows, developers are juggling multiple
 
 ## 💡 The "What"
 
-**AI CLI Manager (v2.1)** is a Windows automation tool designed to be the "Command Center" for AI-powered terminal applications.
+**AI CLI Manager (v1.0.0)** is a Windows automation tool designed to be the "Command Center" for AI-powered terminal applications.
 
 ### Managed AI CLI Tools
 
@@ -74,8 +74,8 @@ As the landscape of AI coding assistants grows, developers are juggling multiple
 
 ```
 0_CLI_Manager/
-├── AI_CLI_Manager.bat          # Main script (v2.1)
-├── AI_CLI_Manager_0.bat        # Backup/reference version (v1.1)
+├── AI_CLI_Manager.bat          # Main script (v1.0.0)
+├── AI_CLI_Manager_0.bat        # Backup/reference version (v0.1)
 ├── AI_CLI_MG_readme.md         # User guide
 ├── AI_CLI_MG_code_readme.md    # Technical documentation
 ├── AI_CLI_MG_context_readme.md # This file - context & purpose

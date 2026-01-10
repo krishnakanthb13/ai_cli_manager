@@ -1,6 +1,6 @@
 # AI CLI Manager - Code Functionality
 
-## 🛠️ Technical Overview (v2.1)
+## 🛠️ Technical Overview (v1.0.0)
 
 This document describes the technical implementation of `AI_CLI_Manager.bat`.
 

@@ -1,7 +1,7 @@
 # AI CLI Manager - User Guide
 
 ## 📖 Overview
-**AI CLI Manager (v2.1)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
+**AI CLI Manager (v1.0.0)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
 
 ## 🚀 Getting Started
 
