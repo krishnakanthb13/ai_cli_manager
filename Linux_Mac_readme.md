@@ -48,5 +48,41 @@ Launch any of the supported CLIs directly from the menu:
 *   KiloCode CLI
 
 ## ⚠️ Known Differences (vs Windows)
-*   **Context Menu**: The "Add to Right-Click Menu" feature is currently **Windows-only**. Linux/Mac context menus vary wildly (Finder, Nautilus, Dolphin, etc.), so they are not automatically configured by this script.
-*   **Terminal**: Does not automatically detect or launch a separate terminal window; it runs inside the current shell.
+*   **Context Menu (Linux)**: The script supports adding right-click options for **Nautilus (GNOME)** file manager. Other file managers (Dolphin, Thunar, etc.) are not currently supported.
+*   **Context Menu (macOS)**: Not supported natively by the script. See the workaround below to add it properly using Mac's Automator.
+*   **Terminal**: Launches tools inside the current shell window rather than spawning new ones (unless using the Linux Context Menu integration).
+
+---
+
+## 🍏 macOS: How to Add Context Menu (Manual Workaround)
+
+Since macOS context menus ("Quick Actions") are complex to script, you can create them manually using the built-in **Automator** app. This allows you to right-click a folder and open an AI tool.
+
+### Step-by-Step Guide
+
+1.  Open **Automator** (cmd + space, type "Automator").
+2.  Select **New Document** -> **Quick Action** -> **Choose**.
+3.  Configure the settings at the top:
+    *   **Workflow receives current**: `folders`
+    *   **In**: `Finder`
+4.  In the left sidebar search, find **"Run AppleScript"** and drag it to the right panel.
+5.  Paste the following code (replace `gemini` with the tool you want, e.g., `jules`, `vibe`):
+    - gemini, jules, vibe, iFlow, OpenCode, Qwen, KiloCode.
+
+```applescript
+on run {input, parameters}
+    tell application "Terminal"
+        activate
+        -- Get the path of the selected folder
+        set folderPath to POSIX path of (item 1 of input)
+        -- Open new window, cd to folder, and run tool
+        do script "cd " & quoted form of folderPath & "; gemini"
+    end tell
+    return input
+end run
+```
+
+6.  Save the Quick Action (File -> Save) and name it something clear, like **"Open Gemini CLI"**.
+7.  **Done!** Now you can right-click any folder in Finder, go to **Quick Actions**, and select your new tool.
+
+*Repeat these steps for each tool you want to duplicate.*

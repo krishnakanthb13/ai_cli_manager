@@ -177,6 +177,113 @@ launch_tool() {
     pause
 }
 
+create_script_file() {
+    local tool=$1
+    local cmd=$2
+    local dir="$HOME/.local/share/nautilus/scripts/AI CLI Tools"
+    local file="$dir/$tool"
+
+    mkdir -p "$dir"
+    echo "#!/bin/bash" > "$file"
+    echo "gnome-terminal -- $cmd" >> "$file"
+    chmod +x "$file"
+    echo -e "Created ${CYAN}$tool${NC} script."
+}
+
+add_context_menu_linux() {
+    clear
+    echo -e "${CYAN}=== Add to Context Menu (Linux/Nautilus) ===${NC}"
+    echo ""
+    echo -e "This feature creates scripts in ${YELLOW}~/.local/share/nautilus/scripts${NC}"
+    echo "It allows you to right-click in Nautilus (Files) -> Scripts -> AI CLI Tools"
+    echo ""
+    read -p "Do you want to continue? (y/n): " confirm
+    if [[ "$confirm" != "y" ]]; then
+        return
+    fi
+    
+    echo ""
+    log "INFO" "Adding Nautilus scripts"
+    
+    if [ ! -d "$HOME/.local/share/nautilus/scripts" ]; then
+        echo -e "${YELLOW}Nautilus scripts directory not found. Creating it...${NC}"
+        mkdir -p "$HOME/.local/share/nautilus/scripts"
+    fi
+
+    create_script_file "Gemini CLI" "gemini"
+    create_script_file "Jules CLI" "jules"
+    create_script_file "Mistral Vibe" "vibe"
+    create_script_file "iFlow CLI" "iflow"
+    create_script_file "OpenCode CLI" "opencode"
+    create_script_file "Qwen Code CLI" "qwen"
+    create_script_file "KiloCode CLI" "kilocode"
+
+    echo ""
+    echo -e "${GREEN}[SUCCESS] Scripts added!${NC}"
+    echo "Right-click a file in Nautilus -> Scripts -> AI CLI Tools"
+    pause
+}
+
+remove_context_menu_linux() {
+    clear
+    echo -e "${CYAN}=== Remove Context Menu (Linux/Nautilus) ===${NC}"
+    echo ""
+    echo -e "This will remove the folder: ${YELLOW}~/.local/share/nautilus/scripts/AI CLI Tools${NC}"
+    echo ""
+    read -p "Are you sure? (y/n): " confirm
+    if [[ "$confirm" != "y" ]]; then
+        return
+    fi
+    
+    echo ""
+    log "INFO" "Removing Nautilus scripts"
+    
+    dir="$HOME/.local/share/nautilus/scripts/AI CLI Tools"
+    if [ -d "$dir" ]; then
+        rm -rf "$dir"
+        echo -e "${GREEN}[SUCCESS] Scripts removed.${NC}"
+        log "SUCCESS" "Nautilus scripts removed"
+    else
+        echo -e "${YELLOW}Scripts directory not found. Nothing to remove.${NC}"
+        log "WARN" "Nautilus scripts not found"
+    fi
+    pause
+}
+
+restart_nautilus() {
+    clear
+    echo -e "${CYAN}=== Restart Nautilus ===${NC}"
+    echo ""
+    echo "This will kill all Nautilus processes to refresh the context menu."
+    echo "Your open file manager windows will close."
+    echo ""
+    read -p "Continue? (y/n): " confirm
+    if [[ "$confirm" != "y" ]]; then
+        return
+    fi
+    
+    echo ""
+    log "INFO" "Restarting Nautilus"
+    
+    if pgrep -x "nautilus" > /dev/null; then
+        killall nautilus
+        echo -e "${GREEN}[SUCCESS] Nautilus restarted.${NC}"
+        log "SUCCESS" "Nautilus restarted"
+    else
+        echo -e "${YELLOW}Nautilus is not running.${NC}"
+    fi
+    pause
+}
+
+# --- Mac Functions ---
+
+create_automator_workflow() {
+    local tool=$1
+    local cmd=$2
+    # Mac automation via script is complex/risky.
+    # Placeholder to keep structure consistent if we add AppleScript support later.
+    # Read details in Linux_Mac_readme.md - 🍏 macOS: How to Add Context Menu (Manual Workaround) for more info.
+}
 
 # --- Main Loop ---
 
@@ -195,11 +302,16 @@ while true; do
     echo "  8. Launch Qwen Code CLI"
     echo "  9. Launch KiloCode CLI"
     echo ""
+    echo -e " ${YELLOW}--- Context Menu ---${NC}"
+    echo " 10. Add to Context Menu (Linux/Nautilus Only)"
+    echo " 11. Remove from Context Menu (Linux Only)"
+    echo " 12. Restart Nautilus (Linux Only)"
+    echo ""
     echo "  0. Exit"
     echo ""
     echo -e "${CYAN}================================================${NC}"
     
-    read -p "Enter your choice (0-9): " choice
+    read -p "Enter your choice (0-12): " choice
     log "INPUT" "User choice: $choice"
     
     case $choice in
@@ -212,6 +324,9 @@ while true; do
         7) launch_tool "opencode" ;;
         8) launch_tool "qwen" ;;
         9) launch_tool "kilocode" ;;
+        10) add_context_menu_linux ;;
+        11) remove_context_menu_linux ;;
+        12) restart_nautilus ;;
         0) 
             echo "Goodbye!"
             exit 0 
