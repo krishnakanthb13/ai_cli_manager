@@ -10,14 +10,6 @@
     *   ✅ **Windows Terminal detection**: Falls back to CMD if WT not available
 2.  **Main Menu**: Type the number of the option you want and press Enter
 
-## 🍎 Getting Started (Linux / macOS)
-
-1.  **Make Executable**: `chmod +x AI_CLI_Manager.sh`
-2.  **Run**: `./AI_CLI_Manager.sh`
-3.  *See `Linux_Mac_readme.md` for full details.*
-
-## ✨ Key Features
-
 ## ⚙️ Main Menu Options
 
 ### --- CLI Management ---
@@ -107,3 +99,50 @@ All actions are logged to timestamped files in the `Log Files` folder:
 | **Tool not found after install** | Restart terminal or computer to refresh PATH |
 | **Menu not appearing** | Use Option 12 to restart Explorer, or reboot |
 | **Submenu not showing** | Run Option 10 then Option 9 to re-add menu |
+
+---
+
+## 🍎 Getting Started (Linux / macOS)
+
+1.  **Make Executable**: `chmod +x AI_CLI_Manager.sh`
+2.  **Run**: `./AI_CLI_Manager.sh`
+3.  *See `Linux_Mac_readme.md` for full details.*
+
+
+## 🐧 Testing & Using Linux/Mac Script on Windows
+
+You can run the `AI_CLI_Manager.sh` script on Windows to test its functionality or use it in a Linux-like environment.
+
+### Option 1: Using Git Bash (Easiest)
+If you have Git installed, you likely have **Git Bash**.
+
+1.  **Right-click** inside the `ai_cli_manager` folder.
+2.  Select **"Open Git Bash Here"**.
+3.  Make the script executable:
+    ```bash
+    chmod +x AI_CLI_Manager.sh
+    ```
+4.  Run the script:
+    ```bash
+    ./AI_CLI_Manager.sh
+    ```
+    *   *Note: `sudo` commands may fail, but menu navigation and standard installs should work.*
+
+### Option 2: Using WSL (Recommended for Full Testing)
+For a complete Linux experience, use **Windows Subsystem for Linux (WSL)**.
+
+1.  **Install WSL** (if not already installed):
+    *   Open PowerShell as Administrator and run: `wsl --install`
+    *   Restart your computer if prompted.
+2.  **Open WSL Terminal**:
+    *   Open "Ubuntu" (or your distro) from the Start Menu.
+3.  **Navigate to Project**:
+    *   WSL mounts your C: drive at `/mnt/c`.
+    ```bash
+    cd /mnt/c/Users/YOUR_USERNAME/Documents/GitHub/ai_cli_manager
+    ```
+4.  **Run the Script**:
+    ```bash
+    chmod +x AI_CLI_Manager.sh
+    ./AI_CLI_Manager.sh
+    ```
