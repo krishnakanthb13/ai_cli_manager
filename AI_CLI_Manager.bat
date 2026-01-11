@@ -66,39 +66,41 @@ echo  2. Show Installed CLI Versions
 echo.
 echo --- Launch CLIs ---
 echo  3. Launch Gemini CLI
-echo  4. Launch Mistral Vibe CLI
-echo  5. Launch iFlow CLI
-echo  6. Launch OpenCode CLI
-echo  7. Launch Qwen Code CLI
-echo  8. Launch KiloCode CLI
+echo  4. Launch Jules CLI
+echo  5. Launch Mistral Vibe CLI
+echo  6. Launch iFlow CLI
+echo  7. Launch OpenCode CLI
+echo  8. Launch Qwen Code CLI
+echo  9. Launch KiloCode CLI
 echo.
 echo --- Context Menu ---
-echo  9. Add to Windows Context Menu
-echo 10. Remove from Windows Context Menu
-echo 11. Export Registry Backup
+echo 10. Add to Windows Context Menu
+echo 11. Remove from Windows Context Menu
+echo 12. Export Registry Backup
 echo.
 echo --- Utilities ---
-echo 12. Restart File Explorer
+echo 13. Restart File Explorer
 echo.
 echo  0. Exit
 echo.
 echo ================================================
-set /p "choice=Enter your choice (0-12): "
+set /p "choice=Enter your choice (0-13): "
 
 echo [%time%] [INPUT] Choice: %choice% >> "%LOG_FILE%"
 
 if "%choice%"=="1" goto INSTALL_ALL
 if "%choice%"=="2" goto SHOW_VERSIONS
 if "%choice%"=="3" goto LAUNCH_GEMINI
-if "%choice%"=="4" goto LAUNCH_VIBE
-if "%choice%"=="5" goto LAUNCH_IFLOW
-if "%choice%"=="6" goto LAUNCH_OPENCODE
-if "%choice%"=="7" goto LAUNCH_QWEN
-if "%choice%"=="8" goto LAUNCH_KILOCODE
-if "%choice%"=="9" goto ADD_CONTEXT_MENU
-if "%choice%"=="10" goto REMOVE_CONTEXT_MENU
-if "%choice%"=="11" goto BACKUP_REGISTRY
-if "%choice%"=="12" goto RESTART_EXPLORER
+if "%choice%"=="4" goto LAUNCH_JULES
+if "%choice%"=="5" goto LAUNCH_VIBE
+if "%choice%"=="6" goto LAUNCH_IFLOW
+if "%choice%"=="7" goto LAUNCH_OPENCODE
+if "%choice%"=="8" goto LAUNCH_QWEN
+if "%choice%"=="9" goto LAUNCH_KILOCODE
+if "%choice%"=="10" goto ADD_CONTEXT_MENU
+if "%choice%"=="11" goto REMOVE_CONTEXT_MENU
+if "%choice%"=="12" goto BACKUP_REGISTRY
+if "%choice%"=="13" goto RESTART_EXPLORER
 if "%choice%"=="0" goto EXIT_SCRIPT
 
 echo [%time%] [WARNING] Invalid choice >> "%LOG_FILE%"
@@ -119,6 +121,19 @@ if "%UseWT%"=="1" (
 ) else (
     echo [%time%] Command: cmd /k gemini (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && gemini"
+)
+goto EXIT_SCRIPT
+
+:LAUNCH_JULES
+echo [%time%] === Launching Jules CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k jules >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k jules
+) else (
+    echo [%time%] Command: cmd /k jules (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && jules"
 )
 goto EXIT_SCRIPT
 
@@ -206,6 +221,13 @@ for /f "delims=" %%V in ('npm list -g @google/gemini-cli 2^>nul ^| findstr "@goo
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
+echo --- Jules CLI ---
+echo --- Jules CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('npm list -g @google/jules 2^>nul ^| findstr "@google/jules"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
 echo --- iFlow CLI ---
 echo --- iFlow CLI --- >> "%LOG_FILE%"
 set "_result="
@@ -285,6 +307,18 @@ call npm list -g @google/gemini-cli >nul 2>&1
 if errorlevel 1 (
     echo Installing Gemini CLI...
     call npm install -g @google/gemini-cli >nul 2>&1
+    if errorlevel 1 (echo [FAILED] & echo [%time%] [FAILED] >> "%LOG_FILE%") else (echo [INSTALLED] & echo [%time%] [OK] Installed >> "%LOG_FILE%")
+) else (
+    echo [ALREADY INSTALLED]
+    echo [%time%] [SKIP] Already installed >> "%LOG_FILE%"
+)
+
+echo [Jules CLI] Checking...
+echo --- Jules CLI --- >> "%LOG_FILE%"
+call npm list -g @google/jules >nul 2>&1
+if errorlevel 1 (
+    echo Installing Jules CLI...
+    call npm install -g @google/jules >nul 2>&1
     if errorlevel 1 (echo [FAILED] & echo [%time%] [FAILED] >> "%LOG_FILE%") else (echo [INSTALLED] & echo [%time%] [OK] Installed >> "%LOG_FILE%")
 ) else (
     echo [ALREADY INSTALLED]
@@ -418,13 +452,13 @@ echo - Same method used by apps like WinRAR, 7-Zip
 echo - Microsoft officially supports this approach
 echo.
 echo SAFEGUARDS:
-echo - Option 11 creates a backup before changes
-echo - Option 10 removes all changes cleanly
+echo - Option 12 creates a backup before changes
+echo - Option 11 removes all changes cleanly
 echo - No system files are modified
 echo - Only adds menu items, doesn't change behavior
 echo.
 echo RECOMMENDATION:
-echo 1. Create a backup first (Option 11)
+echo 1. Create a backup first (Option 12)
 echo 2. Create a System Restore Point (Windows Settings)
 echo.
 echo ================================================
@@ -456,6 +490,9 @@ REM Add submenu items for Directory Background
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /ve /d "Gemini CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k gemini" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /ve /d "Jules CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k jules" /f >nul
+
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /ve /d "Mistral Vibe CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k vibe" /f >nul
 
@@ -475,6 +512,9 @@ REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Gemini CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k gemini" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /ve /d "Jules CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k jules" /f >nul
+
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /ve /d "Mistral Vibe CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k vibe" /f >nul
 
@@ -493,9 +533,9 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode\command" /
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Vibe, iFlow, OpenCode, Qwen, KiloCode >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode >> "%LOG_FILE%"
 echo.
-echo TIP: Use Option 12 to restart Explorer if menu doesn't appear.
+echo TIP: Use Option 13 to restart Explorer if menu doesn't appear.
 pause
 goto MAIN_MENU
 
@@ -529,7 +569,7 @@ echo.
 echo [SUCCESS] Context menu removed.
 echo [%time%] [SUCCESS] Context menu removed >> "%LOG_FILE%"
 echo.
-echo TIP: Use Option 12 to restart Explorer if menu still appears.
+echo TIP: Use Option 13 to restart Explorer if menu still appears.
 pause
 goto MAIN_MENU
 
