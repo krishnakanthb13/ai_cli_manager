@@ -128,6 +128,7 @@ start explorer.exe
 | Tool | Type | Package | Command |
 |------|------|---------|---------|
 | **Gemini** | NPM | `@google/gemini-cli` | `gemini` |
+| **Jules** | NPM | `@google/jules` | `jules` |
 | **Mistral Vibe** | PIP | `mistral-vibe` | `vibe` |
 | **iFlow** | NPM | `@iflow-ai/iflow-cli` | `iflow` |
 | **OpenCode** | NPM | `opencode-ai` | `opencode` |
@@ -155,19 +156,19 @@ Main Menu Loop
   ├── Option 2: Show Versions
   │     └── npm list / pip show for each
   │
-  ├── Options 3-8: Launch CLI
+  ├── Options 3-9: Launch CLI
   │     └── Use %~1 path or USERPROFILE
   │
-  ├── Option 9: Add Context Menu
+  ├── Option 10: Add Context Menu
   │     └── Show safety info → Confirm → Add registry keys
   │
-  ├── Option 10: Remove Context Menu
+  ├── Option 11: Remove Context Menu
   │     └── Confirm → Delete registry keys
   │
-  ├── Option 11: Backup Registry
+  ├── Option 12: Backup Registry
   │     └── reg export to Log Files
   │
-  ├── Option 12: Restart Explorer
+  ├── Option 13: Restart Explorer
   │     └── taskkill → start explorer
   │
   └── Option 0: Exit

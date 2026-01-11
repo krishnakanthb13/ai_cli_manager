@@ -19,6 +19,7 @@ As the landscape of AI coding assistants grows, developers are juggling multiple
 | Tool | Package | Type | Use Case |
 |------|---------|------|----------|
 | **Google Gemini CLI** | `@google/gemini-cli` | NPM | Google's AI coding assistant |
+| **Jules** | `@google/jules` | NPM | Google's AI coding assistant |
 | **Mistral Vibe** | `mistral-vibe` | PIP | Mistral AI's coding helper |
 | **iFlow CLI** | `@iflow-ai/iflow-cli` | NPM | iFlow AI assistant |
 | **OpenCode CLI** | `opencode-ai` | NPM | Open-source coding AI |
@@ -44,13 +45,13 @@ As the landscape of AI coding assistants grows, developers are juggling multiple
  2. Show Installed CLI Versions
 
 --- Launch CLIs ---
- 3-8. Launch individual AI tools
+ 3-9. Launch individual AI tools
 
 --- Context Menu ---
- 9-11. Windows integration options
+ 10-12. Windows integration options
 
 --- Utilities ---
- 12. Restart File Explorer
+ 13. Restart File Explorer
 ```
 
 ### 4. Robust Context Menu Integration

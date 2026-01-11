@@ -3,12 +3,20 @@
 ## 📖 Overview
 **AI CLI Manager (v1.0.0)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
 
-## 🚀 Getting Started
+## 🚀 Getting Started (Windows)
 
 1.  **Run the Manager**: Double-click `AI_CLI_Manager.bat`
     *   ✅ **Auto-elevation**: Automatically requests Administrator privileges
     *   ✅ **Windows Terminal detection**: Falls back to CMD if WT not available
 2.  **Main Menu**: Type the number of the option you want and press Enter
+
+## 🍎 Getting Started (Linux / macOS)
+
+1.  **Make Executable**: `chmod +x AI_CLI_Manager.sh`
+2.  **Run**: `./AI_CLI_Manager.sh`
+3.  *See `Linux_Mac_readme.md` for full details.*
+
+## ✨ Key Features
 
 ## ⚙️ Main Menu Options
 
@@ -19,9 +27,11 @@
 *   **Action:** Only installs missing tools (skips already installed)
 *   **Output:** `[ALREADY INSTALLED]` or `[INSTALLED]` for each tool
 *   **Prerequisites:** Requires Node.js (and Python for Mistral Vibe)
+*   **Launch Pad**: Instantly launch Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, or KiloCode.
+*   **Smart Install**: Automatically checks for Node.js and Python. Installs missing CLIs via `npm` or `pip`.
 
 #### `2` Show Installed CLI Versions
-*   **What it does:** Displays installed versions for all supported CLIs
+*   **Version Check**: Quickly see which versions of Gemini, Jules, Vibe, etc., are installed.
 *   **Shows:** Package name with version, or `[NOT INSTALLED]`
 
 ### --- Launch CLIs ---
@@ -30,18 +40,19 @@
 | Option | Tool |
 |--------|------|
 | 3 | Gemini CLI |
-| 4 | Mistral Vibe CLI |
-| 5 | iFlow CLI |
-| 6 | OpenCode CLI |
-| 7 | Qwen Code CLI |
-| 8 | KiloCode CLI |
+| 4 | Jules CLI |
+| 5 | Mistral Vibe CLI |
+| 6 | iFlow CLI |
+| 7 | OpenCode CLI |
+| 8 | Qwen Code CLI |
+| 9 | KiloCode CLI |
 
 *   **Behavior:** Opens in Windows Terminal (or CMD fallback)
 *   **Directory:** Uses passed path or defaults to User Profile folder
 
 ### --- Context Menu ---
 
-#### `9` Add to Windows Context Menu 🔥
+#### `10` Add to Windows Context Menu 🔥
 *   **What it does:** Adds "Open with AI CLI" cascading menu to right-click
 *   **Technical:** Uses `MUIVerb` for proper cascading submenu support
 *   **How to use after adding:**
@@ -51,17 +62,17 @@
     4.  Select the AI agent you want
     5.  Terminal opens **exactly in that folder**
 
-#### `10` Remove from Windows Context Menu
+#### `11` Remove from Windows Context Menu
 *   **What it does:** Completely removes the right-click menu entries
 *   **Confirmation:** Asks Y/N before proceeding
 
-#### `11` Export Registry Backup
+#### `12` Export Registry Backup
 *   **What it does:** Saves a backup of registry settings to `Log Files` folder
 *   **Recommendation:** Run this *before* using Option 9 for the first time
 
 ### --- Utilities ---
 
-#### `12` Restart File Explorer
+#### `13` Restart File Explorer
 *   **What it does:** Restarts Windows Explorer to apply menu changes
 *   **Technical:** Uses `taskkill /f /im explorer.exe` then `start explorer.exe`
 
@@ -73,6 +84,7 @@
 | Tool | Package | Type | Command |
 |------|---------|------|---------|
 | **Gemini** | `@google/gemini-cli` | NPM | `gemini` |
+| **Jules** | `@google/jules` | NPM | `jules` |
 | **Mistral Vibe** | `mistral-vibe` | PIP | `vibe` |
 | **iFlow** | `@iflow-ai/iflow-cli` | NPM | `iflow` |
 | **OpenCode** | `opencode-ai` | NPM | `opencode` |
