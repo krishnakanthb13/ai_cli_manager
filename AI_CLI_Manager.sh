@@ -282,7 +282,7 @@ create_automator_workflow() {
     local cmd=$2
     # Mac automation via script is complex/risky.
     # Placeholder to keep structure consistent if we add AppleScript support later.
-    # Read details in Linux_Mac_readme.md - 🍏 macOS: How to Add Context Menu (Manual Workaround) for more info.
+    # Read details in LINUX_MAC_README.md - 🍏 macOS: How to Add Context Menu (Manual Workaround) for more info.
 }
 
 # --- Main Loop ---

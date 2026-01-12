@@ -1,0 +1,22 @@
+# Logging and Backups
+Log Files/
+*.log
+*.reg
+
+# Internal Backups
+Backup Batch Files/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Dependencies (if any)
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class

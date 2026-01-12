@@ -1,7 +1,15 @@
 # AI CLI Manager - User Guide
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 ## 📖 Overview
 **AI CLI Manager (v1.0.0)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
+
+## 📚 Project Documentation
+- **[Technical Documentation](CODE_DOCUMENTATION.md)**: Architecture, core methods, and data flow.
+- **[Design Philosophy](DESIGN_PHILOSOPHY.md)**: The rationale, principles, and target users.
+- **[Contributing Guide](CONTRIBUTING.md)**: How to report bugs and submit code.
+- **[Linux & macOS Guide](LINUX_MAC_README.md)**: Specific instructions for non-Windows platforms.
 
 ## 🚀 Getting Started (Windows)
 
@@ -106,7 +114,7 @@ All actions are logged to timestamped files in the `Log Files` folder:
 
 1.  **Make Executable**: `chmod +x AI_CLI_Manager.sh`
 2.  **Run**: `./AI_CLI_Manager.sh`
-3.  *See `Linux_Mac_readme.md` for full details.*
+3.  *See `LINUX_MAC_README.md` for full details.*
 
 
 ## 🐧 Testing & Using Linux/Mac Script on Windows
@@ -139,10 +147,16 @@ For a complete Linux experience, use **Windows Subsystem for Linux (WSL)**.
 3.  **Navigate to Project**:
     *   WSL mounts your C: drive at `/mnt/c`.
     ```bash
-    cd /mnt/c/Users/YOUR_USERNAME/Documents/GitHub/ai_cli_manager
+    cd /mnt/c/Users/krishnakanthb13/Documents/GitHub/ai_cli_manager
     ```
 4.  **Run the Script**:
     ```bash
     chmod +x AI_CLI_Manager.sh
     ./AI_CLI_Manager.sh
     ```
+
+## ⚖️ License
+
+This project is licensed under the **GNU General Public License v3**. See the [LICENSE](LICENSE) file for the full text.
+
+Copyright (C) 2026 Krishna Kanth B
