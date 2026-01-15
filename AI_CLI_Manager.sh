@@ -66,17 +66,18 @@ install_npm_cli() {
     local name=$1
     local package=$2
     
-    echo -ne "Checking ${CYAN}$name${NC}... "
+    echo -e "[$name] Checking..."
     
     # Get local version (robust extraction using sed)
-    local lver=$(npm list -g "$package" --depth=0 2>/dev/null | grep "$package@" | sed 's/.*@//')
+    local lver=$(npm list -g "$package" --depth=0 2>/dev/null | grep "$package@" | sed 's/.*@//' | xargs)
     
     # Get cloud version
-    local cver=$(npm show "$package" version 2>/dev/null)
+    local cver=$(npm show "$package" version 2>/dev/null | xargs)
     
+    if [ -z "$cver" ]; then cver="unknown"; fi
+
     if [ -z "$lver" ]; then
-        echo -e "${YELLOW}[MISSING]${NC}"
-        echo -e "Installing $name ($cver)..."
+        echo -e "${YELLOW}[MISSING]${NC} Installing $name [$cver]..."
         if npm install -g "$package" >/dev/null 2>&1 || sudo npm install -g "$package" >/dev/null 2>&1; then
             echo -e "${GREEN}[INSTALLED] Install + Installed${NC}"
             log "SUCCESS" "$name installed v$cver"
@@ -88,8 +89,7 @@ install_npm_cli() {
         echo -e "${GREEN}[OK] Installed + Updated Version [$lver]${NC}"
         log "INFO" "$name already updated ($lver)"
     else
-        echo -e "${YELLOW}[OLD]${NC}"
-        echo -e "Updating $name $lver -> $cver..."
+        echo -e "${YELLOW}[OLD]${NC} Updating $name $lver -> $cver..."
         if npm install -g "$package" >/dev/null 2>&1 || sudo npm install -g "$package" >/dev/null 2>&1; then
             echo -e "${GREEN}[UPDATED] Updated [$cver]${NC}"
             log "SUCCESS" "$name updated to $cver"
@@ -105,21 +105,22 @@ install_pip_cli() {
     local package=$2
     
     if [ "$HAS_PYTHON" -eq 0 ]; then
-        echo -e "${YELLOW}Skipping $name (Python missing)${NC}"
+        echo -e "[$name] Skipping (Python missing)"
         return
     fi
 
-    echo -ne "Checking ${CYAN}$name${NC}... "
+    echo -e "[$name] Checking..."
     
     # Get local version
-    local lver=$(pip3 show "$package" 2>/dev/null | grep "Version:" | awk '{print $2}')
+    local lver=$(pip3 show "$package" 2>/dev/null | grep "Version:" | awk '{print $2}' | xargs)
     
     # Get cloud version
-    local cver=$(python3 -c "import urllib.request, json; print(json.loads(urllib.request.urlopen(\"https://pypi.org/pypi/$package/json\").read())['info']['version'])" 2>/dev/null)
+    local cver=$(python3 -c "import urllib.request, json; print(json.loads(urllib.request.urlopen(\"https://pypi.org/pypi/$package/json\").read())['info']['version'])" 2>/dev/null | xargs)
     
+    if [ -z "$cver" ]; then cver="unknown"; fi
+
     if [ -z "$lver" ]; then
-        echo -e "${YELLOW}[MISSING]${NC}"
-        echo -e "Installing $name ($cver)..."
+        echo -e "${YELLOW}[MISSING]${NC} Installing $name [$cver]..."
         if pip3 install "$package" >/dev/null 2>&1; then
             echo -e "${GREEN}[INSTALLED] Install + Installed${NC}"
             log "SUCCESS" "$name installed v$cver"
@@ -131,8 +132,7 @@ install_pip_cli() {
         echo -e "${GREEN}[OK] Installed + Updated Version [$lver]${NC}"
         log "INFO" "$name already updated ($lver)"
     else
-        echo -e "${YELLOW}[OLD]${NC}"
-        echo -e "Updating $name $lver -> $cver..."
+        echo -e "${YELLOW}[OLD]${NC} Updating $name $lver -> $cver..."
         if pip3 install "$package" --upgrade >/dev/null 2>&1; then
             echo -e "${GREEN}[UPDATED] Updated [$cver]${NC}"
             log "SUCCESS" "$name updated to $cver"
