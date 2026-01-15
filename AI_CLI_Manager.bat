@@ -60,28 +60,28 @@ echo ================================================
 echo           AI CLI TOOLS MANAGER (v1.0.0)
 echo ================================================
 echo.
-echo --- CLI Management ---
-echo  1. Check and Install All CLIs
-echo  2. Show Installed CLI Versions
-echo.
-echo --- Launch CLIs ---
-echo  3. Launch Gemini CLI
-echo  4. Launch Jules CLI
-echo  5. Launch Mistral Vibe CLI
-echo  6. Launch iFlow CLI
-echo  7. Launch OpenCode CLI
-echo  8. Launch Qwen Code CLI
-echo  9. Launch KiloCode CLI
-echo.
-echo --- Context Menu ---
-echo 10. Add to Windows Context Menu
-echo 11. Remove from Windows Context Menu
-echo 12. Export Registry Backup
-echo.
-echo --- Utilities ---
-echo 13. Restart File Explorer
-echo.
-echo  0. Exit
+echo    --- CLI Management ---
+echo     1. Check and Install All CLIs
+echo     2. Show Installed CLI Versions
+echo.   
+echo    --- Launch CLIs ---
+echo     3. Launch Gemini CLI
+echo     4. Launch Jules CLI
+echo     5. Launch Mistral Vibe CLI
+echo     6. Launch iFlow CLI
+echo     7. Launch OpenCode CLI
+echo     8. Launch Qwen Code CLI
+echo     9. Launch KiloCode CLI
+echo.   
+echo    --- Context Menu ---
+echo    10. Add to Windows Context Menu
+echo    11. Remove from Windows Context Menu
+echo    12. Export Registry Backup
+echo.   
+echo    --- Utilities ---
+echo    13. Restart File Explorer
+echo.   
+echo     0. Exit
 echo.
 echo ================================================
 set /p "choice=Enter your choice (0-13): "
@@ -302,89 +302,26 @@ if not errorlevel 1 (
 echo.
 
 echo [Gemini CLI] Checking...
-echo --- Gemini CLI --- >> "%LOG_FILE%"
-call npm list -g @google/gemini-cli >nul 2>&1
-if errorlevel 1 (
-    echo Installing Gemini CLI...
-    call npm install -g @google/gemini-cli >nul 2>&1
-    if errorlevel 1 (echo [FAILED] & echo [%time%] [FAILED] >> "%LOG_FILE%") else (echo [INSTALLED] & echo [%time%] [OK] Installed >> "%LOG_FILE%")
-) else (
-    echo [ALREADY INSTALLED]
-    echo [%time%] [SKIP] Already installed >> "%LOG_FILE%"
-)
+call :CHECK_NPM "@google/gemini-cli" "Gemini CLI"
 
 echo [Jules CLI] Checking...
-echo --- Jules CLI --- >> "%LOG_FILE%"
-call npm list -g @google/jules >nul 2>&1
-if errorlevel 1 (
-    echo Installing Jules CLI...
-    call npm install -g @google/jules >nul 2>&1
-    if errorlevel 1 (echo [FAILED] & echo [%time%] [FAILED] >> "%LOG_FILE%") else (echo [INSTALLED] & echo [%time%] [OK] Installed >> "%LOG_FILE%")
-) else (
-    echo [ALREADY INSTALLED]
-    echo [%time%] [SKIP] Already installed >> "%LOG_FILE%"
-)
+call :CHECK_NPM "@google/jules" "Jules CLI"
 
 echo [iFlow CLI] Checking...
-echo --- iFlow CLI --- >> "%LOG_FILE%"
-call npm list -g @iflow-ai/iflow-cli >nul 2>&1
-if errorlevel 1 (
-    echo Installing iFlow CLI...
-    call npm install -g @iflow-ai/iflow-cli >nul 2>&1
-    if errorlevel 1 (echo [FAILED] & echo [%time%] [FAILED] >> "%LOG_FILE%") else (echo [INSTALLED] & echo [%time%] [OK] Installed >> "%LOG_FILE%")
-) else (
-    echo [ALREADY INSTALLED]
-    echo [%time%] [SKIP] Already installed >> "%LOG_FILE%"
-)
+call :CHECK_NPM "@iflow-ai/iflow-cli" "iFlow CLI"
 
 echo [OpenCode CLI] Checking...
-echo --- OpenCode CLI --- >> "%LOG_FILE%"
-call npm list -g opencode-ai >nul 2>&1
-if errorlevel 1 (
-    echo Installing OpenCode CLI...
-    call npm install -g opencode-ai >nul 2>&1
-    if errorlevel 1 (echo [FAILED] & echo [%time%] [FAILED] >> "%LOG_FILE%") else (echo [INSTALLED] & echo [%time%] [OK] Installed >> "%LOG_FILE%")
-) else (
-    echo [ALREADY INSTALLED]
-    echo [%time%] [SKIP] Already installed >> "%LOG_FILE%"
-)
+call :CHECK_NPM "opencode-ai" "OpenCode CLI"
 
 echo [Qwen Code] Checking...
-echo --- Qwen Code CLI --- >> "%LOG_FILE%"
-call npm list -g @qwen-code/qwen-code >nul 2>&1
-if errorlevel 1 (
-    echo Installing Qwen Code CLI...
-    call npm install -g @qwen-code/qwen-code >nul 2>&1
-    if errorlevel 1 (echo [FAILED] & echo [%time%] [FAILED] >> "%LOG_FILE%") else (echo [INSTALLED] & echo [%time%] [OK] Installed >> "%LOG_FILE%")
-) else (
-    echo [ALREADY INSTALLED]
-    echo [%time%] [SKIP] Already installed >> "%LOG_FILE%"
-)
+call :CHECK_NPM "@qwen-code/qwen-code" "Qwen Code"
 
 echo [KiloCode] Checking...
-echo --- KiloCode CLI --- >> "%LOG_FILE%"
-call npm list -g @kilocode/cli >nul 2>&1
-if errorlevel 1 (
-    echo Installing KiloCode CLI...
-    call npm install -g @kilocode/cli >nul 2>&1
-    if errorlevel 1 (echo [FAILED] & echo [%time%] [FAILED] >> "%LOG_FILE%") else (echo [INSTALLED] & echo [%time%] [OK] Installed >> "%LOG_FILE%")
-) else (
-    echo [ALREADY INSTALLED]
-    echo [%time%] [SKIP] Already installed >> "%LOG_FILE%"
-)
+call :CHECK_NPM "@kilocode/cli" "KiloCode"
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
-    echo --- Mistral Vibe --- >> "%LOG_FILE%"
-    pip show mistral-vibe >nul 2>&1
-    if errorlevel 1 (
-        echo Installing Mistral Vibe...
-        pip install mistral-vibe >nul 2>&1
-        if errorlevel 1 (echo [FAILED] & echo [%time%] [FAILED] >> "%LOG_FILE%") else (echo [INSTALLED] & echo [%time%] [OK] Installed >> "%LOG_FILE%")
-    ) else (
-        echo [ALREADY INSTALLED]
-        echo [%time%] [SKIP] Already installed >> "%LOG_FILE%"
-    )
+    call :CHECK_PIP "mistral-vibe" "Mistral Vibe"
 )
 
 echo.
@@ -394,6 +331,112 @@ echo ================================================
 echo [%time%] === Installation Checks completed === >> "%LOG_FILE%"
 pause
 goto MAIN_MENU
+
+REM ========================================
+REM Check NPM Packages
+REM ========================================
+:CHECK_NPM
+set "PKG=%~1"
+set "DNAME=%~2"
+set "LVER="
+set "CVER="
+
+echo --- %DNAME% --- >> "%LOG_FILE%"
+
+rem Get local version (handles scoped and non-scoped packages)
+for /f "tokens=*" %%A in ('npm list -g %PKG% --depth=0 2^>nul ^| findstr "%PKG%@"') do (
+    set "TLINE=%%A"
+    set "LVER="
+    for /f "tokens=1,2,3 delims=@" %%X in ("!TLINE!") do (
+        if "%%Z"=="" (set "LVER=%%Y") else (set "LVER=%%Z")
+    )
+    rem Strip potential trailing spaces/characters
+    if defined LVER for /f "tokens=1" %%V in ("!LVER!") do set "LVER=%%V"
+)
+
+rem Get cloud version
+for /f "delims=" %%V in ('npm show %PKG% version 2^>nul') do (
+    set "CVER=%%V"
+)
+
+if not defined CVER set "CVER=unknown"
+
+if not defined LVER (
+    echo [MISSING] Installing %DNAME% [%CVER%]...
+    call npm install -g %PKG% >nul 2>&1
+    if errorlevel 1 (
+        echo [FAILED]
+        echo [%time%] [FAILED] %PKG% install >> "%LOG_FILE%"
+    ) else (
+        echo [INSTALLED] Install + Installed
+        echo [%time%] [OK] Installed %PKG% v%CVER% >> "%LOG_FILE%"
+    )
+) else (
+    if "!LVER!"=="!CVER!" (
+        echo [OK] Installed + Updated Version [%LVER%]
+        echo [%time%] [SKIP] %PKG% already updated [%LVER%] >> "%LOG_FILE%"
+    ) else (
+        echo [OLD] Updating %DNAME% %LVER% -> %CVER%...
+        call npm install -g %PKG% >nul 2>&1
+        if errorlevel 1 (
+            echo [FAILED]
+            echo [%time%] [FAILED] %PKG% update >> "%LOG_FILE%"
+        ) else (
+            echo [UPDATED] Updated [!CVER!]
+            echo [%time%] [OK] Updated %PKG% to %CVER% >> "%LOG_FILE%"
+        )
+    )
+)
+exit /b
+
+REM ========================================
+REM Check PIP Packages
+REM ========================================
+:CHECK_PIP
+set "PKG=%~1"
+set "DNAME=%~2"
+set "LVER="
+set "CVER="
+
+echo --- %DNAME% --- >> "%LOG_FILE%"
+
+rem Get local version
+for /f "tokens=2" %%V in ('pip show %PKG% 2^>nul ^| findstr "Version:"') do set "LVER=%%V"
+
+rem Get cloud version
+for /f "delims=" %%V in ('powershell -NoProfile -Command "(Invoke-RestMethod https://pypi.org/pypi/%PKG%/json).info.version" 2^>nul') do (
+    set "CVER=%%V"
+)
+
+if not defined CVER set "CVER=unknown"
+
+if not defined LVER (
+    echo [MISSING] Installing %DNAME% [%CVER%]...
+    pip install %PKG% >nul 2>&1
+    if errorlevel 1 (
+        echo [FAILED]
+        echo [%time%] [FAILED] %PKG% install >> "%LOG_FILE%"
+    ) else (
+        echo [INSTALLED] Install + Installed
+        echo [%time%] [OK] Installed %PKG% v%CVER% >> "%LOG_FILE%"
+    )
+) else (
+    if "!LVER!"=="!CVER!" (
+        echo [OK] Installed + Updated Version [%LVER%]
+        echo [%time%] [SKIP] %PKG% already updated [%LVER%] >> "%LOG_FILE%"
+    ) else (
+        echo [OLD] Updating %DNAME% %LVER% -> %CVER%...
+        pip install %PKG% --upgrade >nul 2>&1
+        if errorlevel 1 (
+            echo [FAILED]
+            echo [%time%] [FAILED] %PKG% update >> "%LOG_FILE%"
+        ) else (
+            echo [UPDATED] Updated [!CVER!]
+            echo [%time%] [OK] Updated %PKG% to %CVER% >> "%LOG_FILE%"
+        )
+    )
+)
+exit /b
 
 REM ========================================
 REM BACKUP REGISTRY
@@ -475,59 +518,59 @@ echo Adding registry keys...
 echo [%time%] Creating root menu keys with MUIVerb... >> "%LOG_FILE%"
 
 REM Directory Background (right-click empty space)
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "MUIVerb" /d "Open with AI CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "Icon" /d "cmd.exe" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "MUIVerb" /d "AI CLI Manager" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "Icon" /d "imageres.dll,1018" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "SubCommands" /t REG_SZ /f >nul
 
 REM Directory (right-click folder)
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "MUIVerb" /d "Open with AI CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "Icon" /d "cmd.exe" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "MUIVerb" /d "AI CLI Manager" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "Icon" /d "imageres.dll,1018" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "SubCommands" /t REG_SZ /f >nul
 
 echo [%time%] Adding submenus with cmd.exe /c start wt.exe format... >> "%LOG_FILE%"
 
 REM Add submenu items for Directory Background
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /ve /d "Gemini CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k gemini" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /ve /d "Jules CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /ve /d "Open with Jules CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k jules" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /ve /d "Mistral Vibe CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /ve /d "Open with Mistral Vibe CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k vibe" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /ve /d "iFlow CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k iflow" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /ve /d "OpenCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k opencode" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen" /ve /d "Qwen Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen" /ve /d "Open with Qwen Code CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k qwen" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode" /ve /d "KiloCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode" /ve /d "Open with KiloCode CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kilocode" /f >nul
 
 REM Add submenu items for Directory (folder right-click)
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Gemini CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k gemini" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /ve /d "Jules CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /ve /d "Open with Jules CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k jules" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /ve /d "Mistral Vibe CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /ve /d "Open with Mistral Vibe CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k vibe" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /ve /d "iFlow CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k iflow" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /ve /d "OpenCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k opencode" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen" /ve /d "Qwen Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen" /ve /d "Open with Qwen Code CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k qwen" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /ve /d "KiloCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /ve /d "Open with KiloCode CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kilocode" /f >nul
 
 echo.

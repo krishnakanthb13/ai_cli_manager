@@ -66,25 +66,36 @@ install_npm_cli() {
     local name=$1
     local package=$2
     
-    echo -e "Checking ${CYAN}$name${NC}..."
-    if npm list -g "$package" &> /dev/null || command -v "$(basename $package)" &> /dev/null; then
-         echo -e "${GREEN}[ALREADY INSTALLED]${NC}"
-         log "INFO" "$name already installed"
-    else
-        echo -e "${YELLOW}Installing $name...${NC}"
-        # Try without sudo first, then with sudo if failed
-        if npm install -g "$package"; then
-            echo -e "${GREEN}[INSTALLED]${NC}"
-            log "SUCCESS" "$name installed"
+    echo -ne "Checking ${CYAN}$name${NC}... "
+    
+    # Get local version (robust extraction using sed)
+    local lver=$(npm list -g "$package" --depth=0 2>/dev/null | grep "$package@" | sed 's/.*@//')
+    
+    # Get cloud version
+    local cver=$(npm show "$package" version 2>/dev/null)
+    
+    if [ -z "$lver" ]; then
+        echo -e "${YELLOW}[MISSING]${NC}"
+        echo -e "Installing $name ($cver)..."
+        if npm install -g "$package" >/dev/null 2>&1 || sudo npm install -g "$package" >/dev/null 2>&1; then
+            echo -e "${GREEN}[INSTALLED] Install + Installed${NC}"
+            log "SUCCESS" "$name installed v$cver"
         else
-            echo -e "${YELLOW}Permission denied. Trying with sudo...${NC}"
-            if sudo npm install -g "$package"; then
-                echo -e "${GREEN}[INSTALLED]${NC}"
-                log "SUCCESS" "$name installed with sudo"
-            else
-                echo -e "${RED}[FAILED] Could not install $name${NC}"
-                log "ERROR" "Failed to install $name"
-            fi
+            echo -e "${RED}[FAILED]${NC}"
+            log "ERROR" "Failed to install $name"
+        fi
+    elif [ "$lver" == "$cver" ]; then
+        echo -e "${GREEN}[OK] Installed + Updated Version [$lver]${NC}"
+        log "INFO" "$name already updated ($lver)"
+    else
+        echo -e "${YELLOW}[OLD]${NC}"
+        echo -e "Updating $name $lver -> $cver..."
+        if npm install -g "$package" >/dev/null 2>&1 || sudo npm install -g "$package" >/dev/null 2>&1; then
+            echo -e "${GREEN}[UPDATED] Updated [$cver]${NC}"
+            log "SUCCESS" "$name updated to $cver"
+        else
+            echo -e "${RED}[FAILED]${NC}"
+            log "ERROR" "Failed to update $name"
         fi
     fi
 }
@@ -98,18 +109,36 @@ install_pip_cli() {
         return
     fi
 
-    echo -e "Checking ${CYAN}$name${NC}..."
-    if pip3 show "$package" &> /dev/null; then
-         echo -e "${GREEN}[ALREADY INSTALLED]${NC}"
-         log "INFO" "$name already installed"
-    else
-        echo -e "${YELLOW}Installing $name...${NC}"
-        if pip3 install "$package"; then
-            echo -e "${GREEN}[INSTALLED]${NC}"
-            log "SUCCESS" "$name installed"
+    echo -ne "Checking ${CYAN}$name${NC}... "
+    
+    # Get local version
+    local lver=$(pip3 show "$package" 2>/dev/null | grep "Version:" | awk '{print $2}')
+    
+    # Get cloud version
+    local cver=$(python3 -c "import urllib.request, json; print(json.loads(urllib.request.urlopen(\"https://pypi.org/pypi/$package/json\").read())['info']['version'])" 2>/dev/null)
+    
+    if [ -z "$lver" ]; then
+        echo -e "${YELLOW}[MISSING]${NC}"
+        echo -e "Installing $name ($cver)..."
+        if pip3 install "$package" >/dev/null 2>&1; then
+            echo -e "${GREEN}[INSTALLED] Install + Installed${NC}"
+            log "SUCCESS" "$name installed v$cver"
         else
-             echo -e "${RED}[FAILED] Could not install $name${NC}"
-             log "ERROR" "Failed to install $name"
+            echo -e "${RED}[FAILED]${NC}"
+            log "ERROR" "Failed to install $name"
+        fi
+    elif [ "$lver" == "$cver" ]; then
+        echo -e "${GREEN}[OK] Installed + Updated Version [$lver]${NC}"
+        log "INFO" "$name already updated ($lver)"
+    else
+        echo -e "${YELLOW}[OLD]${NC}"
+        echo -e "Updating $name $lver -> $cver..."
+        if pip3 install "$package" --upgrade >/dev/null 2>&1; then
+            echo -e "${GREEN}[UPDATED] Updated [$cver]${NC}"
+            log "SUCCESS" "$name updated to $cver"
+        else
+            echo -e "${RED}[FAILED]${NC}"
+            log "ERROR" "Failed to update $name"
         fi
     fi
 }
@@ -143,27 +172,35 @@ show_versions() {
     clear
     echo -e "${CYAN}=== Installed Models Versions ===${NC}"
     echo ""
+    log "INFO" "Checking versions"
     
     echo -e "${CYAN}--- Gemini CLI ---${NC}"
-    npm list -g @google/gemini-cli --depth=0 2>/dev/null | head -n 2
+    echo "--- Gemini CLI ---" >> "$LOG_FILE"
+    npm list -g @google/gemini-cli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
     echo -e "\n${CYAN}--- Jules CLI ---${NC}"
-    npm list -g @google/jules --depth=0 2>/dev/null | head -n 2
+    echo -e "\n--- Jules CLI ---" >> "$LOG_FILE"
+    npm list -g @google/jules --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
 
     echo -e "\n${CYAN}--- iFlow CLI ---${NC}"
-    npm list -g @iflow-ai/iflow-cli --depth=0 2>/dev/null | head -n 2
+    echo -e "\n--- iFlow CLI ---" >> "$LOG_FILE"
+    npm list -g @iflow-ai/iflow-cli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
     echo -e "\n${CYAN}--- OpenCode CLI ---${NC}"
-    npm list -g opencode-ai --depth=0 2>/dev/null | head -n 2
+    echo -e "\n--- OpenCode CLI ---" >> "$LOG_FILE"
+    npm list -g opencode-ai --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
     echo -e "\n${CYAN}--- Qwen Code CLI ---${NC}"
-    npm list -g @qwen-code/qwen-code --depth=0 2>/dev/null | head -n 2
+    echo -e "\n--- Qwen Code CLI ---" >> "$LOG_FILE"
+    npm list -g @qwen-code/qwen-code --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
     echo -e "\n${CYAN}--- KiloCode CLI ---${NC}"
-    npm list -g @kilocode/cli --depth=0 2>/dev/null | head -n 2
+    echo -e "\n--- KiloCode CLI ---" >> "$LOG_FILE"
+    npm list -g @kilocode/cli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
     echo -e "\n${CYAN}--- Mistral Vibe ---${NC}"
-    pip3 show mistral-vibe 2>/dev/null | grep "Version"
+    echo -e "\n--- Mistral Vibe ---" >> "$LOG_FILE"
+    pip3 show mistral-vibe 2>/dev/null | grep "Version" | tee -a "$LOG_FILE"
     
     echo ""
     pause
@@ -210,13 +247,13 @@ add_context_menu_linux() {
         mkdir -p "$HOME/.local/share/nautilus/scripts"
     fi
 
-    create_script_file "Gemini CLI" "gemini"
-    create_script_file "Jules CLI" "jules"
-    create_script_file "Mistral Vibe" "vibe"
-    create_script_file "iFlow CLI" "iflow"
-    create_script_file "OpenCode CLI" "opencode"
-    create_script_file "Qwen Code CLI" "qwen"
-    create_script_file "KiloCode CLI" "kilocode"
+    create_script_file "Open with Gemini CLI" "gemini"
+    create_script_file "Open with Jules CLI" "jules"
+    create_script_file "Open with Mistral Vibe CLI" "vibe"
+    create_script_file "Open with iFlow CLI" "iflow"
+    create_script_file "Open with OpenCode CLI" "opencode"
+    create_script_file "Open with Qwen Code CLI" "qwen"
+    create_script_file "Open with KiloCode CLI" "kilocode"
 
     echo ""
     echo -e "${GREEN}[SUCCESS] Scripts added!${NC}"
