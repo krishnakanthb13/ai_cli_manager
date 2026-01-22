@@ -33,7 +33,7 @@ Run the script directly from your terminal:
 
 The script offers a simple interactive menu:
 
-*   **1. Check and Install All CLIs**: Automatically checks if supported tools (Gemini, Jules, iFlow, OpenCode, Qwen, KiloCode, Mistral Vibe) are installed. If missing, it attempts to install them via `npm` or `pip`.
+*   **1. Check and Install All CLIs**: Automatically checks if supported tools (Gemini, Jules, iFlow, OpenCode, Qwen, KiloCode, Mistral Vibe, GitHub Copilot) are installed. If missing, it attempts to install them via `npm` or `pip`.
     *   *Note*: If you run into permission errors, the script will attempt to ask for `sudo` password to install global packages.
 *   **2. Show Installed CLI Versions**: Displays the currently installed version of each tool.
 
@@ -46,6 +46,7 @@ Launch any of the supported CLIs directly from the menu:
 *   OpenCode CLI
 *   Qwen Code CLI
 *   KiloCode CLI
+*   GitHub Copilot CLI
 
 ## ⚠️ Known Differences (vs Windows)
 *   **Context Menu (Linux)**: The script supports adding right-click options for **Nautilus (GNOME)** file manager. Other file managers (Dolphin, Thunar, etc.) are not currently supported.
@@ -67,7 +68,7 @@ Since macOS context menus ("Quick Actions") are complex to script, you can creat
     *   **In**: `Finder`
 4.  In the left sidebar search, find **"Run AppleScript"** and drag it to the right panel.
 5.  Paste the following code (replace `gemini` with the tool you want, e.g., `jules`, `vibe`):
-    - gemini, jules, vibe, iFlow, OpenCode, Qwen, KiloCode.
+    - gemini, jules, vibe, iflow, opencode, qwen, kilocode, copilot.
 
 ```applescript
 on run {input, parameters}

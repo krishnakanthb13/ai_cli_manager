@@ -3,7 +3,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## 📖 Overview
-**AI CLI Manager (v1.0.0)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
+**AI CLI Manager (v1.1.0)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
 
 ## 📚 Project Documentation
 - **[Technical Documentation](CODE_DOCUMENTATION.md)**: Architecture, core methods, and data flow.
@@ -27,7 +27,7 @@
 *   **Action:** Only installs missing tools (skips already installed)
 *   **Output:** `[ALREADY INSTALLED]` or `[INSTALLED]` for each tool
 *   **Prerequisites:** Requires Node.js (and Python for Mistral Vibe)
-*   **Launch Pad**: Instantly launch Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, or KiloCode.
+*   **Launch Pad**: Instantly launch Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, or Copilot.
 *   **Smart Install**: Automatically checks for Node.js and Python. Installs missing CLIs via `npm` or `pip`.
 
 #### `2` Show Installed CLI Versions
@@ -46,6 +46,7 @@
 | 7 | OpenCode CLI |
 | 8 | Qwen Code CLI |
 | 9 | KiloCode CLI |
+| 10 | GitHub Copilot CLI |
 
 *   **Behavior:** Opens in Windows Terminal (or CMD fallback)
 *   **Directory:** Uses passed path or defaults to User Profile folder
@@ -90,6 +91,7 @@
 | **OpenCode** | `opencode-ai` | NPM | `opencode` |
 | **Qwen Code** | `@qwen-code/qwen-code` | NPM | `qwen` |
 | **KiloCode** | `@kilocode/cli` | NPM | `kilocode` |
+| **GitHub Copilot** | `@github/copilot` | NPM | `copilot` |
 
 ## 📝 Logging
 

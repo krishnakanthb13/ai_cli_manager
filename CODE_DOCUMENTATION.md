@@ -10,6 +10,8 @@ This document describes the technical implementation and architecture of the AI 
 |------|-------------|
 | `AI_CLI_Manager.bat` | Main automation script for Windows (Batch). |
 | `AI_CLI_Manager.sh` | Main automation script for Linux and macOS (Bash). |
+| `Icons/` | Directory containing tool icons (.ico) and the conversion script. |
+| `Icons/convert_icons.py` | Python utility to robustly convert PNG/JPG images to Windows .ico format. |
 | `README.md` | Primary user guide and orientation. |
 | `CODE_DOCUMENTATION.md` | Technical deep-dive into the codebase. |
 | `DESIGN_PHILOSOPHY.md` | Rationale, design principles, and project goals. |
@@ -68,10 +70,11 @@ This document describes the technical implementation and architecture of the AI 
 - **Python 3 & pip**: Required for Mistral Vibe.
 - **Windows Terminal**: Highly recommended for the best experience.
 - **Nautilus**: (Linux) Required for the script's automated context menu feature.
+- **Pillow (PIL)**: Python library required only if running the `convert_icons.py` utility.
 
 ## 🔌 API & External Integrations
 
 The project integrates with the following package managers:
-- **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, etc.
+- **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, etc.
 - **pip (Python Package Installer)**: For `mistral-vibe`.
 - **Windows Registry**: For shell context menu integration.
