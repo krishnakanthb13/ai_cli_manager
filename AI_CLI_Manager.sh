@@ -161,6 +161,8 @@ install_all() {
     echo ""
     install_npm_cli "KiloCode CLI" "@kilocode/cli"
     echo ""
+    install_npm_cli "GitHub Copilot CLI" "@github/copilot"
+    echo ""
     install_pip_cli "Mistral Vibe" "mistral-vibe"
     
     echo ""
@@ -197,6 +199,10 @@ show_versions() {
     echo -e "\n${CYAN}--- KiloCode CLI ---${NC}"
     echo -e "\n--- KiloCode CLI ---" >> "$LOG_FILE"
     npm list -g @kilocode/cli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+    
+    echo -e "\n${CYAN}--- GitHub Copilot ---${NC}"
+    echo -e "\n--- GitHub Copilot ---" >> "$LOG_FILE"
+    npm list -g @github/copilot --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
     echo -e "\n${CYAN}--- Mistral Vibe ---${NC}"
     echo -e "\n--- Mistral Vibe ---" >> "$LOG_FILE"
@@ -254,6 +260,7 @@ add_context_menu_linux() {
     create_script_file "Open with OpenCode CLI" "opencode"
     create_script_file "Open with Qwen Code CLI" "qwen"
     create_script_file "Open with KiloCode CLI" "kilocode"
+    create_script_file "Open with GitHub Copilot" "copilot"
 
     echo ""
     echo -e "${GREEN}[SUCCESS] Scripts added!${NC}"
@@ -266,6 +273,14 @@ remove_context_menu_linux() {
     echo -e "${CYAN}=== Remove Context Menu (Linux/Nautilus) ===${NC}"
     echo ""
     echo -e "This will remove the folder: ${YELLOW}~/.local/share/nautilus/scripts/AI CLI Tools${NC}"
+    echo ""
+    echo -e "${YELLOW}SAFETY INFORMATION:${NC}"
+    echo "------------------"
+    echo "This operation will permanently delete the AI CLI scripts folder."
+    echo "It will cleanly remove the 'AI CLI Tools' entry from your right-click menu."
+    echo ""
+    echo -e "${YELLOW}RECOMMENDATION:${NC}"
+    echo "1. You can always re-add them using Option 11."
     echo ""
     read -p "Are you sure? (y/n): " confirm
     if [[ "$confirm" != "y" ]]; then
@@ -293,6 +308,15 @@ restart_nautilus() {
     echo ""
     echo "This will kill all Nautilus processes to refresh the context menu."
     echo "Your open file manager windows will close."
+    echo ""
+    echo -e "${YELLOW}SAFETY INFORMATION:${NC}"
+    echo "------------------"
+    echo "This will forcibly close all open File Manager windows."
+    echo "Any file operations (copying/moving) currently in progress MAY be interrupted."
+    echo ""
+    echo -e "${YELLOW}RECOMMENDATION:${NC}"
+    echo "1. Finish any file transfers before proceeding."
+    echo "2. Save any work in open applications."
     echo ""
     read -p "Continue? (y/n): " confirm
     if [[ "$confirm" != "y" ]]; then
@@ -338,17 +362,18 @@ while true; do
     echo "  7. Launch OpenCode CLI"
     echo "  8. Launch Qwen Code CLI"
     echo "  9. Launch KiloCode CLI"
+    echo " 10. Launch GitHub Copilot CLI"
     echo ""
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
-    echo " 10. Add to Context Menu (Linux/Nautilus Only)"
-    echo " 11. Remove from Context Menu (Linux Only)"
-    echo " 12. Restart Nautilus (Linux Only)"
+    echo " 11. Add to Context Menu (Linux/Nautilus Only)"
+    echo " 12. Remove from Context Menu (Linux Only)"
+    echo " 13. Restart Nautilus (Linux Only)"
     echo ""
     echo "  0. Exit"
     echo ""
     echo -e "${CYAN}================================================${NC}"
     
-    read -p "Enter your choice (0-12): " choice
+    read -p "Enter your choice (0-13): " choice
     log "INPUT" "User choice: $choice"
     
     case $choice in
@@ -361,9 +386,10 @@ while true; do
         7) launch_tool "opencode" ;;
         8) launch_tool "qwen" ;;
         9) launch_tool "kilocode" ;;
-        10) add_context_menu_linux ;;
-        11) remove_context_menu_linux ;;
-        12) restart_nautilus ;;
+        10) launch_tool "copilot" ;;
+        11) add_context_menu_linux ;;
+        12) remove_context_menu_linux ;;
+        13) restart_nautilus ;;
         0) 
             echo "Goodbye!"
             exit 0 

@@ -57,7 +57,7 @@ REM ========================================
 cls
 echo.
 echo ================================================
-echo           AI CLI TOOLS MANAGER (v1.0.0)
+echo           AI CLI TOOLS MANAGER (v1.1.0)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -72,19 +72,20 @@ echo     6. Launch iFlow CLI
 echo     7. Launch OpenCode CLI
 echo     8. Launch Qwen Code CLI
 echo     9. Launch KiloCode CLI
+echo    10. Launch GitHub Copilot CLI
 echo.   
 echo    --- Context Menu ---
-echo    10. Add to Windows Context Menu
-echo    11. Remove from Windows Context Menu
-echo    12. Export Registry Backup
+echo    11. Add to Windows Context Menu
+echo    12. Remove from Windows Context Menu
+echo    13. Export Registry Backup
 echo.   
 echo    --- Utilities ---
-echo    13. Restart File Explorer
+echo    14. Restart File Explorer
 echo.   
 echo     0. Exit
 echo.
 echo ================================================
-set /p "choice=Enter your choice (0-13): "
+set /p "choice=Enter your choice (0-14): "
 
 echo [%time%] [INPUT] Choice: %choice% >> "%LOG_FILE%"
 
@@ -97,10 +98,11 @@ if "%choice%"=="6" goto LAUNCH_IFLOW
 if "%choice%"=="7" goto LAUNCH_OPENCODE
 if "%choice%"=="8" goto LAUNCH_QWEN
 if "%choice%"=="9" goto LAUNCH_KILOCODE
-if "%choice%"=="10" goto ADD_CONTEXT_MENU
-if "%choice%"=="11" goto REMOVE_CONTEXT_MENU
-if "%choice%"=="12" goto BACKUP_REGISTRY
-if "%choice%"=="13" goto RESTART_EXPLORER
+if "%choice%"=="10" goto LAUNCH_COPILOT
+if "%choice%"=="11" goto ADD_CONTEXT_MENU
+if "%choice%"=="12" goto REMOVE_CONTEXT_MENU
+if "%choice%"=="13" goto BACKUP_REGISTRY
+if "%choice%"=="14" goto RESTART_EXPLORER
 if "%choice%"=="0" goto EXIT_SCRIPT
 
 echo [%time%] [WARNING] Invalid choice >> "%LOG_FILE%"
@@ -202,6 +204,19 @@ if "%UseWT%"=="1" (
 )
 goto EXIT_SCRIPT
 
+:LAUNCH_COPILOT
+echo [%time%] === Launching GitHub Copilot CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k copilot >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k copilot
+) else (
+    echo [%time%] Command: cmd /k copilot (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && copilot"
+)
+goto EXIT_SCRIPT
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -253,6 +268,13 @@ echo --- KiloCode CLI ---
 echo --- KiloCode CLI --- >> "%LOG_FILE%"
 set "_result="
 for /f "delims=" %%V in ('npm list -g @kilocode/cli 2^>nul ^| findstr "@kilocode/cli"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
+echo --- GitHub Copilot ---
+echo --- GitHub Copilot --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('npm list -g @github/copilot 2^>nul ^| findstr "@github/copilot"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
@@ -318,6 +340,9 @@ call :CHECK_NPM "@qwen-code/qwen-code" "Qwen Code"
 
 echo [KiloCode] Checking...
 call :CHECK_NPM "@kilocode/cli" "KiloCode"
+
+echo [GitHub Copilot] Checking...
+call :CHECK_NPM "@github/copilot" "GitHub Copilot"
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -495,13 +520,13 @@ echo - Same method used by apps like WinRAR, 7-Zip
 echo - Microsoft officially supports this approach
 echo.
 echo SAFEGUARDS:
-echo - Option 12 creates a backup before changes
-echo - Option 11 removes all changes cleanly
+echo - Option 13 creates a backup before changes
+echo - Option 12 removes all changes cleanly
 echo - No system files are modified
 echo - Only adds menu items, doesn't change behavior
 echo.
 echo RECOMMENDATION:
-echo 1. Create a backup first (Option 12)
+echo 1. Create a backup first (Option 13)
 echo 2. Create a System Restore Point (Windows Settings)
 echo.
 echo ================================================
@@ -514,71 +539,94 @@ if /i not "%confirm%"=="Y" (
 )
 
 echo.
+set "ICONS_DIR=%~dp0Icons"
 echo Adding registry keys...
 echo [%time%] Creating root menu keys with MUIVerb... >> "%LOG_FILE%"
 
 REM Directory Background (right-click empty space)
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "MUIVerb" /d "AI CLI Manager" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "Icon" /d "shell32.dll,2" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "Icon" /d "%ICONS_DIR%\darkterminal.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "SubCommands" /t REG_SZ /f >nul
 
 REM Directory (right-click folder)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "MUIVerb" /d "AI CLI Manager" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "Icon" /d "shell32.dll,2" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "Icon" /d "%ICONS_DIR%\darkterminal.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "SubCommands" /t REG_SZ /f >nul
 
 echo [%time%] Adding submenus with cmd.exe /c start wt.exe format... >> "%LOG_FILE%"
 
 REM Add submenu items for Directory Background
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k gemini" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /ve /d "Open with Jules CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k jules" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /ve /d "Open with Mistral Vibe CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k vibe" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k iflow" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k opencode" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen" /ve /d "Open with Qwen Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen" /v "Icon" /d "%ICONS_DIR%\qwen.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k qwen" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode" /ve /d "Open with KiloCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kilocode" /f >nul
+
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /ve /d "Open with GitHub Copilot" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k copilot" /f >nul
 
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k gemini" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /ve /d "Open with Jules CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k jules" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /ve /d "Open with Mistral Vibe CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k vibe" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k iflow" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k opencode" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen" /ve /d "Open with Qwen Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen" /v "Icon" /d "%ICONS_DIR%\qwen.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k qwen" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /ve /d "Open with KiloCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kilocode" /f >nul
+
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /ve /d "Open with GitHub Copilot" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k copilot" /f >nul
 
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot >> "%LOG_FILE%"
 echo.
-echo TIP: Use Option 13 to restart Explorer if menu doesn't appear.
+echo TIP: Use Option 14 to restart Explorer if menu doesn't appear.
 pause
 goto MAIN_MENU
 
@@ -593,6 +641,16 @@ echo     Remove AI CLI Context Menu
 echo ================================================
 echo.
 echo [%time%] === Removing context menu === >> "%LOG_FILE%"
+
+echo SAFETY INFORMATION:
+echo ------------------
+echo This operation will completely remove the AI CLI entry
+echo from your Windows right-click context menu.
+echo.
+echo RECOMMENDATION:
+echo 1. Ensure you have a registry backup if you want to restore
+echo    these settings later (Option 13).
+echo.
 
 set /p "confirm=Are you sure? (Y/N): "
 echo [%time%] User confirm: %confirm% >> "%LOG_FILE%"
@@ -612,7 +670,7 @@ echo.
 echo [SUCCESS] Context menu removed.
 echo [%time%] [SUCCESS] Context menu removed >> "%LOG_FILE%"
 echo.
-echo TIP: Use Option 13 to restart Explorer if menu still appears.
+echo TIP: Use Option 14 to restart Explorer if menu still appears.
 pause
 goto MAIN_MENU
 

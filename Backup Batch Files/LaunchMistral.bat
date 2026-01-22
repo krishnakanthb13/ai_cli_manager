@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 title Mistral Vibe CLI
-color 0C
+color 0E
 
 :header
 cls

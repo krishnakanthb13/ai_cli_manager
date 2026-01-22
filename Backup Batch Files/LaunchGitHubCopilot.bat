@@ -1,32 +1,32 @@
 @echo off
 setlocal enabledelayedexpansion
-title IFlow AI CLI
-color 0C
+title GitHub Copilot CLI
+color 09
 
 :header
 cls
 echo ============================================================
-echo               IFLOW AI CLI LAUNCHER
+echo             GITHUB COPILOT CLI LAUNCHER
 echo ============================================================
 echo.
-echo  Tool    : IFlow AI CLI
-echo  Install : npm install -g @iflow-ai/iflow-cli
-echo  Update  : npm update -g @iflow-ai/iflow-cli
+echo  Tool    : GitHub Copilot CLI
+echo  Install : npm install -g @github/copilot
+echo  Update  : npm update -g @github/copilot
 echo.
 echo ============================================================
 echo.
 
 :check_command
-echo [*] Checking if IFlow CLI is installed...
-where iflow >nul 2>&1
+echo [*] Checking if GitHub Copilot CLI is installed...
+where copilot >nul 2>&1
 if %ERRORLEVEL% neq 0 (
     echo.
     echo ============================================================
-    echo  [ERROR] IFlow CLI is not installed!
+    echo  [ERROR] GitHub Copilot CLI is not installed!
     echo ============================================================
     echo.
     echo  To install, run:
-    echo    npm install -g @iflow-ai/iflow-cli
+    echo    npm install -g @github/copilot
     echo.
     echo  Make sure you have Node.js and npm installed first.
     echo.
@@ -36,16 +36,16 @@ if %ERRORLEVEL% neq 0 (
     exit /b 1
 )
 
-echo [OK] IFlow CLI found!
+echo [OK] GitHub Copilot CLI found!
 echo.
 echo ============================================================
-echo  Starting IFlow CLI...
+echo  Starting GitHub Copilot CLI...
 echo ============================================================
 echo.
 
 :run
 REM cls
-cmd /c iflow
+cmd /c copilot
 
 echo.
 echo ============================================================
