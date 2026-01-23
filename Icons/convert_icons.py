@@ -22,7 +22,7 @@ def fix_icons(folder_path):
 
     for img_path in image_files:
         try:
-            ico_path = os.path.splitext(img_path)[0] + ".ico"
+            ico_path = os.path.splitext(img_path)[0] + "_v2.ico"
             
             # Open and convert to RGBA (handles PNG transparency and JPG conversion)
             img = Image.open(img_path)

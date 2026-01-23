@@ -10,8 +10,9 @@ This document describes the technical implementation and architecture of the AI 
 |------|-------------|
 | `AI_CLI_Manager.bat` | Main automation script for Windows (Batch). |
 | `AI_CLI_Manager.sh` | Main automation script for Linux and macOS (Bash). |
-| `Icons/` | Directory containing tool icons (.ico) and the conversion script. |
-| `Icons/convert_icons.py` | Python utility to robustly convert PNG/JPG images to Windows .ico format. |
+| `Icons/` | Directory containing tool icons and the conversion script. |
+| `Icons/*_v2.ico` | Standardized icons with `_v2` suffix to bypass Windows Icon Cache (Cache Busting). |
+| `Icons/convert_icons.py` | Python utility to convert images to .ico format with automatic `_v2` naming. |
 | `README.md` | Primary user guide and orientation. |
 | `CODE_DOCUMENTATION.md` | Technical deep-dive into the codebase. |
 | `DESIGN_PHILOSOPHY.md` | Rationale, design principles, and project goals. |
@@ -44,6 +45,7 @@ This document describes the technical implementation and architecture of the AI 
 | `:REMOVE_CONTEXT_MENU` | Performs `reg delete` to clean up registry entries. |
 | `:BACKUP_REGISTRY` | Exports relevant registry keys to a `.reg` file for safety. |
 | `:RESTART_EXPLORER` | Restarts the `explorer.exe` process to refresh shell extensions. |
+| `:DEEP_REFRESH_ICONS` | Force-clears Windows Icon Cache by deleting `.db` files and restarting Explorer. |
 | `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, etc.) with directory context. |
 
 ## 🧩 Core Functions (Linux/macOS Bash)

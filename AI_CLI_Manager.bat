@@ -81,11 +81,12 @@ echo    13. Export Registry Backup
 echo.   
 echo    --- Utilities ---
 echo    14. Restart File Explorer
+echo    15. Deep Refresh Icons (Clear Cache)
 echo.   
 echo     0. Exit
 echo.
 echo ================================================
-set /p "choice=Enter your choice (0-14): "
+set /p "choice=Enter your choice (0-15): "
 
 echo [%time%] [INPUT] Choice: %choice% >> "%LOG_FILE%"
 
@@ -103,6 +104,7 @@ if "%choice%"=="11" goto ADD_CONTEXT_MENU
 if "%choice%"=="12" goto REMOVE_CONTEXT_MENU
 if "%choice%"=="13" goto BACKUP_REGISTRY
 if "%choice%"=="14" goto RESTART_EXPLORER
+if "%choice%"=="15" goto DEEP_REFRESH_ICONS
 if "%choice%"=="0" goto EXIT_SCRIPT
 
 echo [%time%] [WARNING] Invalid choice >> "%LOG_FILE%"
@@ -545,80 +547,80 @@ echo [%time%] Creating root menu keys with MUIVerb... >> "%LOG_FILE%"
 
 REM Directory Background (right-click empty space)
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "MUIVerb" /d "AI CLI Manager" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "Icon" /d "%ICONS_DIR%\darkterminal.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "Icon" /d "%ICONS_DIR%\darkterminal_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "SubCommands" /t REG_SZ /f >nul
 
 REM Directory (right-click folder)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "MUIVerb" /d "AI CLI Manager" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "Icon" /d "%ICONS_DIR%\darkterminal.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "Icon" /d "%ICONS_DIR%\darkterminal_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "SubCommands" /t REG_SZ /f >nul
 
 echo [%time%] Adding submenus with cmd.exe /c start wt.exe format... >> "%LOG_FILE%"
 
 REM Add submenu items for Directory Background
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k gemini" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /ve /d "Open with Jules CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k jules" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /ve /d "Open with Mistral Vibe CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k vibe" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k iflow" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k opencode" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen" /ve /d "Open with Qwen Code CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen" /v "Icon" /d "%ICONS_DIR%\qwen.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen" /v "Icon" /d "%ICONS_DIR%\qwen_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k qwen" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode" /ve /d "Open with KiloCode CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kilocode" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /ve /d "Open with GitHub Copilot" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k copilot" /f >nul
 
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k gemini" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /ve /d "Open with Jules CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k jules" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /ve /d "Open with Mistral Vibe CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k vibe" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k iflow" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k opencode" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen" /ve /d "Open with Qwen Code CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen" /v "Icon" /d "%ICONS_DIR%\qwen.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen" /v "Icon" /d "%ICONS_DIR%\qwen_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k qwen" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /ve /d "Open with KiloCode CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kilocode" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /ve /d "Open with GitHub Copilot" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k copilot" /f >nul
 
 echo.
@@ -626,7 +628,8 @@ echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
 echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot >> "%LOG_FILE%"
 echo.
-echo TIP: Use Option 14 to restart Explorer if menu doesn't appear.
+echo.
+echo TIP: Use Option 15 if the menu icons look old or broken.
 pause
 goto MAIN_MENU
 
@@ -670,7 +673,7 @@ echo.
 echo [SUCCESS] Context menu removed.
 echo [%time%] [SUCCESS] Context menu removed >> "%LOG_FILE%"
 echo.
-echo TIP: Use Option 14 to restart Explorer if menu still appears.
+echo TIP: Use Option 15 if the menu icons still persist.
 pause
 goto MAIN_MENU
 
@@ -697,7 +700,45 @@ start explorer.exe
 echo.
 echo [SUCCESS] Explorer restarted!
 echo [%time%] [OK] Explorer restarted >> "%LOG_FILE%"
+goto MAIN_MENU
+
+REM ========================================
+REM DEEP REFRESH ICONS
+REM ========================================
+:DEEP_REFRESH_ICONS
+cls
+echo.
+echo ================================================
+echo        Deep Refresh Icons (Clear Cache)
+echo ================================================
+echo.
+echo This will:
+echo 1. Close Windows Explorer
+echo 2. Delete the Windows icon and thumbnail cache
+echo 3. Restart Windows Explorer
+echo.
+echo Your desktop will briefly disappear.
+echo [%time%] === Deep Refresh Started === >> "%LOG_FILE%"
+pause
+
+echo Killing Explorer...
+taskkill /f /im explorer.exe >nul 2>&1
 timeout /t 2 >nul
+
+echo Clearing Icon Cache (Legacy)...
+attrib -h -s -r "%LocalAppData%\IconCache.db" >nul 2>&1
+del /f /q "%LocalAppData%\IconCache.db" >nul 2>&1
+
+echo Clearing Explorer Icon Cache...
+del /f /s /q "%LocalAppData%\Microsoft\Windows\Explorer\iconcache*.db" >nul 2>&1
+del /f /s /q "%LocalAppData%\Microsoft\Windows\Explorer\thumbcache*.db" >nul 2>&1
+
+echo Restarting Explorer...
+start explorer.exe
+echo.
+echo [SUCCESS] Icon cache cleared and Explorer restarted!
+echo [%time%] [OK] Deep Refresh Completed >> "%LOG_FILE%"
+timeout /t 3 >nul
 goto MAIN_MENU
 
 REM ========================================

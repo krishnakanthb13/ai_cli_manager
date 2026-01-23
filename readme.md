@@ -55,7 +55,7 @@
 
 ### --- Context Menu ---
 
-#### `10` Add to Windows Context Menu 🔥
+#### `11` Add to Windows Context Menu 🔥
 *   **What it does:** Adds "Open with AI CLI" cascading menu to right-click
 *   **Technical:** Uses `MUIVerb` for proper cascading submenu support
 *   **How to use after adding:**
@@ -65,19 +65,24 @@
     4.  Select the AI agent you want
     5.  Terminal opens **exactly in that folder**
 
-#### `11` Remove from Windows Context Menu
+#### `12` Remove from Windows Context Menu
 *   **What it does:** Completely removes the right-click menu entries
 *   **Confirmation:** Asks Y/N before proceeding
 
-#### `12` Export Registry Backup
+#### `13` Export Registry Backup
 *   **What it does:** Saves a backup of registry settings to `Log Files` folder
-*   **Recommendation:** Run this *before* using Option 9 for the first time
+*   **Recommendation:** Run this *before* using Option 11 for the first time
 
 ### --- Utilities ---
 
-#### `13` Restart File Explorer
-*   **What it does:** Restarts Windows Explorer to apply menu changes
-*   **Technical:** Uses `taskkill /f /im explorer.exe` then `start explorer.exe`
+#### `14` Restart File Explorer
+*   **What it does:** Restarts Windows Explorer to apply menu changes.
+*   **Technical:** Uses `taskkill /f /im explorer.exe` then `start explorer.exe`.
+
+#### `15` Deep Refresh Icons (Clear Cache) 🔥
+*   **What it does:** Force-clears the Windows Icon Cache to resolve issues where old or broken icons persist.
+*   **Recommended:** Use this after modifying or updating icon files.
+*   **Technical:** Deletes `IconCache.db` and Explorer's `iconcache*.db` then restarts File Explorer.
 
 #### `0` Exit
 *   **What it does:** Closes the manager and ends session
@@ -109,8 +114,9 @@ All actions are logged to timestamped files in the `Log Files` folder:
 |-------|----------|
 | **"Access Denied"** | Right-click > "Run as Administrator" |
 | **Tool not found after install** | Restart terminal or computer to refresh PATH |
-| **Menu not appearing** | Use Option 12 to restart Explorer, or reboot |
-| **Submenu not showing** | Run Option 10 then Option 9 to re-add menu |
+| **Menu not appearing** | Use Option 14 to restart Explorer, or reboot |
+| **Old icons still show** | Use Option 15 (Deep Refresh) to clear the system icon cache |
+| **Submenu not showing** | Run Option 12 then Option 11 to re-add menu |
 
 ---
 
