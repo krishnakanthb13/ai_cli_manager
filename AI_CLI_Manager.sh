@@ -143,6 +143,52 @@ install_pip_cli() {
     fi
 }
 
+install_nanocode() {
+    echo -e "[NanoCode CLI] Checking..."
+    
+    # Get local version
+    local lver=$(npm list -g nanocode-agent --depth=0 2>/dev/null | grep "nanocode-agent@" | sed 's/.*@//' | xargs)
+    
+    if [ -z "$lver" ]; then
+        echo -e "${YELLOW}[MISSING]${NC} Installing NanoCode via Git..."
+        if ! command -v git &> /dev/null; then
+            echo -e "${RED}[FAILED] Git not found!${NC}"
+            log "ERROR" "NanoCode install failed (Git missing)"
+            return
+        fi
+        
+        TOOLS_DIR="./Tools"
+        mkdir -p "$TOOLS_DIR"
+        
+        echo "Cloning repository..."
+        if [ -d "$TOOLS_DIR/nanocode-2" ]; then
+            echo -e "${CYAN}[INFO] nanocode-2 folder already exists. Skipping clone.${NC}"
+        else
+            if git clone https://github.com/krishnakanthb13/nanocode-2 "$TOOLS_DIR/nanocode-2" >/dev/null 2>&1; then
+                echo -e "${GREEN}Clone successful.${NC}"
+            else
+                echo -e "${RED}[FAILED] Clone failed.${NC}"
+                log "ERROR" "NanoCode clone failed"
+                return
+            fi
+        fi
+        
+        echo "Linking package..."
+        cd "$TOOLS_DIR/nanocode-2"
+        if sudo npm link >/dev/null 2>&1 || npm link >/dev/null 2>&1; then
+            echo -e "${GREEN}[INSTALLED] Git Clone + NPM Link${NC}"
+            log "SUCCESS" "NanoCode linked"
+        else
+            echo -e "${RED}[FAILED] NPM link failed.${NC}"
+            log "ERROR" "NanoCode link failed"
+        fi
+        cd - >/dev/null
+    else
+        echo -e "${GREEN}[OK] Installed + Linked Version [$lver]${NC}"
+        log "INFO" "NanoCode already linked ($lver)"
+    fi
+}
+
 install_all() {
     clear
     echo -e "${CYAN}=== Checking and Installing All CLIs ===${NC}"
@@ -162,6 +208,8 @@ install_all() {
     install_npm_cli "KiloCode CLI" "@kilocode/cli"
     echo ""
     install_npm_cli "GitHub Copilot CLI" "@github/copilot"
+    echo ""
+    install_nanocode
     echo ""
     install_pip_cli "Mistral Vibe" "mistral-vibe"
     
@@ -203,6 +251,10 @@ show_versions() {
     echo -e "\n${CYAN}--- GitHub Copilot ---${NC}"
     echo -e "\n--- GitHub Copilot ---" >> "$LOG_FILE"
     npm list -g @github/copilot --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+
+    echo -e "\n${CYAN}--- NanoCode CLI ---${NC}"
+    echo -e "\n--- NanoCode CLI ---" >> "$LOG_FILE"
+    npm list -g nanocode-agent --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
     echo -e "\n${CYAN}--- Mistral Vibe ---${NC}"
     echo -e "\n--- Mistral Vibe ---" >> "$LOG_FILE"
@@ -261,6 +313,7 @@ add_context_menu_linux() {
     create_script_file "Open with Qwen Code CLI" "qwen"
     create_script_file "Open with KiloCode CLI" "kilocode"
     create_script_file "Open with GitHub Copilot" "copilot"
+    create_script_file "Open with NanoCode CLI" "nanocode"
 
     echo ""
     echo -e "${GREEN}[SUCCESS] Scripts added!${NC}"
@@ -280,7 +333,7 @@ remove_context_menu_linux() {
     echo "It will cleanly remove the 'AI CLI Tools' entry from your right-click menu."
     echo ""
     echo -e "${YELLOW}RECOMMENDATION:${NC}"
-    echo "1. You can always re-add them using Option 11."
+    echo "1. You can always re-add them using Option 12."
     echo ""
     read -p "Are you sure? (y/n): " confirm
     if [[ "$confirm" != "y" ]]; then
@@ -363,17 +416,18 @@ while true; do
     echo "  8. Launch Qwen Code CLI"
     echo "  9. Launch KiloCode CLI"
     echo " 10. Launch GitHub Copilot CLI"
+    echo " 11. Launch NanoCode CLI"
     echo ""
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
-    echo " 11. Add to Context Menu (Linux/Nautilus Only)"
-    echo " 12. Remove from Context Menu (Linux Only)"
-    echo " 13. Restart Nautilus (Linux Only)"
+    echo " 12. Add to Context Menu (Linux/Nautilus Only)"
+    echo " 13. Remove from Context Menu (Linux Only)"
+    echo " 14. Restart Nautilus (Linux Only)"
     echo ""
     echo "  0. Exit"
     echo ""
     echo -e "${CYAN}================================================${NC}"
     
-    read -p "Enter your choice (0-13): " choice
+    read -p "Enter your choice (0-14): " choice
     log "INPUT" "User choice: $choice"
     
     case $choice in
@@ -387,9 +441,10 @@ while true; do
         8) launch_tool "qwen" ;;
         9) launch_tool "kilocode" ;;
         10) launch_tool "copilot" ;;
-        11) add_context_menu_linux ;;
-        12) remove_context_menu_linux ;;
-        13) restart_nautilus ;;
+        11) launch_tool "nanocode" ;;
+        12) add_context_menu_linux ;;
+        13) remove_context_menu_linux ;;
+        14) restart_nautilus ;;
         0) 
             echo "Goodbye!"
             exit 0 

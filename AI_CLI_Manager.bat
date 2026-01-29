@@ -73,20 +73,21 @@ echo     7. Launch OpenCode CLI
 echo     8. Launch Qwen Code CLI
 echo     9. Launch KiloCode CLI
 echo    10. Launch GitHub Copilot CLI
+echo    11. Launch NanoCode CLI
 echo.   
 echo    --- Context Menu ---
-echo    11. Add to Windows Context Menu
-echo    12. Remove from Windows Context Menu
-echo    13. Export Registry Backup
+echo    12. Add to Windows Context Menu
+echo    13. Remove from Windows Context Menu
+echo    14. Export Registry Backup
 echo.   
 echo    --- Utilities ---
-echo    14. Restart File Explorer
-echo    15. Deep Refresh Icons (Clear Cache)
+echo    15. Restart File Explorer
+echo    16. Deep Refresh Icons (Clear Cache)
 echo.   
 echo     0. Exit
 echo.
 echo ================================================
-set /p "choice=Enter your choice (0-15): "
+set /p "choice=Enter your choice (0-16): "
 
 echo [%time%] [INPUT] Choice: %choice% >> "%LOG_FILE%"
 
@@ -100,11 +101,12 @@ if "%choice%"=="7" goto LAUNCH_OPENCODE
 if "%choice%"=="8" goto LAUNCH_QWEN
 if "%choice%"=="9" goto LAUNCH_KILOCODE
 if "%choice%"=="10" goto LAUNCH_COPILOT
-if "%choice%"=="11" goto ADD_CONTEXT_MENU
-if "%choice%"=="12" goto REMOVE_CONTEXT_MENU
-if "%choice%"=="13" goto BACKUP_REGISTRY
-if "%choice%"=="14" goto RESTART_EXPLORER
-if "%choice%"=="15" goto DEEP_REFRESH_ICONS
+if "%choice%"=="11" goto LAUNCH_NANOCODE
+if "%choice%"=="12" goto ADD_CONTEXT_MENU
+if "%choice%"=="13" goto REMOVE_CONTEXT_MENU
+if "%choice%"=="14" goto BACKUP_REGISTRY
+if "%choice%"=="15" goto RESTART_EXPLORER
+if "%choice%"=="16" goto DEEP_REFRESH_ICONS
 if "%choice%"=="0" goto EXIT_SCRIPT
 
 echo [%time%] [WARNING] Invalid choice >> "%LOG_FILE%"
@@ -219,6 +221,19 @@ if "%UseWT%"=="1" (
 )
 goto EXIT_SCRIPT
 
+:LAUNCH_NANOCODE
+echo [%time%] === Launching NanoCode CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k nanocode >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k nanocode
+) else (
+    echo [%time%] Command: cmd /k nanocode (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && nanocode"
+)
+goto EXIT_SCRIPT
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -277,6 +292,13 @@ echo --- GitHub Copilot ---
 echo --- GitHub Copilot --- >> "%LOG_FILE%"
 set "_result="
 for /f "delims=" %%V in ('npm list -g @github/copilot 2^>nul ^| findstr "@github/copilot"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
+echo --- NanoCode CLI ---
+echo --- NanoCode CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('npm list -g nanocode-agent 2^>nul ^| findstr "nanocode-agent"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
@@ -345,6 +367,9 @@ call :CHECK_NPM "@kilocode/cli" "KiloCode"
 
 echo [GitHub Copilot] Checking...
 call :CHECK_NPM "@github/copilot" "GitHub Copilot"
+
+echo [NanoCode CLI] Checking...
+call :CHECK_NANOCODE
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -466,6 +491,65 @@ if not defined LVER (
 exit /b
 
 REM ========================================
+REM Check NanoCode (Custom Git + Link)
+REM ========================================
+:CHECK_NANOCODE
+echo --- NanoCode CLI --- >> "%LOG_FILE%"
+set "LVER="
+
+rem Get local version
+for /f "tokens=*" %%A in ('npm list -g nanocode-agent --depth=0 2^>nul ^| findstr "nanocode-agent@"') do (
+    set "TLINE=%%A"
+    for /f "tokens=2 delims=@" %%Y in ("!TLINE!") do (
+        set "LVER=%%Y"
+    )
+    if defined LVER for /f "tokens=1" %%V in ("!LVER!") do set "LVER=%%V"
+)
+
+if not defined LVER (
+    echo [MISSING] Installing NanoCode via Git...
+    where git >nul 2>&1
+    if errorlevel 1 (
+        echo [FAILED] Git not found! Cannot install NanoCode.
+        echo [%time%] [FAILED] NanoCode install (Git missing) >> "%LOG_FILE%"
+        exit /b
+    )
+    
+    set "TOOLS_DIR=%SCRIPT_DIR%Tools"
+    if not exist "!TOOLS_DIR!" mkdir "!TOOLS_DIR!"
+    
+    echo Cloning repository...
+    cd /d "!TOOLS_DIR!"
+    if exist "nanocode-2" (
+        echo [INFO] nanocode-2 folder already exists. Skipping clone.
+    ) else (
+        git clone https://github.com/krishnakanthb13/nanocode-2 nanocode-2 >nul 2>&1
+        if errorlevel 1 (
+            echo [FAILED] Clone failed.
+            echo [%time%] [FAILED] NanoCode git clone failed >> "%LOG_FILE%"
+            cd /d "%SCRIPT_DIR%"
+            exit /b
+        )
+    )
+    
+    echo Linking package...
+    cd nanocode-2
+    call npm link >nul 2>&1
+    if errorlevel 1 (
+        echo [FAILED] NPM link failed.
+        echo [%time%] [FAILED] NanoCode npm link failed >> "%LOG_FILE%"
+    ) else (
+        echo [INSTALLED] Git Clone + NPM Link
+        echo [%time%] [OK] Installed NanoCode via Link >> "%LOG_FILE%"
+    )
+    cd /d "%SCRIPT_DIR%"
+) else (
+    echo [OK] Installed + Linked Version [%LVER%]
+    echo [%time%] [SKIP] NanoCode already linked [%LVER%] >> "%LOG_FILE%"
+)
+exit /b
+
+REM ========================================
 REM BACKUP REGISTRY
 REM ========================================
 :BACKUP_REGISTRY
@@ -528,8 +612,10 @@ echo - No system files are modified
 echo - Only adds menu items, doesn't change behavior
 echo.
 echo RECOMMENDATION:
-echo 1. Create a backup first (Option 13)
+echo 1. Create a backup first (Option 14)
 echo 2. Create a System Restore Point (Windows Settings)
+echo.
+echo ================================================
 echo.
 echo ================================================
 echo.
@@ -590,6 +676,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot"
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k copilot" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode" /ve /d "Open with NanoCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode" /v "Icon" /d "%ICONS_DIR%\nanocode_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k nanocode" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -623,13 +713,17 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /ve /d "Op
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k copilot" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode" /ve /d "Open with NanoCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode" /v "Icon" /d "%ICONS_DIR%\nanocode_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k nanocode" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode >> "%LOG_FILE%"
 echo.
 echo.
-echo TIP: Use Option 15 if the menu icons look old or broken.
+echo TIP: Use Option 16 if the menu icons look old or broken.
 pause
 goto MAIN_MENU
 
@@ -652,7 +746,7 @@ echo from your Windows right-click context menu.
 echo.
 echo RECOMMENDATION:
 echo 1. Ensure you have a registry backup if you want to restore
-echo    these settings later (Option 13).
+echo    these settings later (Option 14).
 echo.
 
 set /p "confirm=Are you sure? (Y/N): "
@@ -673,7 +767,7 @@ echo.
 echo [SUCCESS] Context menu removed.
 echo [%time%] [SUCCESS] Context menu removed >> "%LOG_FILE%"
 echo.
-echo TIP: Use Option 15 if the menu icons still persist.
+echo TIP: Use Option 16 if the menu icons still persist.
 pause
 goto MAIN_MENU
 

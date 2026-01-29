@@ -78,5 +78,6 @@ This document describes the technical implementation and architecture of the AI 
 
 The project integrates with the following package managers:
 - **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, etc.
+- **Git & npm link**: Specifically for `nanocode-agent` (cloned from GitHub).
 - **pip (Python Package Installer)**: For `mistral-vibe`.
 - **Windows Registry**: For shell context menu integration.

@@ -29,7 +29,7 @@
 *   **Action:** Only installs missing tools (skips already installed)
 *   **Output:** `[ALREADY INSTALLED]` or `[INSTALLED]` for each tool
 *   **Prerequisites:** Requires Node.js (and Python for Mistral Vibe)
-*   **Launch Pad**: Instantly launch Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, or Copilot.
+*   **Launch Pad**: Instantly launch Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, or NanoCode.
 *   **Smart Install**: Automatically checks for Node.js and Python. Installs missing CLIs via `npm` or `pip`.
 
 #### `2` Show Installed CLI Versions
@@ -49,13 +49,14 @@
 | 8 | Qwen Code CLI |
 | 9 | KiloCode CLI |
 | 10 | GitHub Copilot CLI |
+| 11 | NanoCode CLI |
 
 *   **Behavior:** Opens in Windows Terminal (or CMD fallback)
 *   **Directory:** Uses passed path or defaults to User Profile folder
 
 ### --- Context Menu ---
 
-#### `11` Add to Windows Context Menu 🔥
+#### `12` Add to Windows Context Menu 🔥
 *   **What it does:** Adds "Open with AI CLI" cascading menu to right-click
 *   **Technical:** Uses `MUIVerb` for proper cascading submenu support
 *   **How to use after adding:**
@@ -65,21 +66,21 @@
     4.  Select the AI agent you want
     5.  Terminal opens **exactly in that folder**
 
-#### `12` Remove from Windows Context Menu
+#### `13` Remove from Windows Context Menu
 *   **What it does:** Completely removes the right-click menu entries
 *   **Confirmation:** Asks Y/N before proceeding
 
-#### `13` Export Registry Backup
+#### `14` Export Registry Backup
 *   **What it does:** Saves a backup of registry settings to `Log Files` folder
-*   **Recommendation:** Run this *before* using Option 11 for the first time
+*   **Recommendation:** Run this *before* using Option 12 for the first time
 
 ### --- Utilities ---
 
-#### `14` Restart File Explorer
+#### `15` Restart File Explorer
 *   **What it does:** Restarts Windows Explorer to apply menu changes.
 *   **Technical:** Uses `taskkill /f /im explorer.exe` then `start explorer.exe`.
 
-#### `15` Deep Refresh Icons (Clear Cache) 🔥
+#### `16` Deep Refresh Icons (Clear Cache) 🔥
 *   **What it does:** Force-clears the Windows Icon Cache to resolve issues where old or broken icons persist.
 *   **Recommended:** Use this after modifying or updating icon files.
 *   **Technical:** Deletes `IconCache.db` and Explorer's `iconcache*.db` then restarts File Explorer.
@@ -99,6 +100,7 @@
 | **Qwen Code** | `@qwen-code/qwen-code` | NPM | `qwen` |
 | **KiloCode** | `@kilocode/cli` | NPM | `kilocode` |
 | **GitHub Copilot** | `@github/copilot` | NPM | `copilot` |
+| **NanoCode** | `nanocode-agent` | Git + Link | `nanocode` |
 
 ## 📝 Logging
 
@@ -114,9 +116,9 @@ All actions are logged to timestamped files in the `Log Files` folder:
 |-------|----------|
 | **"Access Denied"** | Right-click > "Run as Administrator" |
 | **Tool not found after install** | Restart terminal or computer to refresh PATH |
-| **Menu not appearing** | Use Option 14 to restart Explorer, or reboot |
-| **Old icons still show** | Use Option 15 (Deep Refresh) to clear the system icon cache |
-| **Submenu not showing** | Run Option 12 then Option 11 to re-add menu |
+| **Menu not appearing** | Use Option 15 to restart Explorer, or reboot |
+| **Old icons still show** | Use Option 16 (Deep Refresh) to clear the system icon cache |
+| **Submenu not showing** | Run Option 13 then Option 12 to re-add menu |
 
 ---
 
