@@ -3,7 +3,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## 📖 Overview
-**AI CLI Manager (v1.1.0)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
+**AI CLI Manager (v1.1.4)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
 
 ![Release Banner](assets/release_banner.png)
 
