@@ -30,7 +30,7 @@
 *   **Output:** `[ALREADY INSTALLED]` or `[INSTALLED]` for each tool
 *   **Prerequisites:** Requires Node.js (and Python for Mistral Vibe)
 *   **Launch Pad**: Instantly launch Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, or NanoCode.
-*   **Smart Install**: Automatically checks for Node.js and Python. Installs missing CLIs via `npm` or `pip`.
+*   **Smart Install**: Automatically checks for Node.js, Python, and Git. Installs missing CLIs via `npm`, `pip`, or `git clone` into the `/Tools` directory followed by `npm link`.
 
 #### `V` Show Installed CLI Versions
 *   **Version Check**: Quickly see which versions of Gemini, Jules, Vibe, etc., are installed.
@@ -100,7 +100,7 @@
 | **Qwen Code** | `@qwen-code/qwen-code` | NPM | `qwen` |
 | **KiloCode** | `@kilocode/cli` | NPM | `kilocode` |
 | **GitHub Copilot** | `@github/copilot` | NPM | `copilot` |
-| **NanoCode** | `nanocode-agent` | Git + Link | `nanocode` |
+| **NanoCode** | `nanocode-agent` | Git + NPM Link | `nanocode` |
 
 ## 📝 Logging
 

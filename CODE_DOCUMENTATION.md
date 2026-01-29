@@ -13,6 +13,8 @@ This document describes the technical implementation and architecture of the AI 
 | `Icons/` | Directory containing tool icons and the conversion script. |
 | `Icons/*_v2.ico` | Standardized icons with `_v2` suffix to bypass Windows Icon Cache (Cache Busting). |
 | `Icons/convert_icons.py` | Python utility to convert images to .ico format with automatic `_v2` naming. |
+| `Tools/` | Local storage for Git-cloned CLI tools (e.g., NanoCode). |
+| `Log Files/` | Storage for session logs and registry backups. |
 | `README.md` | Primary user guide and orientation. |
 | `CODE_DOCUMENTATION.md` | Technical deep-dive into the codebase. |
 | `DESIGN_PHILOSOPHY.md` | Rationale, design principles, and project goals. |
@@ -23,8 +25,8 @@ This document describes the technical implementation and architecture of the AI 
 
 ### Main Components (Windows)
 1. **Auto-Elevation Module**: Ensures the script runs with administrative privileges for registry modifications.
-2. **Logging System**: A centralized logging mechanism using WMIC for cross-locale timestamping.
-3. **Dependency Manager**: Checks for Node.js and Python; installs missing CLI tools via `npm` or `pip`.
+2. **Logging System**: A centralized logging mechanism using WMIC for cross-locale timestamping and storage in `Log Files/`.
+3. **Dependency Manager**: Checks for Node.js, Python, and Git; installs missing CLI tools via `npm`, `pip`, or `git clone`.
 4. **Registry Integrator**: Adds cascading context menus to Windows Explorer via `reg.exe`.
 5. **CLI Wrapper**: Launches external terminal applications with proper directory context.
 
@@ -39,8 +41,9 @@ This document describes the technical implementation and architecture of the AI 
 | `:ADMIN_CHECK` | Checks for `net session` and requests `RunAs` elevation if needed. |
 | `:LOGGING_SETUP` | Initializes the `Log Files` directory and session log file. |
 | `:MAIN_MENU` | Central navigation loop for the interface. |
-| `:INSTALL_ALL` | Iterates through supported CLIs and installs them if missing. |
-| `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. |
+| `:INSTALL_ALL` | Iterates through supported CLIs and installs them if missing. Uses `npm link` for local Git-based tools. |
+| `:CHECK_NANOCODE` | Specific logic for NanoCode: Clones from GitHub into `Tools/nanocode-2` and runs `npm link`. |
+| `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. Handles scoped NPM packages and PIP version parsing. |
 | `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "Open with AI CLI" menu. |
 | `:REMOVE_CONTEXT_MENU` | Performs `reg delete` to clean up registry entries. |
 | `:BACKUP_REGISTRY` | Exports relevant registry keys to a `.reg` file for safety. |
@@ -70,6 +73,7 @@ This document describes the technical implementation and architecture of the AI 
 
 - **Node.js**: Required for most CLIs.
 - **Python 3 & pip**: Required for Mistral Vibe.
+- **Git**: Required for cloning NanoCode and other repository-based tools.
 - **Windows Terminal**: Highly recommended for the best experience.
 - **Nautilus**: (Linux) Required for the script's automated context menu feature.
 - **Pillow (PIL)**: Python library required only if running the `convert_icons.py` utility.
