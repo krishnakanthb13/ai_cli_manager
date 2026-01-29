@@ -61,52 +61,52 @@ echo           AI CLI TOOLS MANAGER (v1.1.0)
 echo ================================================
 echo.
 echo    --- CLI Management ---
-echo     1. Check and Install All CLIs
-echo     2. Show Installed CLI Versions
+echo     I. Check and Install All CLIs
+echo     V. Show Installed CLI Versions
 echo.   
 echo    --- Launch CLIs ---
-echo     3. Launch Gemini CLI
-echo     4. Launch Jules CLI
-echo     5. Launch Mistral Vibe CLI
-echo     6. Launch iFlow CLI
-echo     7. Launch OpenCode CLI
-echo     8. Launch Qwen Code CLI
-echo     9. Launch KiloCode CLI
-echo    10. Launch GitHub Copilot CLI
-echo    11. Launch NanoCode CLI
+echo     1. Launch Gemini CLI
+echo     2. Launch Jules CLI
+echo     3. Launch Mistral Vibe CLI
+echo     4. Launch iFlow CLI
+echo     5. Launch OpenCode CLI
+echo     6. Launch Qwen Code CLI
+echo     7. Launch KiloCode CLI
+echo     8. Launch GitHub Copilot CLI
+echo     9. Launch NanoCode CLI
 echo.   
 echo    --- Context Menu ---
-echo    12. Add to Windows Context Menu
-echo    13. Remove from Windows Context Menu
-echo    14. Export Registry Backup
+echo     A. Add to Windows Context Menu
+echo     B. Remove from Windows Context Menu
+echo     C. Export Registry Backup
 echo.   
 echo    --- Utilities ---
-echo    15. Restart File Explorer
-echo    16. Deep Refresh Icons (Clear Cache)
+echo     D. Restart File Explorer
+echo     E. Deep Refresh Icons (Clear Cache)
 echo.   
 echo     0. Exit
 echo.
 echo ================================================
-set /p "choice=Enter your choice (0-16): "
+set /p "choice=Enter your choice: "
 
 echo [%time%] [INPUT] Choice: %choice% >> "%LOG_FILE%"
 
-if "%choice%"=="1" goto INSTALL_ALL
-if "%choice%"=="2" goto SHOW_VERSIONS
-if "%choice%"=="3" goto LAUNCH_GEMINI
-if "%choice%"=="4" goto LAUNCH_JULES
-if "%choice%"=="5" goto LAUNCH_VIBE
-if "%choice%"=="6" goto LAUNCH_IFLOW
-if "%choice%"=="7" goto LAUNCH_OPENCODE
-if "%choice%"=="8" goto LAUNCH_QWEN
-if "%choice%"=="9" goto LAUNCH_KILOCODE
-if "%choice%"=="10" goto LAUNCH_COPILOT
-if "%choice%"=="11" goto LAUNCH_NANOCODE
-if "%choice%"=="12" goto ADD_CONTEXT_MENU
-if "%choice%"=="13" goto REMOVE_CONTEXT_MENU
-if "%choice%"=="14" goto BACKUP_REGISTRY
-if "%choice%"=="15" goto RESTART_EXPLORER
-if "%choice%"=="16" goto DEEP_REFRESH_ICONS
+if /i "%choice%"=="I" goto INSTALL_ALL
+if /i "%choice%"=="V" goto SHOW_VERSIONS
+if "%choice%"=="1" goto LAUNCH_GEMINI
+if "%choice%"=="2" goto LAUNCH_JULES
+if "%choice%"=="3" goto LAUNCH_VIBE
+if "%choice%"=="4" goto LAUNCH_IFLOW
+if "%choice%"=="5" goto LAUNCH_OPENCODE
+if "%choice%"=="6" goto LAUNCH_QWEN
+if "%choice%"=="7" goto LAUNCH_KILOCODE
+if "%choice%"=="8" goto LAUNCH_COPILOT
+if "%choice%"=="9" goto LAUNCH_NANOCODE
+if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
+if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
+if /i "%choice%"=="C" goto BACKUP_REGISTRY
+if /i "%choice%"=="D" goto RESTART_EXPLORER
+if /i "%choice%"=="E" goto DEEP_REFRESH_ICONS
 if "%choice%"=="0" goto EXIT_SCRIPT
 
 echo [%time%] [WARNING] Invalid choice >> "%LOG_FILE%"
@@ -612,7 +612,7 @@ echo - No system files are modified
 echo - Only adds menu items, doesn't change behavior
 echo.
 echo RECOMMENDATION:
-echo 1. Create a backup first (Option 14)
+echo 1. Create a backup first (Option C)
 echo 2. Create a System Restore Point (Windows Settings)
 echo.
 echo ================================================
@@ -723,7 +723,7 @@ echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
 echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode >> "%LOG_FILE%"
 echo.
 echo.
-echo TIP: Use Option 16 if the menu icons look old or broken.
+echo TIP: Use Option E if the menu icons look old or broken.
 pause
 goto MAIN_MENU
 
@@ -746,7 +746,7 @@ echo from your Windows right-click context menu.
 echo.
 echo RECOMMENDATION:
 echo 1. Ensure you have a registry backup if you want to restore
-echo    these settings later (Option 14).
+echo    these settings later (Option C).
 echo.
 
 set /p "confirm=Are you sure? (Y/N): "
@@ -767,7 +767,7 @@ echo.
 echo [SUCCESS] Context menu removed.
 echo [%time%] [SUCCESS] Context menu removed >> "%LOG_FILE%"
 echo.
-echo TIP: Use Option 16 if the menu icons still persist.
+echo TIP: Use Option E if the menu icons still persist.
 pause
 goto MAIN_MENU
 

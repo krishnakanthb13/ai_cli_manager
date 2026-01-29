@@ -333,7 +333,7 @@ remove_context_menu_linux() {
     echo "It will cleanly remove the 'AI CLI Tools' entry from your right-click menu."
     echo ""
     echo -e "${YELLOW}RECOMMENDATION:${NC}"
-    echo "1. You can always re-add them using Option 12."
+    echo "1. You can always re-add them using Option A."
     echo ""
     read -p "Are you sure? (y/n): " confirm
     if [[ "$confirm" != "y" ]]; then
@@ -404,47 +404,47 @@ create_automator_workflow() {
 while true; do
     header
     echo -e " ${YELLOW}--- CLI Management ---${NC}"
-    echo "  1. Check and Install All CLIs"
-    echo "  2. Show Installed CLI Versions"
+    echo "  I. Check and Install All CLIs"
+    echo "  V. Show Installed CLI Versions"
     echo ""
     echo -e " ${YELLOW}--- Launch CLIs ---${NC}"
-    echo "  3. Launch Gemini CLI"
-    echo "  4. Launch Jules CLI"
-    echo "  5. Launch Mistral Vibe CLI"
-    echo "  6. Launch iFlow CLI"
-    echo "  7. Launch OpenCode CLI"
-    echo "  8. Launch Qwen Code CLI"
-    echo "  9. Launch KiloCode CLI"
-    echo " 10. Launch GitHub Copilot CLI"
-    echo " 11. Launch NanoCode CLI"
+    echo "  1. Launch Gemini CLI"
+    echo "  2. Launch Jules CLI"
+    echo "  3. Launch Mistral Vibe CLI"
+    echo "  4. Launch iFlow CLI"
+    echo "  5. Launch OpenCode CLI"
+    echo "  6. Launch Qwen Code CLI"
+    echo "  7. Launch KiloCode CLI"
+    echo "  8. Launch GitHub Copilot CLI"
+    echo "  9. Launch NanoCode CLI"
     echo ""
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
-    echo " 12. Add to Context Menu (Linux/Nautilus Only)"
-    echo " 13. Remove from Context Menu (Linux Only)"
-    echo " 14. Restart Nautilus (Linux Only)"
+    echo "  A. Add to Context Menu (Linux/Nautilus Only)"
+    echo "  B. Remove from Context Menu (Linux Only)"
+    echo "  C. Restart Nautilus (Linux Only)"
     echo ""
     echo "  0. Exit"
     echo ""
     echo -e "${CYAN}================================================${NC}"
     
-    read -p "Enter your choice (0-14): " choice
+    read -p "Enter your choice: " choice
     log "INPUT" "User choice: $choice"
     
     case $choice in
-        1) install_all ;;
-        2) show_versions ;;
-        3) launch_tool "gemini" ;;
-        4) launch_tool "jules" ;;
-        5) launch_tool "vibe" ;;
-        6) launch_tool "iflow" ;;
-        7) launch_tool "opencode" ;;
-        8) launch_tool "qwen" ;;
-        9) launch_tool "kilocode" ;;
-        10) launch_tool "copilot" ;;
-        11) launch_tool "nanocode" ;;
-        12) add_context_menu_linux ;;
-        13) remove_context_menu_linux ;;
-        14) restart_nautilus ;;
+        [Ii]) install_all ;;
+        [Vv]) show_versions ;;
+        1) launch_tool "gemini" ;;
+        2) launch_tool "jules" ;;
+        3) launch_tool "vibe" ;;
+        4) launch_tool "iflow" ;;
+        5) launch_tool "opencode" ;;
+        6) launch_tool "qwen" ;;
+        7) launch_tool "kilocode" ;;
+        8) launch_tool "copilot" ;;
+        9) launch_tool "nanocode" ;;
+        [Aa]) add_context_menu_linux ;;
+        [Bb]) remove_context_menu_linux ;;
+        [Cc]) restart_nautilus ;;
         0) 
             echo "Goodbye!"
             exit 0 

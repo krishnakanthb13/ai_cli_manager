@@ -24,7 +24,7 @@
 
 ### --- CLI Management ---
 
-#### `1` Check and Install All CLIs
+#### `I` Check and Install All CLIs
 *   **What it does:** Checks if each CLI is installed
 *   **Action:** Only installs missing tools (skips already installed)
 *   **Output:** `[ALREADY INSTALLED]` or `[INSTALLED]` for each tool
@@ -32,31 +32,31 @@
 *   **Launch Pad**: Instantly launch Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, or NanoCode.
 *   **Smart Install**: Automatically checks for Node.js and Python. Installs missing CLIs via `npm` or `pip`.
 
-#### `2` Show Installed CLI Versions
+#### `V` Show Installed CLI Versions
 *   **Version Check**: Quickly see which versions of Gemini, Jules, Vibe, etc., are installed.
 *   **Shows:** Package name with version, or `[NOT INSTALLED]`
 
 ### --- Launch CLIs ---
 
-#### `3-8` Launch Specific CLIs
+#### `1-9` Launch Specific CLIs
 | Option | Tool |
 |--------|------|
-| 3 | Gemini CLI |
-| 4 | Jules CLI |
-| 5 | Mistral Vibe CLI |
-| 6 | iFlow CLI |
-| 7 | OpenCode CLI |
-| 8 | Qwen Code CLI |
-| 9 | KiloCode CLI |
-| 10 | GitHub Copilot CLI |
-| 11 | NanoCode CLI |
+| 1 | Gemini CLI |
+| 2 | Jules CLI |
+| 3 | Mistral Vibe CLI |
+| 4 | iFlow CLI |
+| 5 | OpenCode CLI |
+| 6 | Qwen Code CLI |
+| 7 | KiloCode CLI |
+| 8 | GitHub Copilot CLI |
+| 9 | NanoCode CLI |
 
 *   **Behavior:** Opens in Windows Terminal (or CMD fallback)
 *   **Directory:** Uses passed path or defaults to User Profile folder
 
 ### --- Context Menu ---
 
-#### `12` Add to Windows Context Menu 🔥
+#### `A` Add to Windows Context Menu 🔥
 *   **What it does:** Adds "Open with AI CLI" cascading menu to right-click
 *   **Technical:** Uses `MUIVerb` for proper cascading submenu support
 *   **How to use after adding:**
@@ -66,21 +66,21 @@
     4.  Select the AI agent you want
     5.  Terminal opens **exactly in that folder**
 
-#### `13` Remove from Windows Context Menu
+#### `B` Remove from Windows Context Menu
 *   **What it does:** Completely removes the right-click menu entries
 *   **Confirmation:** Asks Y/N before proceeding
 
-#### `14` Export Registry Backup
+#### `C` Export Registry Backup
 *   **What it does:** Saves a backup of registry settings to `Log Files` folder
-*   **Recommendation:** Run this *before* using Option 12 for the first time
+*   **Recommendation:** Run this *before* using Option A for the first time
 
 ### --- Utilities ---
 
-#### `15` Restart File Explorer
+#### `D` Restart File Explorer
 *   **What it does:** Restarts Windows Explorer to apply menu changes.
 *   **Technical:** Uses `taskkill /f /im explorer.exe` then `start explorer.exe`.
 
-#### `16` Deep Refresh Icons (Clear Cache) 🔥
+#### `E` Deep Refresh Icons (Clear Cache) 🔥
 *   **What it does:** Force-clears the Windows Icon Cache to resolve issues where old or broken icons persist.
 *   **Recommended:** Use this after modifying or updating icon files.
 *   **Technical:** Deletes `IconCache.db` and Explorer's `iconcache*.db` then restarts File Explorer.
@@ -116,9 +116,9 @@ All actions are logged to timestamped files in the `Log Files` folder:
 |-------|----------|
 | **"Access Denied"** | Right-click > "Run as Administrator" |
 | **Tool not found after install** | Restart terminal or computer to refresh PATH |
-| **Menu not appearing** | Use Option 15 to restart Explorer, or reboot |
-| **Old icons still show** | Use Option 16 (Deep Refresh) to clear the system icon cache |
-| **Submenu not showing** | Run Option 13 then Option 12 to re-add menu |
+| **Menu not appearing** | Use Option D to restart Explorer, or reboot |
+| **Old icons still show** | Use Option E (Deep Refresh) to clear the system icon cache |
+| **Submenu not showing** | Run Option B then Option A to re-add menu |
 
 ---
 

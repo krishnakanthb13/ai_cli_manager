@@ -33,9 +33,9 @@ Run the script directly from your terminal:
 
 The script offers a simple interactive menu:
 
-*   **1. Check and Install All CLIs**: Automatically checks if supported tools (Gemini, Jules, iFlow, OpenCode, Qwen, KiloCode, Mistral Vibe, GitHub Copilot, NanoCode) are installed. If missing, it attempts to install them via `npm` or `pip`.
+*   **I. Check and Install All CLIs**: Automatically checks if supported tools (Gemini, Jules, iFlow, OpenCode, Qwen, KiloCode, Mistral Vibe, GitHub Copilot, NanoCode) are installed. If missing, it attempts to install them via `npm` or `pip`.
     *   *Note*: If you run into permission errors, the script will attempt to ask for `sudo` password to install global packages.
-*   **2. Show Installed CLI Versions**: Displays the currently installed version of each tool.
+*   **V. Show Installed CLI Versions**: Displays the currently installed version of each tool.
 
 ### Launch Tools
 Launch any of the supported CLIs directly from the menu:
