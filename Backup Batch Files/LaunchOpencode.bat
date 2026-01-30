@@ -49,10 +49,11 @@ echo.
 echo  Select a model to run:
 echo.
 echo    [1] Big Pickle
-echo    [2] Grok Code Fast 1
-echo    [3] GPT 5 Nano
-echo    [4] GLM 4.7
-echo    [5] MiniMax M2.1
+echo    [2] GPT 5 Nano
+echo    [3] GLM 4.7 Free
+echo    [4] MiniMax M2.1 Free
+echo    [5] Kimi K2.5 Free
+echo    [6] Trinity Large Preview Free
 echo.
 echo    [0] Exit
 echo.
@@ -60,18 +61,19 @@ echo ============================================================
 echo.
 
 set "choice="
-set /p choice="  Enter your choice (0-5): "
+set /p choice="  Enter your choice (0-6): "
 
 if "%choice%"=="0" goto exit
 if "%choice%"=="1" set "model=opencode/big-pickle" & set "modelname=Big Pickle"
-if "%choice%"=="2" set "model=opencode/grok-code" & set "modelname=Grok Code Fast 1"
-if "%choice%"=="3" set "model=opencode/gpt-5-nano" & set "modelname=GPT 5 Nano"
-if "%choice%"=="4" set "model=opencode/glm-4.7-free" & set "modelname=GLM 4.7"
-if "%choice%"=="5" set "model=opencode/minimax-m2.1-free" & set "modelname=MiniMax M2.1"
+if "%choice%"=="2" set "model=opencode/gpt-5-nano" & set "modelname=GPT 5 Nano"
+if "%choice%"=="3" set "model=opencode/glm-4.7-free" & set "modelname=GLM 4.7 Free"
+if "%choice%"=="4" set "model=opencode/minimax-m2.1-free" & set "modelname=MiniMax M2.1 Free"
+if "%choice%"=="5" set "model=opencode/kimi-k2.5-free" & set "modelname=Kimi K2.5 Free"
+if "%choice%"=="6" set "model=opencode/trinity-large-preview-free" & set "modelname=Trinity Large Preview Free"
 
 if not defined model (
     echo.
-    echo  [!] Invalid choice. Please enter a number between 0-5.
+    echo  [!] Invalid choice. Please enter a number between 0-6.
     timeout /t 2 >nul
     goto menu
 )
