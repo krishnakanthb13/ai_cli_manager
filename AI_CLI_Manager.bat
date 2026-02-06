@@ -74,6 +74,7 @@ echo     6. Launch Qwen Code CLI
 echo     7. Launch KiloCode CLI
 echo     8. Launch GitHub Copilot CLI
 echo     9. Launch NanoCode CLI
+echo     10. Launch Claude CLI
 echo.   
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -102,6 +103,7 @@ if "%choice%"=="6" goto LAUNCH_QWEN
 if "%choice%"=="7" goto LAUNCH_KILOCODE
 if "%choice%"=="8" goto LAUNCH_COPILOT
 if "%choice%"=="9" goto LAUNCH_NANOCODE
+if "%choice%"=="10" goto LAUNCH_CLAUDE
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -221,6 +223,19 @@ if "%UseWT%"=="1" (
 )
 goto EXIT_SCRIPT
 
+:LAUNCH_CLAUDE
+echo [%time%] === Launching Claude CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k claude >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k claude
+) else (
+    echo [%time%] Command: cmd /k claude (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && claude"
+)
+goto EXIT_SCRIPT
+
 :LAUNCH_NANOCODE
 echo [%time%] === Launching NanoCode CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
@@ -288,10 +303,17 @@ for /f "delims=" %%V in ('npm list -g @kilocode/cli 2^>nul ^| findstr "@kilocode
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
-echo --- GitHub Copilot ---
-echo --- GitHub Copilot --- >> "%LOG_FILE%"
+echo --- GitHub Copilot CLI ---
+echo --- GitHub Copilot CLI --- >> "%LOG_FILE%"
 set "_result="
 for /f "delims=" %%V in ('npm list -g @github/copilot 2^>nul ^| findstr "@github/copilot"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
+echo --- Claude CLI ---
+echo --- Claude CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('npm list -g @anthropic-ai/claude-code 2^>nul ^| findstr "@anthropic-ai/claude-code"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
@@ -365,8 +387,11 @@ call :CHECK_NPM "@qwen-code/qwen-code" "Qwen Code"
 echo [KiloCode] Checking...
 call :CHECK_NPM "@kilocode/cli" "KiloCode"
 
-echo [GitHub Copilot] Checking...
-call :CHECK_NPM "@github/copilot" "GitHub Copilot"
+echo [GitHub Copilot CLI] Checking...
+call :CHECK_NPM "@github/copilot" "GitHub Copilot CLI"
+
+echo [Claude CLI] Checking...
+call :CHECK_NPM "@anthropic-ai/claude-code" "Claude CLI"
 
 echo [NanoCode CLI] Checking...
 call :CHECK_NANOCODE
@@ -672,9 +697,13 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kilocode" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /ve /d "Open with GitHub Copilot" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /ve /d "Open with GitHub Copilot CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k copilot" /f >nul
+
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\claude" /ve /d "Open with Claude CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\claude" /v "Icon" /d "%ICONS_DIR%\claude_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\claude\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k claude" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode" /ve /d "Open with NanoCode CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode" /v "Icon" /d "%ICONS_DIR%\nanocode_v2.ico" /f >nul
@@ -709,9 +738,13 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /ve /d "O
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kilocode" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /ve /d "Open with GitHub Copilot" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /ve /d "Open with GitHub Copilot CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k copilot" /f >nul
+
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\claude" /ve /d "Open with Claude CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\claude" /v "Icon" /d "%ICONS_DIR%\claude_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\claude\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k claude" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode" /ve /d "Open with NanoCode CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode" /v "Icon" /d "%ICONS_DIR%\nanocode_v2.ico" /f >nul
@@ -720,7 +753,7 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode\command" /
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.
