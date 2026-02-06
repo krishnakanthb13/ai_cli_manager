@@ -27,7 +27,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}        AI CLI TOOLS MANAGER (Linux/Mac)${NC}"
+    echo -e "${CYAN}    AI CLI TOOLS MANAGER (v1.1.8) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
     echo ""
 }
@@ -209,6 +209,8 @@ install_all() {
     echo ""
     install_npm_cli "GitHub Copilot CLI" "@github/copilot"
     echo ""
+    install_npm_cli "Claude CLI" "@anthropic-ai/claude-code"
+    echo ""
     install_nanocode
     echo ""
     install_pip_cli "Mistral Vibe" "mistral-vibe"
@@ -248,9 +250,13 @@ show_versions() {
     echo -e "\n--- KiloCode CLI ---" >> "$LOG_FILE"
     npm list -g @kilocode/cli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
-    echo -e "\n${CYAN}--- GitHub Copilot ---${NC}"
-    echo -e "\n--- GitHub Copilot ---" >> "$LOG_FILE"
+    echo -e "\n${CYAN}--- GitHub Copilot CLI ---${NC}"
+    echo -e "\n--- GitHub Copilot CLI ---" >> "$LOG_FILE"
     npm list -g @github/copilot --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+
+    echo -e "\n${CYAN}--- Claude CLI ---${NC}"
+    echo -e "\n--- Claude CLI ---" >> "$LOG_FILE"
+    npm list -g @anthropic-ai/claude-code --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
 
     echo -e "\n${CYAN}--- NanoCode CLI ---${NC}"
     echo -e "\n--- NanoCode CLI ---" >> "$LOG_FILE"
@@ -312,7 +318,8 @@ add_context_menu_linux() {
     create_script_file "Open with OpenCode CLI" "opencode"
     create_script_file "Open with Qwen Code CLI" "qwen"
     create_script_file "Open with KiloCode CLI" "kilocode"
-    create_script_file "Open with GitHub Copilot" "copilot"
+    create_script_file "Open with GitHub Copilot CLI" "copilot"
+    create_script_file "Open with Claude CLI" "claude"
     create_script_file "Open with NanoCode CLI" "nanocode"
 
     echo ""
@@ -417,6 +424,7 @@ while true; do
     echo "  7. Launch KiloCode CLI"
     echo "  8. Launch GitHub Copilot CLI"
     echo "  9. Launch NanoCode CLI"
+    echo "  10. Launch Claude CLI"
     echo ""
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
     echo "  A. Add to Context Menu (Linux/Nautilus Only)"
@@ -442,6 +450,7 @@ while true; do
         7) launch_tool "kilocode" ;;
         8) launch_tool "copilot" ;;
         9) launch_tool "nanocode" ;;
+        10) launch_tool "claude" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;
