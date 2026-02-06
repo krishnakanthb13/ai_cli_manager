@@ -5,7 +5,9 @@
 ## 📖 Overview
 **AI CLI Manager (v1.1.10)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
 
-![Release Banner](assets/release_banner-v1.1.8.png)
+![Release Banner](assets/release_banner-v1.1.10.1.png)
+
+<img src="assets/release_banner-v1.1.10.png" width="500" alt="Release Banner">
 
 ## 📚 Project Documentation
 - **[Technical Documentation](CODE_DOCUMENTATION.md)**: Architecture, core methods, and data flow.
