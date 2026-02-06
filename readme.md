@@ -3,7 +3,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## 📖 Overview
-**AI CLI Manager (v1.1.8)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
+**AI CLI Manager (v1.1.10)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
 
 ![Release Banner](assets/release_banner-v1.1.8.png)
 
@@ -29,7 +29,7 @@
 *   **Action:** Only installs missing tools (skips already installed)
 *   **Output:** `[ALREADY INSTALLED]` or `[INSTALLED]` for each tool
 *   **Prerequisites:** Requires Node.js (and Python for Mistral Vibe)
-*   **Launch Pad**: Instantly launch Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, or Claude.
+*   **Launch Pad**: Instantly launch Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, or OpenAI Codex.
 *   **Smart Install**: Automatically checks for Node.js, Python, and Git. Installs missing CLIs via `npm`, `pip`, or `git clone` into the `/Tools` directory followed by `npm link`.
 
 #### `V` Show Installed CLI Versions
@@ -51,6 +51,7 @@
 | 8 | GitHub Copilot CLI |
 | 9 | NanoCode CLI |
 | 10 | Claude CLI |
+| 11 | OpenAI Codex CLI |
 
 *   **Behavior:** Opens in Windows Terminal (or CMD fallback)
 *   **Directory:** Uses passed path or defaults to User Profile folder
@@ -103,6 +104,7 @@
 | **GitHub Copilot** | `@github/copilot` | NPM | `copilot` |
 | **NanoCode** | `nanocode-agent` | Git + NPM Link | `nanocode` |
 | **Claude** | `@anthropic-ai/claude-code` | NPM | `claude` |
+| **OpenAI Codex** | `@openai/codex` | NPM | `codex` |
 
 ## 📝 Logging
 

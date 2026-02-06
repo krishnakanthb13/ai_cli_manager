@@ -27,7 +27,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}    AI CLI TOOLS MANAGER (v1.1.8) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.1.10) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
     echo ""
 }
@@ -211,6 +211,8 @@ install_all() {
     echo ""
     install_npm_cli "Claude CLI" "@anthropic-ai/claude-code"
     echo ""
+    install_npm_cli "OpenAI Codex CLI" "@openai/codex"
+    echo ""
     install_nanocode
     echo ""
     install_pip_cli "Mistral Vibe" "mistral-vibe"
@@ -257,6 +259,10 @@ show_versions() {
     echo -e "\n${CYAN}--- Claude CLI ---${NC}"
     echo -e "\n--- Claude CLI ---" >> "$LOG_FILE"
     npm list -g @anthropic-ai/claude-code --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+
+    echo -e "\n${CYAN}--- OpenAI Codex CLI ---${NC}"
+    echo -e "\n--- OpenAI Codex CLI ---" >> "$LOG_FILE"
+    npm list -g @openai/codex --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
 
     echo -e "\n${CYAN}--- NanoCode CLI ---${NC}"
     echo -e "\n--- NanoCode CLI ---" >> "$LOG_FILE"
@@ -320,6 +326,7 @@ add_context_menu_linux() {
     create_script_file "Open with KiloCode CLI" "kilocode"
     create_script_file "Open with GitHub Copilot CLI" "copilot"
     create_script_file "Open with Claude CLI" "claude"
+    create_script_file "Open with OpenAI Codex CLI" "codex"
     create_script_file "Open with NanoCode CLI" "nanocode"
 
     echo ""
@@ -425,6 +432,7 @@ while true; do
     echo "  8. Launch GitHub Copilot CLI"
     echo "  9. Launch NanoCode CLI"
     echo "  10. Launch Claude CLI"
+    echo "  11. Launch OpenAI Codex CLI"
     echo ""
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
     echo "  A. Add to Context Menu (Linux/Nautilus Only)"
@@ -451,6 +459,7 @@ while true; do
         8) launch_tool "copilot" ;;
         9) launch_tool "nanocode" ;;
         10) launch_tool "claude" ;;
+        11) launch_tool "codex" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;

@@ -10,7 +10,8 @@ This document describes the technical implementation and architecture of the AI 
 |------|-------------|
 | `AI_CLI_Manager.bat` | Main automation script for Windows (Batch). |
 | `AI_CLI_Manager.sh` | Main automation script for Linux and macOS (Bash). |
-| `Batch Files/` | Directory containing individual launch scripts for every CLI option. |
+| `/Batch Files/` | Standalone `.bat` launch scripts for individual tools (Windows). |
+| `/Shell Files/` | Standalone `.sh` launch scripts for individual tools (Linux/macOS). |
 | `Icons/` | Directory containing tool icons and the conversion script. |
 | `Icons/*_v2.ico` | Standardized icons with `_v2` suffix to bypass Windows Icon Cache (Cache Busting). |
 | `Icons/convert_icons.py` | Python utility to convert images to .ico format with automatic `_v2` naming. |
@@ -50,7 +51,7 @@ This document describes the technical implementation and architecture of the AI 
 | `:BACKUP_REGISTRY` | Exports relevant registry keys to a `.reg` file for safety. |
 | `:RESTART_EXPLORER` | Restarts the `explorer.exe` process to refresh shell extensions. |
 | `:DEEP_REFRESH_ICONS` | Force-clears Windows Icon Cache by deleting `.db` files and restarting Explorer. |
-| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, etc.) with directory context. |
+| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, etc.) with directory context. |
 
 ## 🧩 Core Functions (Linux/macOS Bash)
 
@@ -82,7 +83,7 @@ This document describes the technical implementation and architecture of the AI 
 ## 🔌 API & External Integrations
 
 The project integrates with the following package managers:
-- **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, `@anthropic-ai/claude-code`, etc.
+- **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, `@anthropic-ai/claude-code`, `@openai/codex` etc.
 - **Git & npm link**: Specifically for `nanocode-agent` (cloned from GitHub).
 - **pip (Python Package Installer)**: For `mistral-vibe`.
 - **Windows Registry**: For shell context menu integration.
