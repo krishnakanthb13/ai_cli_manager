@@ -57,7 +57,7 @@ REM ========================================
 cls
 echo.
 echo ================================================
-echo           AI CLI TOOLS MANAGER (v1.1.8)
+echo           AI CLI TOOLS MANAGER (v1.1.11)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -76,6 +76,7 @@ echo     8. Launch GitHub Copilot CLI
 echo     9. Launch NanoCode CLI
 echo     10. Launch Claude CLI
 echo     11. Launch OpenAI Codex CLI
+echo     12. Launch Cline CLI
 echo.   
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -106,6 +107,7 @@ if "%choice%"=="8" goto LAUNCH_COPILOT
 if "%choice%"=="9" goto LAUNCH_NANOCODE
 if "%choice%"=="10" goto LAUNCH_CLAUDE
 if "%choice%"=="11" goto LAUNCH_OPENAI
+if "%choice%"=="12" goto LAUNCH_CLINE
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -264,6 +266,19 @@ if "%UseWT%"=="1" (
 )
 goto EXIT_SCRIPT
 
+:LAUNCH_CLINE
+echo [%time%] === Launching Cline CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k cline >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k cline
+) else (
+    echo [%time%] Command: cmd /k cline (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && cline"
+)
+goto EXIT_SCRIPT
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -346,6 +361,13 @@ for /f "delims=" %%V in ('npm list -g nanocode-agent 2^>nul ^| findstr "nanocode
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
+echo --- Cline CLI ---
+echo --- Cline CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('npm list -g cline 2^>nul ^| findstr "cline"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
 echo --- Mistral Vibe ---
 echo --- Mistral Vibe --- >> "%LOG_FILE%"
 set "_result="
@@ -420,6 +442,9 @@ call :CHECK_NPM "@openai/codex" "OpenAI Codex CLI"
 
 echo [NanoCode CLI] Checking...
 call :CHECK_NANOCODE
+
+echo [Cline CLI] Checking...
+call :CHECK_NPM "cline" "Cline CLI"
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -738,6 +763,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode" /v "Icon" /d "%ICONS_DIR%\nanocode_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k nanocode" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\cline" /ve /d "Open with Cline CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\cline" /v "Icon" /d "%ICONS_DIR%\cline_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\cline\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k cline" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -783,10 +812,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode" /ve /d "O
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode" /v "Icon" /d "%ICONS_DIR%\nanocode_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k nanocode" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\cline" /ve /d "Open with Cline CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\cline" /v "Icon" /d "%ICONS_DIR%\cline_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\cline\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k cline" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.

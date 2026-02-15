@@ -27,7 +27,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.1.10) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.1.11) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
     echo ""
 }
@@ -215,6 +215,8 @@ install_all() {
     echo ""
     install_nanocode
     echo ""
+    install_npm_cli "Cline CLI" "cline"
+    echo ""
     install_pip_cli "Mistral Vibe" "mistral-vibe"
     
     echo ""
@@ -267,6 +269,10 @@ show_versions() {
     echo -e "\n${CYAN}--- NanoCode CLI ---${NC}"
     echo -e "\n--- NanoCode CLI ---" >> "$LOG_FILE"
     npm list -g nanocode-agent --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+
+    echo -e "\n${CYAN}--- Cline CLI ---${NC}"
+    echo -e "\n--- Cline CLI ---" >> "$LOG_FILE"
+    npm list -g cline --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
     echo -e "\n${CYAN}--- Mistral Vibe ---${NC}"
     echo -e "\n--- Mistral Vibe ---" >> "$LOG_FILE"
@@ -328,6 +334,7 @@ add_context_menu_linux() {
     create_script_file "Open with Claude CLI" "claude"
     create_script_file "Open with OpenAI Codex CLI" "codex"
     create_script_file "Open with NanoCode CLI" "nanocode"
+    create_script_file "Open with Cline CLI" "cline"
 
     echo ""
     echo -e "${GREEN}[SUCCESS] Scripts added!${NC}"
@@ -433,6 +440,7 @@ while true; do
     echo "  9. Launch NanoCode CLI"
     echo "  10. Launch Claude CLI"
     echo "  11. Launch OpenAI Codex CLI"
+    echo "  12. Launch Cline CLI"
     echo ""
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
     echo "  A. Add to Context Menu (Linux/Nautilus Only)"
@@ -460,6 +468,7 @@ while true; do
         9) launch_tool "nanocode" ;;
         10) launch_tool "claude" ;;
         11) launch_tool "codex" ;;
+        12) launch_tool "cline" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;
