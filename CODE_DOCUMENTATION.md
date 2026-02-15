@@ -51,7 +51,7 @@ This document describes the technical implementation and architecture of the AI 
 | `:BACKUP_REGISTRY` | Exports relevant registry keys to a `.reg` file for safety. |
 | `:RESTART_EXPLORER` | Restarts the `explorer.exe` process to refresh shell extensions. |
 | `:DEEP_REFRESH_ICONS` | Force-clears Windows Icon Cache by deleting `.db` files and restarting Explorer. |
-| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, etc.) with directory context. |
+| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, Cline, etc.) with directory context. |
 
 ## 🧩 Core Functions (Linux/macOS Bash)
 
@@ -83,7 +83,7 @@ This document describes the technical implementation and architecture of the AI 
 ## 🔌 API & External Integrations
 
 The project integrates with the following package managers:
-- **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, `@anthropic-ai/claude-code`, `@openai/codex` etc.
+- **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, `@anthropic-ai/claude-code`, `@openai/codex`, `cline`, etc.
 - **Git & npm link**: Specifically for `nanocode-agent` (cloned from GitHub).
 - **pip (Python Package Installer)**: For `mistral-vibe`.
 - **Windows Registry**: For shell context menu integration.

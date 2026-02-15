@@ -2,7 +2,7 @@
 
 ## 🎯 Problem Being Solved
 
-As the landscape of AI coding assistants grows, developers are juggling multiple Command Line Interface (CLI) tools. Each tool (Gemini, Mistral Vibe, OpenCode, Claude, etc.) has its own installation command, update process, and launch syntax.
+As the landscape of AI coding assistants grows, developers are juggling multiple Command Line Interface (CLI) tools. Each tool (Gemini, Mistral Vibe, OpenCode, Claude, Cline, etc.) has its own installation command, update process, and launch syntax.
 
 Navigating to a specific project directory and then remembering which command opens which AI agent creates friction in the development workflow.
 
