@@ -1,4 +1,58 @@
-# AI CLI Manager - Social Media Announcements (v1.1.8)
+# AI CLI Manager - Social Media Announcements (v1.1.11)
+
+## 🟦 LinkedIn (v1.1.11)
+Headline: Meet Cline: Your new autonomous coding partner, now in AI CLI Manager. 🤖
+
+AI CLI Manager v1.1.11 is here!
+
+This release adds verified support for Cline, allowing you to launch the autonomous coding agent directly from your terminal or context menu.
+
+What's new:
+- Launch Cline CLI: One-click access to the autonomous coding agent.
+- Context Menu: Right-click any folder -> Open with AI CLI -> Cline.
+- Unified Experience: Same power on Windows and Linux/macOS.
+
+Stop memorizing launch commands. start coding.
+
+Check it out on GitHub!
+
+#Cline #AI #OpenSource #DevTools #Coding
+
+---
+
+## 🟥 Reddit (v1.1.11)
+**Post Title: [Update] AI CLI Manager v1.1.11 - Added Cline CLI Support**
+
+Just pushed a new update, v1.1.11!
+
+I've added support for **Cline**, bringing the total number of managed AI tools to 12.
+
+**New in v1.1.11:**
+- **Cline Integration**: `npm install -g cline` logic handled automatically.
+- **Dedicated Launchers**: Standalone batch and shell scripts included.
+- **Context Menu**: Added Cline to the right-click menu alongside Gemini, Claude, and Copilot.
+
+Managing your local AI stack just got easier.
+
+**GitHub**: [https://github.com/krishnakanthb13/ai_cli_manager](https://github.com/krishnakanthb13/ai_cli_manager)
+
+---
+
+## ⬛ X (v1.1.11)
+Cline CLI support is live! 🤖
+
+AI CLI Manager v1.1.11 released.
+
+NEW: Launch Cline
+NEW: Context Menu for Cline
+
+Manage 12 AI agents from one menu.
+
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#Cline #AI #DevTools #OpenSource
+
+---
 
 ## 🟦 LinkedIn (v1.1.10)
 Headline: Code with OpenAI Codex directly from your terminal. 💻

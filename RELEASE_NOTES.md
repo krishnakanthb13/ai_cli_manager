@@ -1,5 +1,21 @@
 # AI CLI Manager - Release Notes
 
+## [v1.1.11] - 2026-02-15
+
+### 🚀 New Features
+- **Cline CLI Support**: Full integration for `cline`. Install and launch this autonomous coding agent directly from the manager.
+- **Dedicated Launchers**: Added `LaunchCline.bat` and `LaunchCline.sh` for standalone execution.
+
+### ⚡ Improvements
+- **Context Menu**: Added Cline to the "Open with AI CLI" cascading context menu (Windows & Linux).
+- **Unified Versioning**: Synced version strings across all scripts and documentation.
+
+### 📚 Documentation
+- **Updated Guides**: Verified Cline is listed in `README.md` and `LINUX_MAC_README.md`.
+- **Technical Specs**: Updated `CODE_DOCUMENTATION.md` and `DESIGN_PHILOSOPHY.md` to reflect the new tool addition.
+
+---
+
 ## [v1.1.10] - 2026-02-06
 
 ### 🚀 New Features
