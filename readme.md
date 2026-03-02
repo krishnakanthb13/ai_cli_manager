@@ -1,180 +1,113 @@
-# AI CLI Manager - User Guide
+# 🤖 AI CLI Manager
+> **Your Central Hub for AI Coding Assistants on Windows & Linux.**
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-## 📖 Overview
-**AI CLI Manager (v1.1.11)** is your central hub for installing, launching, and integrating AI coding assistants into Windows.
-
 ![Release Banner](assets/release_banner-v1.1.11.png)
 
-## 📚 Project Documentation
-- **[Technical Documentation](CODE_DOCUMENTATION.md)**: Architecture, core methods, and data flow.
-- **[Design Philosophy](DESIGN_PHILOSOPHY.md)**: The rationale, principles, and target users.
-- **[Contributing Guide](CONTRIBUTING.md)**: How to report bugs and submit code.
-- **[Linux & macOS Guide](LINUX_MAC_README.md)**: Specific instructions for non-Windows platforms.
-
-## 🚀 Getting Started (Windows)
-
-1.  **Run the Manager**: Double-click `AI_CLI_Manager.bat`
-    *   ✅ **Auto-elevation**: Automatically requests Administrator privileges
-    *   ✅ **Windows Terminal detection**: Falls back to CMD if WT not available
-2.  **Main Menu**: Type the number of the option you want and press Enter
-
-## ⚙️ Main Menu Options
-
-### --- CLI Management ---
-
-#### `I` Check and Install All CLIs
-*   **What it does:** Checks if each CLI is installed
-*   **Action:** Only installs missing tools (skips already installed)
-*   **Output:** `[ALREADY INSTALLED]` or `[INSTALLED]` for each tool
-*   **Prerequisites:** Requires Node.js (and Python for Mistral Vibe)
-*   **Launch Pad**: Instantly launch Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, OpenAI Codex, or Cline.
-*   **Smart Install**: Automatically checks for Node.js, Python, and Git. Installs missing CLIs via `npm`, `pip`, or `git clone` into the `/Tools` directory followed by `npm link`.
-
-#### `V` Show Installed CLI Versions
-*   **Version Check**: Quickly see which versions of Gemini, Jules, Vibe, etc., are installed.
-*   **Shows:** Package name with version, or `[NOT INSTALLED]`
-
-### --- Launch CLIs ---
-
-#### `1-9` Launch Specific CLIs
-| Option | Tool |
-|--------|------|
-| 1 | Gemini CLI |
-| 2 | Jules CLI |
-| 3 | Mistral Vibe CLI |
-| 4 | iFlow CLI |
-| 5 | OpenCode CLI |
-| 6 | Qwen Code CLI |
-| 7 | KiloCode CLI |
-| 8 | GitHub Copilot CLI |
-| 9 | NanoCode CLI |
-| 10 | Claude CLI |
-| 11 | OpenAI Codex CLI |
-| 12 | Cline CLI |
-
-*   **Behavior:** Opens in Windows Terminal (or CMD fallback)
-*   **Directory:** Uses passed path or defaults to User Profile folder
-
-### --- Context Menu ---
-
-#### `A` Add to Windows Context Menu 🔥
-*   **What it does:** Adds "Open with AI CLI" cascading menu to right-click
-*   **Technical:** Uses `MUIVerb` for proper cascading submenu support
-*   **How to use after adding:**
-    1.  Go to **any folder** in Windows Explorer
-    2.  **Right-click** on empty space (or the folder itself)
-    3.  Hover over **"Open with AI CLI"**
-    4.  Select the AI agent you want
-    5.  Terminal opens **exactly in that folder**
-
-#### `B` Remove from Windows Context Menu
-*   **What it does:** Completely removes the right-click menu entries
-*   **Confirmation:** Asks Y/N before proceeding
-
-#### `C` Export Registry Backup
-*   **What it does:** Saves a backup of registry settings to `Log Files` folder
-*   **Recommendation:** Run this *before* using Option A for the first time
-
-### --- Utilities ---
-
-#### `D` Restart File Explorer
-*   **What it does:** Restarts Windows Explorer to apply menu changes.
-*   **Technical:** Uses `taskkill /f /im explorer.exe` then `start explorer.exe`.
-
-#### `E` Deep Refresh Icons (Clear Cache) 🔥
-*   **What it does:** Force-clears the Windows Icon Cache to resolve issues where old or broken icons persist.
-*   **Recommended:** Use this after modifying or updating icon files.
-*   **Technical:** Deletes `IconCache.db` and Explorer's `iconcache*.db` then restarts File Explorer.
-
-#### `0` Exit
-*   **What it does:** Closes the manager and ends session
-
-## 📦 Supported Tools
-
-| Tool | Package | Type | Command |
-|------|---------|------|---------|
-| **Gemini** | `@google/gemini-cli` | NPM | `gemini` |
-| **Jules** | `@google/jules` | NPM | `jules` |
-| **Mistral Vibe** | `mistral-vibe` | PIP | `vibe` |
-| **iFlow** | `@iflow-ai/iflow-cli` | NPM | `iflow` |
-| **OpenCode** | `opencode-ai` | NPM | `opencode` |
-| **Qwen Code** | `@qwen-code/qwen-code` | NPM | `qwen` |
-| **KiloCode** | `@kilocode/cli` | NPM | `kilocode` |
-| **GitHub Copilot** | `@github/copilot` | NPM | `copilot` |
-| **NanoCode** | `nanocode-agent` | Git + NPM Link | `nanocode` |
-| **Claude** | `@anthropic-ai/claude-code` | NPM | `claude` |
-| **OpenAI Codex** | `@openai/codex` | NPM | `codex` |
-| **Cline** | `cline` | NPM | `cline` |
-
-## 📝 Logging
-
-All actions are logged to timestamped files in the `Log Files` folder:
-- **Log files:** `AI_CLI_MG_YYYYMMDD_HHMMSS_mmm.log`
-- **Registry backups:** `AI_CLI_Backup_YYYYMMDD_HHMMSS.reg`
-
-**Logged items:** User inputs, operations, errors, timestamps
-
-## ⚠️ Troubleshooting
-
-| Issue | Solution |
-|-------|----------|
-| **"Access Denied"** | Right-click > "Run as Administrator" |
-| **Tool not found after install** | Restart terminal or computer to refresh PATH |
-| **Menu not appearing** | Use Option D to restart Explorer, or reboot |
-| **Old icons still show** | Use Option E (Deep Refresh) to clear the system icon cache |
-| **Submenu not showing** | Run Option B then Option A to re-add menu |
+## Overview
+**AI CLI Manager (v1.1.11)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
 
 ---
 
-## 🍎 Getting Started (Linux / macOS)
+## ✨ Key Features
+*   **Unified Launcher**: Launch any supported AI CLI (Gemini, Claude, Copilot, etc.) with a single keystroke.
+*   **Smart Installation**: Automated dependency checks (Node.js, Python, Git) and one-click installs for missing tools.
+*   **Windows Integration**: Add a cascading "Open with AI CLI" menu to your right-click context menu in File Explorer.
+*   **Cross-Platform**: Primary focus on Windows (Batch) with robust support for Linux & macOS (Shell).
+*   **Session Awareness**: Comprehensive logging and registry backup utilities for system safety.
 
-1.  **Make Executable**: `chmod +x AI_CLI_Manager.sh`
+---
+
+## 🚀 Quick Start
+
+### 💻 Windows (Primary)
+1.  **Run**: Double-click `AI_CLI_Manager.bat`.
+2.  **Elevate**: The script automatically requests Administrator privileges for system integrations.
+3.  **Terminal**: Automatically detects **Windows Terminal**; falls back to standard CMD if needed.
+
+### 🐧 Linux & macOS
+1.  **Permission**: `chmod +x AI_CLI_Manager.sh`
 2.  **Run**: `./AI_CLI_Manager.sh`
-3.  *See `LINUX_MAC_README.md` for full details.*
+3.  *See [LINUX_MAC_README.md](LINUX_MAC_README.md) for platform-specific details.*
 
+---
 
-## 🐧 Testing & Using Linux/Mac Script on Windows
+## 📋 Supported Tools
+The manager supports a wide range of industry-leading AI models and CLI agents:
 
-You can run the `AI_CLI_Manager.sh` script on Windows to test its functionality or use it in a Linux-like environment.
+| Tool | Package | Command | Installation |
+|:---|:---|:---|:---|
+| **Gemini** | `@google/gemini-cli` | `gemini` | NPM |
+| **Jules** | `@google/jules` | `jules` | NPM |
+| **Claude** | `@anthropic-ai/claude-code` | `claude` | NPM |
+| **OpenAI Codex** | `@openai/codex` | `codex` | NPM |
+| **Mistral Vibe** | `mistral-vibe` | `vibe` | PIP (Python) |
+| **GitHub Copilot** | `@github/copilot` | `copilot` | NPM |
+| **Qwen Code** | `@qwen-code/qwen-code` | `qwen` | NPM |
+| **Cline** | `cline` | `cline` | NPM |
+| **iFlow** | `@iflow-ai/iflow-cli` | `iflow` | NPM |
+| **OpenCode** | `opencode-ai` | `opencode` | NPM |
+| **KiloCode** | `@kilocode/cli` | `kilocode` | NPM |
+| **NanoCode** | `nanocode-agent` | `nanocode` | Git + Link |
 
-### Option 1: Using Git Bash (Easiest)
-If you have Git installed, you likely have **Git Bash**.
+> **Note on Installation**: Smart Install (Option `I`) automatically manages Node.js, Python, and Git. Git-based tools like NanoCode are cloned into the `/Tools` directory and linked via `npm link`.
 
-1.  **Right-click** inside the `ai_cli_manager` folder.
-2.  Select **"Open Git Bash Here"**.
-3.  Make the script executable:
-    ```bash
-    chmod +x AI_CLI_Manager.sh
-    ```
-4.  Run the script:
-    ```bash
-    ./AI_CLI_Manager.sh
-    ```
-    *   *Note: `sudo` commands may fail, but menu navigation and standard installs should work.*
+---
 
-### Option 2: Using WSL (Recommended for Full Testing)
-For a complete Linux experience, use **Windows Subsystem for Linux (WSL)**.
+## 🛠️ Menu Guide
 
-1.  **Install WSL** (if not already installed):
-    *   Open PowerShell as Administrator and run: `wsl --install`
-    *   Restart your computer if prompted.
-2.  **Open WSL Terminal**:
-    *   Open "Ubuntu" (or your distro) from the Start Menu.
-3.  **Navigate to Project**:
-    *   WSL mounts your C: drive at `/mnt/c`.
-    ```bash
-    cd /mnt/c/Users/krishnakanthb13/Documents/GitHub/ai_cli_manager
-    ```
-4.  **Run the Script**:
-    ```bash
-    chmod +x AI_CLI_Manager.sh
-    ./AI_CLI_Manager.sh
-    ```
+### **1. Management & Versions**
+*   **`I` Check and Install All**: Scans for all supported tools and installs missing ones automatically.
+*   **`V` Show Versions**: Lists specific installed versions or marks them as `[NOT INSTALLED]`.
 
-## ⚖️ License
+### **2. Launch CLIs (`1-12`)**
+Launches the selected tool in the current directory (or a specified path) using the best available terminal emulator.
 
-This project is licensed under the **GNU General Public License v3**. See the [LICENSE](LICENSE) file for the full text.
+### **3. Context Menu Integration**
+*   **`A` Add to Windows Context Menu**: (Pro-Tip 🔥) Adds a right-click "Open with AI CLI" menu to Explorer.
+    - **How to use**: Right-click any folder or empty space > Hover over "Open with AI CLI" > Select your agent.
+*   **`B` Remove Menu**: Cleanly uninstalls registry entries.
+*   **`C` Registry Backup**: **Highly Recommended** before using Option `A`. Saves a `.reg` file to the `Log Files` folder.
 
-Copyright (C) 2026 Krishna Kanth B
+### **4. System Utilities**
+*   **`D` Restart Explorer**: Instantly applies visual/registry changes.
+*   **`E` Deep Refresh Icons**: Force-clears icon cache if menu icons look broken.
+
+---
+
+## 🐧 Testing Linux Scripts on Windows
+You can run `AI_CLI_Manager.sh` on Windows for cross-platform testing:
+*   **Option 1: Git Bash**: Right-click folder > "Open Git Bash Here" > `./AI_CLI_Manager.sh`.
+*   **Option 2: WSL (Recommended)**: Navigate to your project folder (e.g., `/mnt/c/Users/...`) in your WSL terminal for a true Linux environment.
+
+---
+
+## 🔍 Troubleshooting & Logs
+| Issue | Solution |
+|:---|:---|
+| **"Access Denied"** | Right-click > "Run as Administrator". |
+| **Menu not appearing** | Use Option `D` (Restart Explorer). |
+| **Broken Icons** | Use Option `E` (Deep Refresh). |
+| **PATH errors** | Restart your computer after new tool installations. |
+
+*   **Logs**: `AI_CLI_MG_YYYYMMDD_HHMMSS.log` in `Log Files/`.
+*   **Backups**: `AI_CLI_Backup_YYYYMMDD_HHMMSS.reg` in `Log Files/`.
+
+---
+
+## 📊 Project Visual Overview
+![AI CLI Manager Infographic](assets/repo_infographic.png)
+
+## 📚 Documentation Links
+- 🛠️ **[Technical Documentation](CODE_DOCUMENTATION.md)**: Deep dive into architecture and logic.
+- 🎨 **[Design Philosophy](DESIGN_PHILOSOPHY.md)**: The "Why" behind the tool.
+- 🤝 **[Contributing Guide](CONTRIBUTING.md)**: How to help improve the tool.
+- 🐧 **[Linux & macOS Guide](LINUX_MAC_README.md)**: Platform-specific details.
+
+---
+
+## ⚖️ License & Credits
+Licensed under the **GNU General Public License v3**.
+
+**Copyright (C) 2026 Krishna Kanth B**
