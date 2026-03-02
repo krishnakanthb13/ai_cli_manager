@@ -1,5 +1,23 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.2] - 2026-03-02
+
+### 🚀 New Features
+- **Localized Developer Skill (`/add_ai_cli_mgr`)**: Introducing a dedicated, repo-specific AI skill to automate the expansion of the manager. It handles batch/shell launcher creation, menu updates, and context menu registry syncing for any new CLI tool.
+- **Repository Visualization**: Added a new architectural infographic in `assets/` to visually represent the tool's "AI Hub" design.
+- **GitHub Funding**: Added project sustainability support via `FUNDING.yml`.
+
+### ⚡ Improvements
+- **Major README Overhaul**: Completely revamped `README.md` with a modern, structured layout, improved hierarchy, and better navigation.
+- **Technical Precision**: Verified and synced all CLI package names (e.g., `nanocode-agent`), installation paths (`/Tools`), and terminal logic across all documentation.
+- **Developer Experience**: Enhanced the guide for testing Linux/macOS scripts on Windows via WSL and Git Bash.
+
+### 📚 Documentation
+- **Visual Hierarchy**: Improved the documentation structure in `README.md` to prioritize key features and quick-start guides.
+- **Sync**: Ensured `Jules CLI` and other technical details are accurately reflected in the supported tools table.
+
+---
+
 ## [v1.1.11] - 2026-02-15
 
 ### 🚀 New Features

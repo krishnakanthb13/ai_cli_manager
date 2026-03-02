@@ -1,4 +1,66 @@
-# AI CLI Manager - Social Media Announcements (v1.1.11)
+# AI CLI Manager - Social Media Announcements (v1.2.2)
+
+## 🟦 LinkedIn (v1.2.2)
+Headline: Visualizing the Future of AI CLI Management. 🤖🎨
+
+AI CLI Manager v1.2.2 is out! 🚀
+
+This is a major step forward in making our mission as a unified AI hub clear and easy to navigate. 
+
+From a major UI/UX overhaul of our documentation to new tools for developers, the manager is more powerful than ever.
+
+Key Highlights:
+- 📊 Repository Visualization: Check out our new architectural infographic that charts out the AI CLI universe.
+- 🛠️ Developer Skills: Introducing a repo-specific AI skill to automate adding any new CLI tool, keeping launchers and menus in perfect sync.
+- 📖 Modern README: Re-imagined for clarity, making it faster than ever to get started on Windows or Linux.
+- ✅ Technical Accuracy: Refined installation paths and CLI package detection.
+
+Managing 12+ AI tools like Gemini, Claude, and Copilot shouldn't be a mess. Our hub keeps your environment organized and integrated exactly where your code lives.
+
+Check it out on GitHub!
+
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #OpenSource #GitHub #DevTools #WindowsTerminal #CodingAssistants #ReleaseUpdate
+
+---
+
+## 🟥 Reddit (v1.2.2)
+**Post Title: [Update] AI CLI Manager v1.2.2 - Major README Revamp + New Repo Infographic + Automation Skills**
+
+Hey everyone! I’ve just released **v1.2.2** of the **AI CLI Manager**.
+
+The goal of this project remains simple: simplify the friction of juggling a dozen different AI CLI tools with different install/launch/update commands. 
+
+**What's new in v1.2.2:**
+- **Architecture Visualized**: Added a futuristic repository infographic to `assets/` to help users understand the "AI Hub" vision.
+- **Developer Automation**: Added a localized AI skill (`/add_ai_cli_mgr`) to automate adding new CLI tools into the manager (one command creates launchers and menu entries).
+- **Major Documentation Refactor**: Completely rebuilt our `README.md` with better visual hierarchy, structured tables, and easier navigation.
+- **Sustainablity**: Added `FUNDING.yml` to support future development.
+
+If you’re managing Gemini, Claude, Copilot, or even your own local agents, this manager keeps your right-click context menu clean and your terminal exactly where your project is.
+
+**GitHub**: [https://github.com/krishnakanthb13/ai_cli_manager](https://github.com/krishnakanthb13/ai_cli_manager)
+
+---
+
+## ⬛ X (v1.2.2)
+Visualize your AI agent stack! 📊🤖
+
+AI CLI Manager v1.2.2 is live! 🚀
+
+🔥 NEW: Architectural Infographic
+🔥 NEW: Automation Skills for adding tools
+🔥 NEW: Premium README restructuring
+🔥 NEW: Funding support
+
+Manage 12+ AI agents with one right-click.
+
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #DevTools #GitHub #OpenSource #Release
+
+---
 
 ## 🟦 LinkedIn (v1.1.11)
 Headline: Meet Cline: Your new autonomous coding partner, now in AI CLI Manager. 🤖
