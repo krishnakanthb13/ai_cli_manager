@@ -1,3 +1,70 @@
+# AI CLI Manager - Social Media Announcements (v1.2.5)
+
+## 🟦 LinkedIn (v1.2.5)
+Headline: JetBrains Junie is here: Launch your AI agent stack directly from the context menu. 🤖✨
+
+AI CLI Manager v1.2.5 is live! 🚀
+
+We've jumped from v1.2.3 directly to v1.2.5 to bring you one of our most requested integrations: **JetBrains Junie CLI**.
+
+Junie isn't just another assistant; it's a deep-coding agent from the JetBrains ecosystem, and now you can launch it with a single right-click in any project folder—no manual `npm` installs or `cd` commands required.
+
+Key Highlights:
+- 🚀 **JetBrains Junie Support**: Full professional integration for the Junie CLI.
+- 🛠️ **Official Installation**: We've automated the official JetBrains PowerShell (Windows) and Curl (Unix) installation scripts.
+- ⚡ **Smarter Versioning**: New binary-based detection logic for tools that live outside standard package managers.
+- 🎨 **Visual Sync**: High-quality branding with new Junie icons and cache-busted registry entries.
+- 📖 **Docs 2.0**: Completely synced documentation explaining our new "Official Script" installation philosophy.
+
+Managing 13+ AI tools like Gemini, Claude, Copilot, and now Junie shouldn't be friction-filled. Our unified hub keeps your terminal focused and your agents integrated exactly where you code.
+
+Check it out on GitHub! 
+
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #JetBrains #OpenSource #GitHub #DevTools #WindowsTerminal #CodingAssistants #ReleaseUpdate #Junie #ClaudeCode #GitHubCopilot
+
+---
+
+## 🟥 Reddit (v1.2.5)
+**Post Title: [Update] AI CLI Manager v1.2.5 - Added JetBrains Junie CLI Support + Smarter Binary Detection**
+
+Hey everyone! I’ve just released **v1.2.5** (jumping from v1.2.3) of the **AI CLI Manager**.
+
+The big news this time is official support for **JetBrains Junie**.
+
+**What's new in v1.2.5:**
+- **Junie Integration**: Automates the official installation via JetBrains' own scripts. No more manual setup.
+- **Improved Detection Engine**: We've upgraded our version checking. The manager now looks for the actual tool binaries on your system path, allowing us to support tools that don't live in NPM or PIP.
+- **Standalone Parity**: New `LaunchJunie.bat` and `LaunchJunie.sh` launchers for those who prefer standalone script entry points.
+- **Documentation Sync**: Every README and design doc has been updated to reflect the 13 available AI agents.
+
+If you're using JetBrains tools or jumping between Claude and Copilot, this manager keeps your right-click menu clean and your terminal exactly where your project is.
+
+**Suggested Subreddits**: r/programming, r/webdev, r/JetBrains, r/commandline, r/SideProject, r/ClaudeAI
+
+**GitHub**: [https://github.com/krishnakanthb13/ai_cli_manager](https://github.com/krishnakanthb13/ai_cli_manager)
+
+---
+
+## ⬛ X (v1.2.5)
+Junie has joined the stack! 🤖✨
+
+AI CLI Manager v1.2.5 is out! 🚀
+
+🔥 NEW: Official JetBrains Junie support
+🔥 NEW: Binary-based version detection
+🔥 NEW: 13+ managed AI agents
+🔥 NEW: Standalone Junie launchers
+
+One right-click. Any AI agent. Zero friction. 💻
+
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #JetBrains #DevTools #GitHub #OpenSource #Release #Junie
+
+---
+
 # AI CLI Manager - Social Media Announcements (v1.2.2)
 
 ## 🟦 LinkedIn (v1.2.2)

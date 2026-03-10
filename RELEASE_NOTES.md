@@ -1,5 +1,21 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.5] - 2026-03-10
+
+### 🚀 New Features
+- **JetBrains Junie CLI Support**: Full integration for `junie`. Install and launch the official JetBrains coding agent directly from the manager using official PowerShell (Windows) and Curl (Unix) scripts.
+- **Dedicated Standalone Launchers**: Added `LaunchJunie.bat` and `LaunchJunie.sh` to the suite of standalone entry points.
+
+### ⚡ Improvements
+- **Binary-Based Version Checking**: Enhanced the version detection logic to support tools installed via direct official scripts (like Junie), going beyond standard NPM/PIP management.
+- **Context Menu Expansion**: Integrated Junie into the "Open with AI CLI" cascading context menu for both Windows Explorer and Linux (Nautilus).
+- **Cache-Busted Visuals**: Generated and synced high-quality `junie_v2.ico` for seamless system integration and better cache-busting.
+
+### 📚 Documentation
+- **Technical Sync**: Updated `README.md`, `CODE_DOCUMENTATION.md`, and `DESIGN_PHILOSOPHY.md` to document the new script-based installation philosophy and Junie support.
+
+---
+
 ## [v1.2.2] - 2026-03-02
 
 ### 🚀 New Features

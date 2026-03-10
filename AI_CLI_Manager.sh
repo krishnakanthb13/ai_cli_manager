@@ -27,7 +27,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.1.11) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.5) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
     echo ""
 }

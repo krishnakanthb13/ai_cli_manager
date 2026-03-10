@@ -3,10 +3,10 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-![Release Banner](assets/release_banner-v1.1.11.png)
+![Release Banner](assets/release_banner-v1.2.5.png)
 
 ## Overview
-**AI CLI Manager (v1.1.11)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
+**AI CLI Manager (v1.2.5)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
 
 ---
 

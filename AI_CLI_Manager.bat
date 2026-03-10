@@ -57,7 +57,7 @@ REM ========================================
 cls
 echo.
 echo ================================================
-echo           AI CLI TOOLS MANAGER (v1.1.11)
+echo           AI CLI TOOLS MANAGER (v1.2.5)
 echo ================================================
 echo.
 echo    --- CLI Management ---
