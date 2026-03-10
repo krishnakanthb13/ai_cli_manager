@@ -50,6 +50,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 | **OpenCode** | `opencode-ai` | `opencode` | NPM |
 | **KiloCode** | `@kilocode/cli` | `kilocode` | NPM |
 | **NanoCode** | `nanocode-agent` | `nanocode` | Git + Link |
+| **Junie** | `Official Script` | `junie` | PowerShell / Curl |
 
 > **Note on Installation**: Smart Install (Option `I`) automatically manages Node.js, Python, and Git. Git-based tools like NanoCode are cloned into the `/Tools` directory and linked via `npm link`.
 
@@ -61,7 +62,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 *   **`I` Check and Install All**: Scans for all supported tools and installs missing ones automatically.
 *   **`V` Show Versions**: Lists specific installed versions or marks them as `[NOT INSTALLED]`.
 
-### **2. Launch CLIs (`1-12`)**
+### **2. Launch CLIs (`1-13`)**
 Launches the selected tool in the current directory (or a specified path) using the best available terminal emulator.
 
 ### **3. Context Menu Integration**

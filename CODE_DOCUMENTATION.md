@@ -45,13 +45,14 @@ This document describes the technical implementation and architecture of the AI 
 | `:MAIN_MENU` | Central navigation loop for the interface. |
 | `:INSTALL_ALL` | Iterates through supported CLIs and installs them if missing. Uses `npm link` for local Git-based tools. |
 | `:CHECK_NANOCODE` | Specific logic for NanoCode: Clones from GitHub into `Tools/nanocode-2` and runs `npm link`. |
-| `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. Handles scoped NPM packages and PIP version parsing. |
+| `:CHECK_JUNIE` | Logic for Junie: Downloads and executes the official JetBrains installation script (`install.ps1`) via PowerShell. |
+| `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. Handles scoped NPM packages, PIP version parsing, and local binary checks for Junie. |
 | `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "Open with AI CLI" menu. |
 | `:REMOVE_CONTEXT_MENU` | Performs `reg delete` to clean up registry entries. |
 | `:BACKUP_REGISTRY` | Exports relevant registry keys to a `.reg` file for safety. |
 | `:RESTART_EXPLORER` | Restarts the `explorer.exe` process to refresh shell extensions. |
 | `:DEEP_REFRESH_ICONS` | Force-clears Windows Icon Cache by deleting `.db` files and restarting Explorer. |
-| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, Cline, etc.) with directory context. |
+| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, Cline, Junie, etc.) with directory context. |
 
 ## 🧩 Core Functions (Linux/macOS Bash)
 
@@ -85,5 +86,6 @@ This document describes the technical implementation and architecture of the AI 
 The project integrates with the following package managers:
 - **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, `@anthropic-ai/claude-code`, `@openai/codex`, `cline`, etc.
 - **Git & npm link**: Specifically for `nanocode-agent` (cloned from GitHub).
+- **Official One-liners**: For `Junie` (JetBrains).
 - **pip (Python Package Installer)**: For `mistral-vibe`.
 - **Windows Registry**: For shell context menu integration.
