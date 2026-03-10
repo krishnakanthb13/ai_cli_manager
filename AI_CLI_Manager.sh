@@ -217,6 +217,14 @@ install_all() {
     echo ""
     install_npm_cli "Cline CLI" "cline"
     echo ""
+    echo "[Junie CLI] Checking..."
+    if ! command -v junie &> /dev/null; then
+        echo -e "${YELLOW}[MISSING]${NC} Installing Junie CLI..."
+        curl -fsSL https://junie.jetbrains.com/install.sh | bash
+    else
+        echo -e "${GREEN}[OK] Installed${NC}"
+    fi
+    echo ""
     install_pip_cli "Mistral Vibe" "mistral-vibe"
     
     echo ""
@@ -273,6 +281,14 @@ show_versions() {
     echo -e "\n${CYAN}--- Cline CLI ---${NC}"
     echo -e "\n--- Cline CLI ---" >> "$LOG_FILE"
     npm list -g cline --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+    
+    echo -e "\n${CYAN}--- Junie CLI ---${NC}"
+    echo -e "\n--- Junie CLI ---" >> "$LOG_FILE"
+    if command -v junie &> /dev/null; then
+        junie --version 2>/dev/null | tee -a "$LOG_FILE"
+    else
+        echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
+    fi
     
     echo -e "\n${CYAN}--- Mistral Vibe ---${NC}"
     echo -e "\n--- Mistral Vibe ---" >> "$LOG_FILE"
@@ -441,6 +457,7 @@ while true; do
     echo "  10. Launch Claude CLI"
     echo "  11. Launch OpenAI Codex CLI"
     echo "  12. Launch Cline CLI"
+    echo "  13. Launch Junie CLI"
     echo ""
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
     echo "  A. Add to Context Menu (Linux/Nautilus Only)"
@@ -469,6 +486,7 @@ while true; do
         10) launch_tool "claude" ;;
         11) launch_tool "codex" ;;
         12) launch_tool "cline" ;;
+        13) launch_tool "junie" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;

@@ -77,6 +77,7 @@ echo     9. Launch NanoCode CLI
 echo     10. Launch Claude CLI
 echo     11. Launch OpenAI Codex CLI
 echo     12. Launch Cline CLI
+echo     13. Launch Junie CLI
 echo.   
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -108,6 +109,7 @@ if "%choice%"=="9" goto LAUNCH_NANOCODE
 if "%choice%"=="10" goto LAUNCH_CLAUDE
 if "%choice%"=="11" goto LAUNCH_OPENAI
 if "%choice%"=="12" goto LAUNCH_CLINE
+if "%choice%"=="13" goto LAUNCH_JUNIE
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -279,6 +281,19 @@ if "%UseWT%"=="1" (
 )
 goto EXIT_SCRIPT
 
+:LAUNCH_JUNIE
+echo [%time%] === Launching Junie CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k junie >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k junie
+) else (
+    echo [%time%] Command: cmd /k junie (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && junie"
+)
+goto EXIT_SCRIPT
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -368,6 +383,14 @@ for /f "delims=" %%V in ('npm list -g cline 2^>nul ^| findstr "cline"') do set "
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
+echo --- Junie CLI ---
+echo --- Junie CLI --- >> "%LOG_FILE%"
+set "_result="
+where junie >nul 2>&1
+if %errorlevel% equ 0 (set "_result=[INSTALLED]") else (set "_result=")
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
 echo --- Mistral Vibe ---
 echo --- Mistral Vibe --- >> "%LOG_FILE%"
 set "_result="
@@ -445,6 +468,9 @@ call :CHECK_NANOCODE
 
 echo [Cline CLI] Checking...
 call :CHECK_NPM "cline" "Cline CLI"
+
+echo [Junie CLI] Checking...
+call :CHECK_JUNIE
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -625,6 +651,28 @@ if not defined LVER (
 exit /b
 
 REM ========================================
+REM Check Junie CLI (Official Script)
+REM ========================================
+:CHECK_JUNIE
+echo --- Junie CLI --- >> "%LOG_FILE%"
+where junie >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [MISSING] Installing Junie CLI...
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://junie.jetbrains.com/install.ps1')" >nul 2>&1
+    if errorlevel 1 (
+        echo [FAILED]
+        echo [%time%] [FAILED] Junie install >> "%LOG_FILE%"
+    ) else (
+        echo [INSTALLED] Official Script
+        echo [%time%] [OK] Installed Junie CLI >> "%LOG_FILE%"
+    )
+) else (
+    echo [OK] Installed
+    echo [%time%] [SKIP] Junie already installed >> "%LOG_FILE%"
+)
+exit /b
+
+REM ========================================
 REM BACKUP REGISTRY
 REM ========================================
 :BACKUP_REGISTRY
@@ -767,6 +815,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\cline" /
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\cline" /v "Icon" /d "%ICONS_DIR%\cline_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\cline\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k cline" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie" /ve /d "Open with Junie CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie" /v "Icon" /d "%ICONS_DIR%\junie_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k junie" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -816,10 +868,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\cline" /ve /d "Open
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\cline" /v "Icon" /d "%ICONS_DIR%\cline_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\cline\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k cline" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie" /ve /d "Open with Junie CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie" /v "Icon" /d "%ICONS_DIR%\junie_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k junie" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.
