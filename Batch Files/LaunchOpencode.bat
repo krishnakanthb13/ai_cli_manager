@@ -53,6 +53,7 @@ echo    [2] GPT 5 Nano
 echo    [3] MiniMax M2.5 Free
 echo    [4] Mimo V2 Flash Free
 echo    [5] Trinity Large Preview Free
+echo    [6] Nemotron 3 Super Free
 echo.
 echo    [0] Exit
 echo.
@@ -60,7 +61,7 @@ echo ============================================================
 echo.
 
 set "choice="
-set /p choice="  Enter your choice (0-5): "
+set /p choice="  Enter your choice (0-6): "
 
 if "%choice%"=="0" goto exit
 if "%choice%"=="1" set "model=opencode/big-pickle" & set "modelname=Big Pickle"
@@ -68,6 +69,7 @@ if "%choice%"=="2" set "model=opencode/gpt-5-nano" & set "modelname=GPT 5 Nano"
 if "%choice%"=="3" set "model=opencode/minimax-m2.5-free" & set "modelname=MiniMax M2.5 Free"
 if "%choice%"=="4" set "model=opencode/mimo-v2-flash-free" & set "modelname=Mimo V2 Flash Free"
 if "%choice%"=="5" set "model=opencode/trinity-large-preview-free" & set "modelname=Trinity Large Preview Free"
+if "%choice%"=="6" set "model=opencode/nemotron-3-super-free" & set "modelname=Nemotron 3 Super Free"
 
 if not defined model (
     echo.
