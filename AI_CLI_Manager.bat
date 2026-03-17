@@ -78,6 +78,7 @@ echo     10. Launch Claude CLI
 echo     11. Launch OpenAI Codex CLI
 echo     12. Launch Cline CLI
 echo     13. Launch Junie CLI
+echo     14. Launch Kiro CLI
 echo.   
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -110,6 +111,7 @@ if "%choice%"=="10" goto LAUNCH_CLAUDE
 if "%choice%"=="11" goto LAUNCH_OPENAI
 if "%choice%"=="12" goto LAUNCH_CLINE
 if "%choice%"=="13" goto LAUNCH_JUNIE
+if "%choice%"=="14" goto LAUNCH_KIRO
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -294,6 +296,19 @@ if "%UseWT%"=="1" (
 )
 goto EXIT_SCRIPT
 
+:LAUNCH_KIRO
+echo [%time%] === Launching Kiro CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k kiro-cli >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k kiro-cli
+) else (
+    echo [%time%] Command: cmd /k kiro-cli (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && kiro-cli"
+)
+goto EXIT_SCRIPT
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -391,6 +406,14 @@ if %errorlevel% equ 0 (set "_result=[INSTALLED]") else (set "_result=")
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
+echo --- Kiro CLI ---
+echo --- Kiro CLI --- >> "%LOG_FILE%"
+set "_result="
+where kiro-cli >nul 2>&1
+if %errorlevel% equ 0 (set "_result=[INSTALLED]") else (set "_result=")
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
 echo --- Mistral Vibe ---
 echo --- Mistral Vibe --- >> "%LOG_FILE%"
 set "_result="
@@ -471,6 +494,9 @@ call :CHECK_NPM "cline" "Cline CLI"
 
 echo [Junie CLI] Checking...
 call :CHECK_JUNIE
+
+echo [Kiro CLI] Checking...
+call :CHECK_KIRO
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -672,6 +698,32 @@ if %errorlevel% neq 0 (
 )
 exit /b
 
+:CHECK_KIRO
+echo --- Kiro CLI --- >> "%LOG_FILE%"
+where kiro-cli >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [MISSING] Installing Kiro CLI...
+    echo User provided command: curl -fsSL https://cli.kiro.dev/install ^| bash
+    where bash >nul 2>&1
+    if errorlevel 1 (
+        echo [ERROR] bash not found! Kiro installation requires bash (Git Bash or WSL).
+        echo [%time%] [ERROR] bash missing >> "%LOG_FILE%"
+    ) else (
+        bash -c "curl -fsSL https://cli.kiro.dev/install | bash" >nul 2>&1
+        if errorlevel 1 (
+            echo [FAILED]
+            echo [%time%] [FAILED] Kiro install >> "%LOG_FILE%"
+        ) else (
+            echo [INSTALLED] Official Script
+            echo [%time%] [OK] Installed Kiro CLI >> "%LOG_FILE%"
+        )
+    )
+) else (
+    echo [OK] Installed
+    echo [%time%] [SKIP] Kiro already installed >> "%LOG_FILE%"
+)
+exit /b
+
 REM ========================================
 REM BACKUP REGISTRY
 REM ========================================
@@ -819,6 +871,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie" /
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie" /v "Icon" /d "%ICONS_DIR%\junie_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k junie" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kiro-cli" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -872,10 +928,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie" /ve /d "Open
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie" /v "Icon" /d "%ICONS_DIR%\junie_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k junie" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kiro-cli" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.

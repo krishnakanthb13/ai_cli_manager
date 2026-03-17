@@ -225,6 +225,14 @@ install_all() {
         echo -e "${GREEN}[OK] Installed${NC}"
     fi
     echo ""
+    echo "[Kiro CLI] Checking..."
+    if ! command -v kiro-cli &> /dev/null; then
+        echo -e "${YELLOW}[MISSING]${NC} Installing Kiro CLI..."
+        curl -fsSL https://cli.kiro.dev/install | bash
+    else
+        echo -e "${GREEN}[OK] Installed${NC}"
+    fi
+    echo ""
     install_pip_cli "Mistral Vibe" "mistral-vibe"
     
     echo ""
@@ -286,6 +294,14 @@ show_versions() {
     echo -e "\n--- Junie CLI ---" >> "$LOG_FILE"
     if command -v junie &> /dev/null; then
         junie --version 2>/dev/null | tee -a "$LOG_FILE"
+    else
+        echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
+    fi
+
+    echo -e "\n${CYAN}--- Kiro CLI ---${NC}"
+    echo -e "\n--- Kiro CLI ---" >> "$LOG_FILE"
+    if command -v kiro-cli &> /dev/null; then
+        echo "[INSTALLED]" | tee -a "$LOG_FILE"
     else
         echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
     fi
@@ -351,6 +367,8 @@ add_context_menu_linux() {
     create_script_file "Open with OpenAI Codex CLI" "codex"
     create_script_file "Open with NanoCode CLI" "nanocode"
     create_script_file "Open with Cline CLI" "cline"
+    create_script_file "Open with Junie CLI" "junie"
+    create_script_file "Open with Kiro CLI" "kiro-cli"
 
     echo ""
     echo -e "${GREEN}[SUCCESS] Scripts added!${NC}"
@@ -458,6 +476,7 @@ while true; do
     echo "  11. Launch OpenAI Codex CLI"
     echo "  12. Launch Cline CLI"
     echo "  13. Launch Junie CLI"
+    echo "  14. Launch Kiro CLI"
     echo ""
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
     echo "  A. Add to Context Menu (Linux/Nautilus Only)"
@@ -487,6 +506,7 @@ while true; do
         11) launch_tool "codex" ;;
         12) launch_tool "cline" ;;
         13) launch_tool "junie" ;;
+        14) launch_tool "kiro-cli" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;
