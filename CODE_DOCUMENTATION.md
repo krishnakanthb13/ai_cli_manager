@@ -46,6 +46,7 @@ This document describes the technical implementation and architecture of the AI 
 | `:INSTALL_ALL` | Iterates through supported CLIs and installs them if missing. Uses `npm link` for local Git-based tools. |
 | `:CHECK_NANOCODE` | Specific logic for NanoCode: Clones from GitHub into `Tools/nanocode-2` and runs `npm link`. |
 | `:CHECK_JUNIE` | Logic for Junie: Downloads and executes the official JetBrains installation script (`install.ps1`) via PowerShell. |
+| `:CHECK_KIRO` | Logic for Kiro: Downloads and executes the official installation script via `bash` using `curl`. |
 | `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. Handles scoped NPM packages, PIP version parsing, and local binary checks for Junie. |
 | `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "Open with AI CLI" menu. |
 | `:REMOVE_CONTEXT_MENU` | Performs `reg delete` to clean up registry entries. |
@@ -86,6 +87,6 @@ This document describes the technical implementation and architecture of the AI 
 The project integrates with the following package managers:
 - **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, `@anthropic-ai/claude-code`, `@openai/codex`, `cline`, etc.
 - **Git & npm link**: Specifically for `nanocode-agent` (cloned from GitHub).
-- **Official One-liners**: For `Junie` (JetBrains).
+- **Official One-liners**: For `Junie` (JetBrains) and `Kiro`.
 - **pip (Python Package Installer)**: For `mistral-vibe`.
 - **Windows Registry**: For shell context menu integration.
