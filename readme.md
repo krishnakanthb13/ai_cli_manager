@@ -3,7 +3,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-![Release Banner](assets/release_banner-v1.2.6.png)
+![Release Banner](assets/release_banner-v1.2.10.png)
 
 
 ## Overview
