@@ -3,10 +3,12 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-![Release Banner](assets/release_banner-v1.2.5.png)
+![Release Banner](assets/release_banner-v1.2.6.png)
+
 
 ## Overview
-**AI CLI Manager (v1.2.5)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
+**AI CLI Manager (v1.2.X)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
+
 
 ---
 
@@ -52,6 +54,8 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 | **NanoCode** | `nanocode-agent` | `nanocode` | Git + Link |
 | **Junie** | `Official Script` | `junie` | PowerShell / Curl |
 | **Kiro** | `Official Script` | `kiro-cli` | Bash / Curl |
+| **Qoder** | `@qoder-ai/qodercli` | `qodercli` | NPM |
+
 
 > **Note on Installation**: Smart Install (Option `I`) automatically manages Node.js, Python, and Git. Git-based tools like NanoCode are cloned into the `/Tools` directory and linked via `npm link`.
 
@@ -63,7 +67,8 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 *   **`I` Check and Install All**: Scans for all supported tools and installs missing ones automatically.
 *   **`V` Show Versions**: Lists specific installed versions or marks them as `[NOT INSTALLED]`.
 
-### **2. Launch CLIs (`1-14`)**
+### **2. Launch CLIs (`1-15`)**
+
 Launches the selected tool in the current directory (or a specified path) using the best available terminal emulator.
 
 ### **3. Context Menu Integration**

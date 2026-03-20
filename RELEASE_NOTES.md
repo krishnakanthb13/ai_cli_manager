@@ -1,5 +1,20 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.10] - 2026-03-21
+
+### 🚀 New Features
+- **Qoder CLI Support**: Full integration for `qodercli` via `@qoder-ai/qodercli` NPM package. Install, update, and launch the Qoder AI coding assistant directly from the manager and context menu.
+- **Dedicated Standalone Launchers**: Added `LaunchQoder.bat` and `LaunchQoder.sh` for standardized standalone execution.
+
+### ⚡ Improvements
+- **Context Menu Expansion**: Integrated Qoder into the "Open with AI CLI" cascading context menu for both Windows Explorer and Linux (Nautilus).
+- **Modern AI Branding**: Generated a high-quality `qoder_v2.ico` for seamless system integration and better cache-busting.
+
+### 📚 Documentation
+- **Technical Sync**: Updated `README.md`, `CODE_DOCUMENTATION.md`, `LINUX_MAC_README.md`, and `DESIGN_PHILOSOPHY.md` to reflect the new tool addition and version increment.
+
+---
+
 ## [v1.2.5] - 2026-03-10
 
 ### 🚀 New Features
