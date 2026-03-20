@@ -27,8 +27,9 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.5) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.X) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
+
     echo ""
 }
 
@@ -232,8 +233,10 @@ install_all() {
     else
         echo -e "${GREEN}[OK] Installed${NC}"
     fi
+    install_npm_cli "Qoder CLI" "@qoder-ai/qodercli"
     echo ""
     install_pip_cli "Mistral Vibe" "mistral-vibe"
+
     
     echo ""
     echo -e "${CYAN}=== Completed ===${NC}"
@@ -305,8 +308,13 @@ show_versions() {
     else
         echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
     fi
+
+    echo -e "\n${CYAN}--- Qoder CLI ---${NC}"
+    echo -e "\n--- Qoder CLI ---" >> "$LOG_FILE"
+    npm list -g @qoder-ai/qodercli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
     echo -e "\n${CYAN}--- Mistral Vibe ---${NC}"
+
     echo -e "\n--- Mistral Vibe ---" >> "$LOG_FILE"
     pip3 show mistral-vibe 2>/dev/null | grep "Version" | tee -a "$LOG_FILE"
     
@@ -369,8 +377,10 @@ add_context_menu_linux() {
     create_script_file "Open with Cline CLI" "cline"
     create_script_file "Open with Junie CLI" "junie"
     create_script_file "Open with Kiro CLI" "kiro-cli"
+    create_script_file "Open with Qoder CLI" "qodercli"
 
     echo ""
+
     echo -e "${GREEN}[SUCCESS] Scripts added!${NC}"
     echo "Right-click a file in Nautilus -> Scripts -> AI CLI Tools"
     pause
@@ -477,7 +487,9 @@ while true; do
     echo "  12. Launch Cline CLI"
     echo "  13. Launch Junie CLI"
     echo "  14. Launch Kiro CLI"
+    echo "  15. Launch Qoder CLI"
     echo ""
+
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
     echo "  A. Add to Context Menu (Linux/Nautilus Only)"
     echo "  B. Remove from Context Menu (Linux Only)"
@@ -507,6 +519,7 @@ while true; do
         12) launch_tool "cline" ;;
         13) launch_tool "junie" ;;
         14) launch_tool "kiro-cli" ;;
+        15) launch_tool "qodercli" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;
