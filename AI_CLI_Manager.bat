@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.X)
+echo           AI CLI TOOLS MANAGER (v1.2.10)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -298,17 +298,23 @@ if "%UseWT%"=="1" (
 goto EXIT_SCRIPT
 
 :LAUNCH_KIRO
-echo [%time%] === Launching Kiro CLI === >> "%LOG_FILE%"
-set "LAUNCH_DIR=%~1"
-if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
-if "%UseWT%"=="1" (
-    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k kiro-cli >> "%LOG_FILE%"
-    start wt.exe -d "%LAUNCH_DIR%" cmd /k kiro-cli
-) else (
-    echo [%time%] Command: cmd /k kiro-cli (in %LAUNCH_DIR%) >> "%LOG_FILE%"
-    start cmd /k "cd /d "%LAUNCH_DIR%" && kiro-cli"
-)
-goto EXIT_SCRIPT
+echo [%time%] === Kiro CLI not natively supported === >> "%LOG_FILE%"
+cls
+echo ============================================================
+echo   Kiro CLI (Unsupported on Native Windows)
+echo ============================================================
+echo.
+echo   [!] Kiro CLI does not have a native Windows version.
+echo.
+echo   Recommended setup for Windows:
+echo     1. WSL (Windows Subsystem for Linux)
+echo     2. Git Bash (with curl and bash)
+echo.
+echo   Check Linux version: ./AI_CLI_Manager.sh
+echo.
+echo ============================================================
+pause
+goto MAIN_MENU
 
 :LAUNCH_QODER
 echo [%time%] === Launching Qoder CLI === >> "%LOG_FILE%"
@@ -723,29 +729,9 @@ if %errorlevel% neq 0 (
 exit /b
 
 :CHECK_KIRO
-echo --- Kiro CLI --- >> "%LOG_FILE%"
-where kiro-cli >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [MISSING] Installing Kiro CLI...
-    echo User provided command: curl -fsSL https://cli.kiro.dev/install ^| bash
-    where bash >nul 2>&1
-    if errorlevel 1 (
-        echo [ERROR] bash not found! Kiro installation requires bash (Git Bash or WSL).
-        echo [%time%] [ERROR] bash missing >> "%LOG_FILE%"
-    ) else (
-        bash -c "curl -fsSL https://cli.kiro.dev/install | bash" >nul 2>&1
-        if errorlevel 1 (
-            echo [FAILED]
-            echo [%time%] [FAILED] Kiro install >> "%LOG_FILE%"
-        ) else (
-            echo [INSTALLED] Official Script
-            echo [%time%] [OK] Installed Kiro CLI >> "%LOG_FILE%"
-        )
-    )
-) else (
-    echo [OK] Installed
-    echo [%time%] [SKIP] Kiro already installed >> "%LOG_FILE%"
-)
+echo --- Kiro CLI (Skipped) --- >> "%LOG_FILE%"
+echo [SKIP] Kiro CLI does not have a native Windows version.
+echo Use WSL or Git Bash for Linux installation.
 exit /b
 
 REM ========================================
@@ -897,7 +883,7 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie\co
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kiro-cli" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c \"%%~dp0Batch Files\LaunchKiro.bat\"" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder" /ve /d "Open with Qoder CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
@@ -958,7 +944,7 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie\command" /ve 
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kiro-cli" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c \"%%~dp0Batch Files\LaunchKiro.bat\"" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder" /ve /d "Open with Qoder CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
