@@ -1,3 +1,71 @@
+# AI CLI Manager - Social Media Announcements (v1.2.10)
+
+## 🟦 LinkedIn (v1.2.10)
+Headline: Scaling the AI Agent Universe: Qoder and Kiro Join the Stack. 🤖🚀
+
+AI CLI Manager v1.2.10 is here!
+
+We've reached a major milestone on our way to v1.3.0, and today we’re bringing our biggest expansion yet. This release integrates two powerful new coding assistants: **Qoder CLI** and **Kiro CLI**, bringing our total managed AI agent count to **15+**.
+
+Key Highlights:
+- 🚀 **Qoder CLI Integration**: Full NPM management for `@qoder-ai/qodercli` (Option 15).
+- ⚡ **Kiro CLI Support**: Automated installation via official curl scripts (Option 14).
+- 🛠️ **Unified Context Menus**: Both new tools are instantly available from your right-click "Open with AI CLI" menu on Windows and Linux (Nautilus).
+- 📂 **Standalone Launchers**: Dedicated entry points added for both agents in our `/Batch Files` and `/Shell Files` suites.
+- 🎨 **Visual Sync**: New high-quality icons and cache-busted registry entries for a seamless Explorer experience.
+- 📖 **Documentation 2.6**: Every README and architecture guide updated for the new tools.
+
+Whether you're switching between Gemini, Claude, and Copilot or moving into Qoder and Kiro, this hub keeps your terminal exactly where your code lives with zero friction.
+
+Managing a dozen different terminal tools shouldn't be work. Stop manual `cd` commands and start coding.
+
+Check it out on GitHub! 
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #DevTools #OpenSource #GitHub #Qoder #Kiro #CodingAssistants #DevOps #WindowsTerminal #Automation #ReleaseUpdate
+
+---
+
+## 🟥 Reddit (v1.2.10)
+**Post Title: [Update] AI CLI Manager v1.2.10 - Added Qoder and Kiro CLI Support (Now managing 15+ AI agents)**
+
+Hey everyone! I’ve just released **v1.2.10** of the **AI CLI Manager**.
+
+This is a big one. We’re officially crossing 15+ managed AI coding agents.
+
+**What's new in v1.2.10:**
+- **Qoder CLI (@qoder-ai/qodercli)**: Full NPM integration. One-click install and update.
+- **Kiro CLI**: Support added via official JetBrains/Kiro installation paths.
+- **Standalone Launchers**: New batch and shell files for the new tools.
+- **Refined Shell Context**: Registry integration and Nautilus scripts updated.
+- **Improved Version Detection**: Smarter parsing for multiple dependency types.
+
+If you’re juggling multiple agents and tired of the `cd path/to/project && agent -o` routine, this manager handles the bridge directly from your file manager's right-click menu.
+
+**GitHub**: [https://github.com/krishnakanthb13/ai_cli_manager](https://github.com/krishnakanthb13/ai_cli_manager)
+
+**Suggested Subreddits**: r/programming, r/webdev, r/commandline, r/SideProject, r/ClaudeAI
+
+---
+
+## ⬛ X (v1.2.10)
+Scaling the AI Hub! 🤖🚀
+
+AI CLI Manager v1.2.10 is live!
+
+🔥 NEW: Qoder CLI Support (@qoder-ai/qodercli)
+🔥 NEW: Kiro CLI Support
+🔥 NEW: 15+ AI agents in one hub
+🔥 NEW: Integrated Context Menu entries
+
+Stop memorizing launch commands. One right-click to code. 💻
+
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #DevTools #OpenSource #GitHub #Release #CodingAssistants
+
+---
+
 # AI CLI Manager - Social Media Announcements (v1.2.5)
 
 ## 🟦 LinkedIn (v1.2.5)

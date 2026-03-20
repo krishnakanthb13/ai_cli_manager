@@ -4,14 +4,16 @@
 
 ### 🚀 New Features
 - **Qoder CLI Support**: Full integration for `qodercli` via `@qoder-ai/qodercli` NPM package. Install, update, and launch the Qoder AI coding assistant directly from the manager and context menu.
-- **Dedicated Standalone Launchers**: Added `LaunchQoder.bat` and `LaunchQoder.sh` for standardized standalone execution.
+- **Kiro CLI Support**: Added `kiro-cli` integration. Automates installation via official curl scripts and provides quick-launch access.
+- **Dedicated Standalone Launchers**: Added `LaunchQoder.bat/sh` and `LaunchKiro.bat/sh` to the suite of standalone entry points.
 
 ### ⚡ Improvements
-- **Context Menu Expansion**: Integrated Qoder into the "Open with AI CLI" cascading context menu for both Windows Explorer and Linux (Nautilus).
-- **Modern AI Branding**: Generated a high-quality `qoder_v2.ico` for seamless system integration and better cache-busting.
+- **Context Menu Expansion**: Integrated both Qoder and Kiro into the "Open with AI CLI" cascading context menu for Windows Explorer (Registry) and Linux (Nautilus).
+- **Core Script Refactoring**: Optimized version detection and installation checks for multiple tool types (NPM, Bash scripts, etc.) for smoother performance.
+- **Modern AI Branding**: Added high-quality PNG icons and cache-busted `_v2.ico` files for both new tools to ensure visual clarity.
 
 ### 📚 Documentation
-- **Technical Sync**: Updated `README.md`, `CODE_DOCUMENTATION.md`, `LINUX_MAC_README.md`, and `DESIGN_PHILOSOPHY.md` to reflect the new tool addition and version increment.
+- **Unified Sync**: Comprehensive updates across `README.md`, `CODE_DOCUMENTATION.md`, `LINUX_MAC_README.md`, and `DESIGN_PHILOSOPHY.md` to document the 15+ managed AI agents now available.
 
 ---
 
