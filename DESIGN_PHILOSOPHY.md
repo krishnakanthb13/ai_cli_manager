@@ -19,6 +19,7 @@ The **AI CLI Manager** acts as a "Command Center" for these AI terminal applicat
 - **Transparency**: Every action is logged, and registry changes are explained before they happen.
 - **Safety First**: Automated backups and easy removal options ensure the system remains stable.
 - **Hybrid Distribution**: Seamlessly manages both formal package manager tools (NPM/PIP) and developer-focused Git-based tools (NPM Link).
+- **Multitasking (Beast Mode)**: Recognizes that power users often need to compare results from multiple AI origins (e.g., comparing Claude's logic vs. Gemini's implementation) or use specialized agents for different tasks (Coding vs. Review) simultaneously.
 - **Self-Healing**: Provides deep refresh utilities to fix common Windows environment issues like icon cache corruption or terminal shell lag.
 - **Speed**: Optimized for fast terminal spawning directly in the target folder.
 - **Robustness**: Fallbacks for everything (Windows Terminal -> CMD, Node.js/Python checks).

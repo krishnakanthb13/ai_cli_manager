@@ -14,6 +14,7 @@
 
 ## ✨ Key Features
 *   **Unified Launcher**: Launch any supported AI CLI (Gemini, Claude, Copilot, etc.) with a single keystroke.
+*   **🔥 CLI Beast Mode**: Launch up to 4 AI CLIs simultaneously in a perfectly aligned 2x2 grid (Windows Terminal or tmux).
 *   **Smart Installation**: Automated dependency checks (Node.js, Python, Git) and one-click installs for missing tools.
 *   **Windows Integration**: Add a cascading "Open with AI CLI" menu to your right-click context menu in File Explorer.
 *   **Cross-Platform**: Primary focus on Windows (Batch) with robust support for Linux & macOS (Shell).
@@ -29,9 +30,25 @@
 3.  **Terminal**: Automatically detects **Windows Terminal**; falls back to standard CMD if needed.
 
 ### 🐧 Linux & macOS
-1.  **Permission**: `chmod +x AI_CLI_Manager.sh`
+1.  **Permission**: `chmod +x AI_CLI_Manager.sh Multi_CLI_Grid.sh`
 2.  **Run**: `./AI_CLI_Manager.sh`
 3.  *See [LINUX_MAC_README.md](LINUX_MAC_README.md) for platform-specific details.*
+
+---
+
+## 🔥 CLI Beast Mode (Grid View)
+**Beast Mode** is for power users who need to orchestrate multiple AI agents at once. It launches 4 CLIs in a single session, split into quadrants.
+
+### 🚀 How to Launch
+- **Windows**: Run `Multi_CLI_Grid.bat` (Requires **Windows Terminal**).
+- **Linux/Mac**: Run `./Multi_CLI_Grid.sh` (Requires **tmux**).
+
+### 🛠️ Configuration
+1.  **Select Layout**: Choose from **Preset Alpha** (Gemini/Copilot/Codex/Qoder), **Preset Beta** (KiloCode/Vibe/OpenCode/Qwen), or **Custom Pick**.
+2.  **Select Directory**: Enter the path to your project folder when prompted.
+3.  **Go!**: The grid opens instantly in that directory. 
+
+> **Tip**: In `tmux` (Linux/Mac), use `Ctrl+B` then `D` to detach from the grid without killing your active AI sessions.
 
 ---
 

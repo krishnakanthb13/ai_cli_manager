@@ -10,6 +10,8 @@ This document describes the technical implementation and architecture of the AI 
 |------|-------------|
 | `AI_CLI_Manager.bat` | Main automation script for Windows (Batch). |
 | `AI_CLI_Manager.sh` | Main automation script for Linux and macOS (Bash). |
+| `Multi_CLI_Grid.bat` | **[NEW]** Beast Mode grid launcher for Windows Terminal. |
+| `Multi_CLI_Grid.sh` | **[NEW]** Beast Mode grid launcher for tmux (Linux/macOS). |
 | `/Batch Files/` | Standalone `.bat` launch scripts for individual tools (Windows). |
 | `/Shell Files/` | Standalone `.sh` launch scripts for individual tools (Linux/macOS). |
 | `Icons/` | Directory containing tool icons and the conversion script. |
@@ -35,6 +37,26 @@ This document describes the technical implementation and architecture of the AI 
 ### Main Components (Linux/macOS)
 1. **Dependency Checker**: Verifies environment requirements.
 2. **Nautilus Script Generator**: (Linux only) Creates scripts in `~/.local/share/nautilus/scripts` for context menu integration.
+3. **tmux Orchestrator**: Manages session creation and pane splitting for Grid View.
+
+## 🏁 CLI Beast Mode (Grid Architecture)
+
+The "Beast Mode" grid (2x2) is implemented differently per platform to ensure native performance:
+
+### 🖥️ Windows (Windows Terminal)
+Uses the `wt.exe` command-line interface with sub-commands chained by semicolons:
+- `new-tab -d [DIR] cmd /k [TL]`: Opens the first pane.
+- `split-pane -V -d [DIR] cmd /k [TR]`: Vertically splits TL to create TR.
+- `split-pane -H -d [DIR] cmd /k [BR]`: Horizontally splits TR to create BR.
+- `move-focus left`: Shifts focus back to TL.
+- `split-pane -H -d [DIR] cmd /k [BL]`: Horizontally splits TL to create BL.
+
+### 🐧 Linux/macOS (tmux)
+Uses standard `tmux` commands for session orchestration:
+- `tmux new-session -d -s [NAME] -c [DIR]`: Creates the session.
+- `tmux split-window -h -t [PANE] -c [DIR]`: Creates horizontal/vertical splits.
+- `tmux send-keys`: Sends the CLI start command to each specific pane.
+- Supports **detaching** (`Ctrl+B D`), allowing AI agents to persist in the background.
 
 ## 🧩 Core Methods & Functions (Windows Batch)
 
