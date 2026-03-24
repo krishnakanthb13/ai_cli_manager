@@ -69,7 +69,7 @@ set "CLI_BR=qodercli"
 goto ASK_FOLDER
 
 REM ========================================
-REM PRESET BETA: Kilocode / Mistral / Opencode / Qwen
+REM PRESET BETA: Kilocode / Vibe / Opencode / Qwen
 REM ========================================
 :PRESET_BETA
 set "CLI_TL=kilocode"
@@ -211,12 +211,12 @@ REM NOTE: wt.exe is called directly (NOT via "start"). It spawns a new
 REM window and returns immediately. The semicolons (;) are wt subcommand
 REM delimiters and are passed through correctly when calling wt directly.
 
-wt.exe new-tab -d "!LAUNCH_DIR!" cmd /k !CLI_TL! ; split-pane -V -d "!LAUNCH_DIR!" cmd /k !CLI_TR! ; split-pane -H -d "!LAUNCH_DIR!" cmd /k !CLI_BR! ; move-focus left ; split-pane -H -d "!LAUNCH_DIR!" cmd /k !CLI_BL!
+wt.exe new-tab -d "!LAUNCH_DIR!" cmd /k "!CLI_TL!" ; split-pane -V -d "!LAUNCH_DIR!" cmd /k "!CLI_TR!" ; split-pane -H -d "!LAUNCH_DIR!" cmd /k "!CLI_BR!" ; move-focus left ; split-pane -H -d "!LAUNCH_DIR!" cmd /k "!CLI_BL!"
 
-if %errorlevel% neq 0 (
+if !errorlevel! neq 0 (
     echo.
     echo  [ERROR] Failed to launch Windows Terminal grid.
-    echo  Error code: %errorlevel%
+    echo  Error code: !errorlevel!
     echo.
     pause
     goto MAIN_MENU

@@ -83,6 +83,9 @@ ask_folder() {
         LAUNCH_DIR="$HOME"
     fi
 
+    # Expand leading tilde (~) to $HOME
+    LAUNCH_DIR="${LAUNCH_DIR/#\~/$HOME}"
+
     # Remove trailing slash if present
     LAUNCH_DIR="${LAUNCH_DIR%/}"
 
