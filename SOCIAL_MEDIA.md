@@ -1,3 +1,74 @@
+# AI CLI Manager - Social Media Announcements (v1.2.13)
+
+## 🟦 LinkedIn (v1.2.13)
+Headline: Unleash the Beast Mode: Multi-CLI Grid View is here. 🤖🔥
+
+AI CLI Manager v1.2.13 has officially arrived, and it's bringing our most requested powerhouse feature: **CLI Beast Mode**.
+
+If you've ever found yourself wishing you could compare Gemini's logic against Claude's implementation, or wanted to keep your code reviewer (Copilot) and your code generator (Qoder) open at the same time—this update is for you.
+
+Key Highlights:
+- 🚀 **CLI Beast Mode**: Launch up to 4 AI agents simultaneously in a perfectly aligned 2x2 grid.
+- 🏁 **One-Click Presets**:
+    - **Alpha**: Gemini | Copilot | Codex | Qoder
+    - **Beta**: KiloCode | Vibe | OpenCode | Qwen
+- 🛠️ **Custom Grid Picker**: Move any of our 15+ managed CLIs into the TL, TR, BL, or BR quadrants.
+- 📂 **Smart Folder Context**: Select your working directory once; we'll sync all 4 quadrants to that path automatically with built-in path validation and tilde (~) expansion.
+- ⚡ **Cross-Platform Power**:
+    - **Windows**: Chained `wt.exe` subcommands for native Windows Terminal performance.
+    - **Linux/Mac**: Fully automated `tmux` session orchestration with background persistence.
+
+Managing a dozen different terminal tools was just the beginning. Now, you can orchestrate them as a single, high-performance unit.
+
+Stop switching tabs. Start seeing the full picture.
+
+Check it out on GitHub! 
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #DevTools #OpenSource #GitHub #BeastMode #Multitasking #CodingAssistants #Productivity #WindowsTerminal #tmux #DevOps #Automation
+
+---
+
+## 🟥 Reddit (v1.2.13)
+**Post Title: [Update] AI CLI Manager v1.2.13 - Introducing "CLI Beast Mode" (2x2 Grid View for Windows Terminal & tmux)**
+
+Hey everyone! I’ve just released **v1.2.13** of the **AI CLI Manager**, and this one is purely for the power users.
+
+We're calling it **CLI Beast Mode**. It allows you to launch any 4 of our 15+ managed AI agents (Gemini, Claude, Copilot, Qoder, etc.) into a single 2x2 grid layout with one command.
+
+**What's new in v1.2.13:**
+- **2x2 Grid Launcher**: Native support for Windows Terminal (`wt.exe`) and `tmux`.
+- **Pre-configured Presets**: Alpha and Beta presets for the most popular agent combinations.
+- **Custom Quadrant Picker**: Choose exactly which tool goes where (Top-Left, Bottom-Right, etc.).
+- **Unified Directory Context**: Prompt for a working folder before launch; all 4 instances open there instantly.
+- **Improved Script Logic**: Switched to delayed expansion and robust quoting for 100% reliable terminal handoffs.
+
+Whether you're comparing model outputs or running specialized agents for different parts of your workflow, this hub keeps everything in view without the tab-juggling.
+
+**GitHub**: [https://github.com/krishnakanthb13/ai_cli_manager](https://github.com/krishnakanthb13/ai_cli_manager)
+
+**Suggested Subreddits**: r/programming, r/webdev, r/commandline, r/SideProject, r/ClaudeAI, r/GithubCopilot, r/tmux
+
+---
+
+## ⬛ X (v1.2.13)
+Beast Mode Activated! 🤖🔥
+
+AI CLI Manager v1.2.13 is live!
+
+🚀 NEW: 2x2 Grid View (CLI Beast Mode) 
+🚀 NEW: Quadrant Presets (Alpha/Beta)
+🚀 NEW: Custom Grid Picker (All 15+ CLIs)
+🚀 NEW: Windows Terminal & tmux support
+
+Stop tab-switching. See all your AI agents at once. 💻
+
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #DevTools #OpenSource #GitHub #BeastMode #Coding
+
+---
+
 # AI CLI Manager - Social Media Announcements (v1.2.10)
 
 ## 🟦 LinkedIn (v1.2.10)

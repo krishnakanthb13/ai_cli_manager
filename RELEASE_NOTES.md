@@ -1,5 +1,24 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.13] - 2026-03-24
+
+### 🚀 New Features
+- **CLI Beast Mode (Grid View)**: Introducing a high-octane multitasking interface. Run up to 4 AI agents side-by-side in a single terminal session.
+- **Quadrant Presets**: Instant 2x2 layouts for top-tier agents:
+    - **Alpha**: Gemini, Copilot, Codex, Qoder
+    - **Beta**: KiloCode, Vibe, OpenCode, Qwen
+- **Custom Grid Picker**: Fully interactive menu to map any combination of 15+ CLIs to your choice of quadrants (TL, TR, BL, BR).
+- **Smart Folder Select**: Multi-directory workflow support. Choose your working folder before launching the grid, with real-time validation and Linux tilde (~) expansion.
+
+### ⚡ Improvements
+- **Refined Grid Orchestration**:
+    - **Windows**: Chained `wt.exe` subcommands for native Windows Terminal performance.
+    - **Unix**: Automated `tmux` session/pane management with background persistence.
+- **Code Robustness**: Switched to delayed expansion (`!errorlevel!`) in batch scripts for accurate post-launch status checks.
+- **Input Safety**: Quote-wrapped CLI commands to handle special characters and spaces in tool names.
+
+---
+
 ## [v1.2.10] - 2026-03-21
 
 ### 🚀 New Features
