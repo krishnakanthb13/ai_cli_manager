@@ -34,13 +34,14 @@ while true; do
     echo "   [6] MiMo V2 Flash Free"
     echo "   [7] Trinity Large Preview Free"
     echo "   [8] Nemotron 3 Super Free"
+    echo "   [9] GPT 5 Nano"
     echo ""
     echo "   [0] Exit"
     echo ""
     echo "============================================================"
     echo ""
     
-    read -p " Enter your choice (0-8): " choice
+    read -p " Enter your choice (0-9): " choice
     
     case $choice in
         0) exit 0 ;;
@@ -52,9 +53,10 @@ while true; do
         6) model="opencode/mimo-v2-flash-free"; modelname="MiMo V2 Flash Free" ;;
         7) model="opencode/trinity-large-preview-free"; modelname="Trinity Large Preview Free" ;;
         8) model="opencode/nemotron-3-super-free"; modelname="Nemotron 3 Super Free" ;;
+        9) model="opencode/gpt-5-nano"; modelname="GPT 5 Nano" ;;
         *) 
             echo ""
-            echo " ❌ Invalid choice. Please enter a number between 0-8."
+            echo " ❌ Invalid choice. Please enter a number between 0-9."
             sleep 2
             continue
             ;;

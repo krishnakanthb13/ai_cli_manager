@@ -56,6 +56,7 @@ echo    [5] MiMo V2 Omni Free
 echo    [6] MiMo V2 Flash Free
 echo    [7] Trinity Large Preview Free
 echo    [8] Nemotron 3 Super Free
+echo    [9] GPT 5 Nano
 echo.
 echo    [0] Exit
 echo.
@@ -63,7 +64,7 @@ echo ============================================================
 echo.
 
 set "choice="
-set /p choice="  Enter your choice (0-8): "
+set /p choice="  Enter your choice (0-9): "
 
 if "%choice%"=="0" goto exit
 if "%choice%"=="1" set "model=opencode/big-pickle" & set "modelname=Big Pickle"
@@ -74,10 +75,11 @@ if "%choice%"=="5" set "model=opencode/mimo-v2-omni-free" & set "modelname=MiMo 
 if "%choice%"=="6" set "model=opencode/mimo-v2-flash-free" & set "modelname=MiMo V2 Flash Free"
 if "%choice%"=="7" set "model=opencode/trinity-large-preview-free" & set "modelname=Trinity Large Preview Free"
 if "%choice%"=="8" set "model=opencode/nemotron-3-super-free" & set "modelname=Nemotron 3 Super Free"
+if "%choice%"=="9" set "model=opencode/gpt-5-nano" & set "modelname=GPT 5 Nano"
 
 if not defined model (
     echo.
-    echo  [!] Invalid choice. Please enter a number between 0-8.
+    echo  [!] Invalid choice. Please enter a number between 0-9.
     timeout /t 2 >nul
     goto menu
 )
