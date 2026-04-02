@@ -49,11 +49,13 @@ echo.
 echo  Select a model to run:
 echo.
 echo    [1] Big Pickle
-echo    [2] GPT 5 Nano
-echo    [3] MiniMax M2.5 Free
-echo    [4] Mimo V2 Flash Free
-echo    [5] Trinity Large Preview Free
-echo    [6] Nemotron 3 Super Free
+echo    [2] MiniMax M2.5 Free
+echo    [3] Qwen3.6 Plus Free
+echo    [4] MiMo V2 Pro Free
+echo    [5] MiMo V2 Omni Free
+echo    [6] MiMo V2 Flash Free
+echo    [7] Trinity Large Preview Free
+echo    [8] Nemotron 3 Super Free
 echo.
 echo    [0] Exit
 echo.
@@ -61,19 +63,21 @@ echo ============================================================
 echo.
 
 set "choice="
-set /p choice="  Enter your choice (0-6): "
+set /p choice="  Enter your choice (0-8): "
 
 if "%choice%"=="0" goto exit
 if "%choice%"=="1" set "model=opencode/big-pickle" & set "modelname=Big Pickle"
-if "%choice%"=="2" set "model=opencode/gpt-5-nano" & set "modelname=GPT 5 Nano"
-if "%choice%"=="3" set "model=opencode/minimax-m2.5-free" & set "modelname=MiniMax M2.5 Free"
-if "%choice%"=="4" set "model=opencode/mimo-v2-flash-free" & set "modelname=Mimo V2 Flash Free"
-if "%choice%"=="5" set "model=opencode/trinity-large-preview-free" & set "modelname=Trinity Large Preview Free"
-if "%choice%"=="6" set "model=opencode/nemotron-3-super-free" & set "modelname=Nemotron 3 Super Free"
+if "%choice%"=="2" set "model=opencode/minimax-m2.5-free" & set "modelname=MiniMax M2.5 Free"
+if "%choice%"=="3" set "model=opencode/qwen3.6-plus-free" & set "modelname=Qwen3.6 Plus Free"
+if "%choice%"=="4" set "model=opencode/mimo-v2-pro-free" & set "modelname=MiMo V2 Pro Free"
+if "%choice%"=="5" set "model=opencode/mimo-v2-omni-free" & set "modelname=MiMo V2 Omni Free"
+if "%choice%"=="6" set "model=opencode/mimo-v2-flash-free" & set "modelname=MiMo V2 Flash Free"
+if "%choice%"=="7" set "model=opencode/trinity-large-preview-free" & set "modelname=Trinity Large Preview Free"
+if "%choice%"=="8" set "model=opencode/nemotron-3-super-free" & set "modelname=Nemotron 3 Super Free"
 
 if not defined model (
     echo.
-    echo  [!] Invalid choice. Please enter a number between 0-5.
+    echo  [!] Invalid choice. Please enter a number between 0-8.
     timeout /t 2 >nul
     goto menu
 )
