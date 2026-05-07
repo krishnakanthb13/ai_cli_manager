@@ -28,35 +28,29 @@ while true; do
     echo ""
     echo "   [1] Big Pickle"
     echo "   [2] MiniMax M2.5 Free"
-    echo "   [3] Qwen3.6 Plus Free"
-    echo "   [4] MiMo V2 Pro Free"
-    echo "   [5] MiMo V2 Omni Free"
-    echo "   [6] MiMo V2 Flash Free"
-    echo "   [7] Trinity Large Preview Free"
-    echo "   [8] Nemotron 3 Super Free"
-    echo "   [9] GPT 5 Nano"
+    echo "   [3] Ling 2.6 Flash Free"
+    echo "   [4] Hy3 Preview Flash Free"
+    echo "   [5] Trinity Large Preview Free"
+    echo "   [6] Nemotron 3 Super Free"
     echo ""
     echo "   [0] Exit"
     echo ""
     echo "============================================================"
     echo ""
     
-    read -p " Enter your choice (0-9): " choice
+    read -p " Enter your choice (0-6): " choice
     
     case $choice in
         0) exit 0 ;;
         1) model="opencode/big-pickle"; modelname="Big Pickle" ;;
         2) model="opencode/minimax-m2.5-free"; modelname="MiniMax M2.5 Free" ;;
-        3) model="opencode/qwen3.6-plus-free"; modelname="Qwen3.6 Plus Free" ;;
-        4) model="opencode/mimo-v2-pro-free"; modelname="MiMo V2 Pro Free" ;;
-        5) model="opencode/mimo-v2-omni-free"; modelname="MiMo V2 Omni Free" ;;
-        6) model="opencode/mimo-v2-flash-free"; modelname="MiMo V2 Flash Free" ;;
-        7) model="opencode/trinity-large-preview-free"; modelname="Trinity Large Preview Free" ;;
-        8) model="opencode/nemotron-3-super-free"; modelname="Nemotron 3 Super Free" ;;
-        9) model="opencode/gpt-5-nano"; modelname="GPT 5 Nano" ;;
+        3) model="opencode/ling-2.6-flash-free"; modelname="Ling 2.6 Flash Free" ;;
+        4) model="opencode/hy3-preview-free"; modelname="Hy3 Preview Flash Free" ;;
+        5) model="opencode/trinity-large-preview-free"; modelname="Trinity Large Preview Free" ;;
+        6) model="opencode/nemotron-3-super-free"; modelname="Nemotron 3 Super Free" ;;
         *) 
             echo ""
-            echo " ❌ Invalid choice. Please enter a number between 0-9."
+            echo " ❌ Invalid choice. Please enter a number between 0-6."
             sleep 2
             continue
             ;;
