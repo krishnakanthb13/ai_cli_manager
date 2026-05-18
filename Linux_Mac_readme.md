@@ -8,11 +8,15 @@ This version of AI CLI Manager (`AI_CLI_Manager.sh`) provides a terminal interfa
 Ensure you have the following installed:
 *   **Node.js**: Required for most CLIs (npm).
 *   **Python 3 & pip**: Required for Mistral Vibe.
+*   **Git**: Required for NanoCode (cloned from GitHub).
+*   **curl**: Required for Junie and Kiro CLI installers.
 
 To check if you have them:
 ```bash
 node -v
 python3 --version
+git --version
+curl --version
 ```
 
 ### 2. Make Executable
@@ -36,9 +40,12 @@ The script offers a simple interactive menu:
 *   **I. Check and Install All CLIs**: Automatically checks if supported tools (Gemini, Jules, iFlow, OpenCode, Qwen, KiloCode, Mistral Vibe, GitHub Copilot CLI, NanoCode, Claude, OpenAI Codex, Cline, Qoder) are installed. If missing, it attempts to install them via `npm` or `pip`.
 
     *   *Note*: If you run into permission errors, the script will attempt to ask for `sudo` password to install global packages.
+    *   Junie and Kiro are installed via official `curl | bash` scripts. The download URL is shown before the script runs.
 *   **V. Show Installed CLI Versions**: Displays the currently installed version of each tool.
 
 ### Launch Tools
+All launch options verify the CLI exists in PATH before spawning a terminal. A clear error message is shown if a tool is not installed.
+
 Launch any of the supported CLIs directly from the menu:
 *   Gemini CLI
 *   Jules CLI
@@ -52,13 +59,17 @@ Launch any of the supported CLIs directly from the menu:
 *   Claude CLI
 *   OpenAI Codex CLI
 *   Cline CLI
+*   Junie CLI *(installed via JetBrains official script)*
+*   Kiro CLI *(installed via official curl script)*
 *   Qoder CLI
 
 
 ## ⚠️ Known Differences (vs Windows)
 *   **Context Menu (Linux)**: The script supports adding right-click options for **Nautilus (GNOME)** file manager. Other file managers (Dolphin, Thunar, etc.) are not currently supported.
+    *   The script auto-detects your terminal emulator (`gnome-terminal`, `xfce4-terminal`, `konsole`, `tilix`, `alacritty`, `xterm`) and uses it when generating context menu scripts.
 *   **Context Menu (macOS)**: Not supported natively by the script. See the workaround below to add it properly using Mac's Automator.
 *   **Terminal**: Launches tools inside the current shell window rather than spawning new ones (unless using the Linux Context Menu integration).
+*   **Kiro CLI**: Supported on Linux/macOS via `curl | bash`. Not available on Windows (WSL required).
 
 ---
 

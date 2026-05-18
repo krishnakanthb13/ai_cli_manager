@@ -1,5 +1,54 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.17] - 2026-05-18
+
+### 🐛 Bug Fixes
+- **Silent launch failure fixed**: All 14 `LAUNCH_*` sections now verify the CLI exists in PATH via `where`/`command -v` before spawning a terminal. A clear error message and install instructions are shown instead of a silent no-op.
+- **Kiro registry path corrected**: Context menu entries for Kiro CLI were using `%%~dp0` — a batch-script-only variable that does not expand in registry command execution context. Fixed to use the absolute `%SCRIPT_DIR%` path with proper double-quoting for paths that contain spaces.
+- **Icon cache race condition resolved**: `taskkill /f /im explorer.exe` followed by a fixed 2-second sleep could leave cache files locked on slower systems. Replaced with a poll loop that waits until `explorer.exe` is fully terminated before deleting cache files.
+- **Script-relative log directory (Linux/macOS)**: `LOG_DIR` was set to `./Log Files` (relative to CWD). It is now anchored to the script's own directory via `SCRIPT_DIR`, so logs are always written to the correct location regardless of where the script is called from.
+- **curl dependency check added (Linux/macOS)**: Junie and Kiro installs now verify `curl` is available before attempting to pipe a remote script. A clear `[FAILED] curl not found` message is shown if it is missing.
+
+### ⚡ Improvements
+- **Junie installer transparency**: Output is no longer suppressed (`>nul 2>&1` removed on Windows). The download URL is logged visibly so users can see exactly what script is being fetched before it runs.
+- **Terminal detection for context menu (Linux)**: `create_script_file` now auto-detects the available terminal emulator (`gnome-terminal`, `xfce4-terminal`, `konsole`, `tilix`, `alacritty`, `xterm`) instead of hard-coding `gnome-terminal`. Falls back to `x-terminal-emulator`.
+- **Install feedback for Junie/Kiro (Linux/macOS)**: Success and failure are now logged and shown via `${PIPESTATUS[0]}` check.
+
+### 🛠️ Utility / `convert_icons.py`
+- **Missing Pillow guard**: An `ImportError` on missing Pillow now prints a helpful `pip install Pillow` hint instead of a raw traceback.
+- **Image size validation**: Images larger than 4096 px are skipped with an informative message to prevent memory errors on oversized inputs.
+- **Typed exceptions**: `OSError`/`SyntaxError` are caught specifically for file-read failures; a bare `except Exception` handles remaining unexpected errors.
+- **Typo fixed**: "converting..." → "Converting..." in the progress output.
+- **Better summary**: Output now reports both converted count and failed/skipped count.
+
+### 📚 Version Sync
+- Version strings in `AI_CLI_Manager.bat` and `AI_CLI_Manager.sh` updated from `v1.2.13` to `v1.2.17` to match the actual release.
+
+---
+
+## [v1.2.16] - 2026-05-10
+
+### 🚀 New Features
+- **OpenCode Model Selector**: Cross-platform launch scripts now include an interactive model selector for OpenCode CLI, allowing users to choose from the latest available models before launching.
+
+---
+
+## [v1.2.15] - 2026-05-04
+
+### 🚀 New Features
+- **GPT-5 Nano model support**: Added GPT-5 Nano to the OpenCode model list.
+- **Model update automation skill**: Added `update_opencode_models` skill to automate keeping the model list current.
+
+---
+
+## [v1.2.14] - 2026-04-28
+
+### ⚡ Improvements
+- **Model selector in shell launcher**: `LaunchOpenCode.sh` now presents an interactive model selection menu before starting OpenCode.
+- **Expanded model list**: Updated available models across launcher scripts.
+
+---
+
 ## [v1.2.13] - 2026-03-24
 
 ### 🚀 New Features

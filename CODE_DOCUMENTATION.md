@@ -35,9 +35,10 @@ This document describes the technical implementation and architecture of the AI 
 5. **CLI Wrapper**: Launches external terminal applications with proper directory context.
 
 ### Main Components (Linux/macOS)
-1. **Dependency Checker**: Verifies environment requirements.
-2. **Nautilus Script Generator**: (Linux only) Creates scripts in `~/.local/share/nautilus/scripts` for context menu integration.
+1. **Dependency Checker**: Verifies environment requirements including Node.js, Python 3, Git, and curl.
+2. **Nautilus Script Generator**: (Linux only) Creates scripts in `~/.local/share/nautilus/scripts` for context menu integration. Auto-detects the available terminal emulator (`gnome-terminal`, `xfce4-terminal`, `konsole`, `tilix`, `alacritty`, `xterm`).
 3. **tmux Orchestrator**: Manages session creation and pane splitting for Grid View.
+4. **Script-Relative Paths**: `SCRIPT_DIR` is resolved via `$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)` so logs and paths are always correct regardless of the calling directory.
 
 ## 🏁 CLI Beast Mode (Grid Architecture)
 
@@ -66,44 +67,57 @@ Uses standard `tmux` commands for session orchestration:
 | `:LOGGING_SETUP` | Initializes the `Log Files` directory and session log file. |
 | `:MAIN_MENU` | Central navigation loop for the interface. |
 | `:INSTALL_ALL` | Iterates through supported CLIs and installs them if missing. Uses `npm link` for local Git-based tools. |
+| `:CHECK_NPM` | Checks and installs/updates a global NPM package. Compares local vs. registry version. |
+| `:CHECK_PIP` | Checks and installs/updates a PIP package. Uses PyPI JSON API for latest version lookup. |
 | `:CHECK_NANOCODE` | Specific logic for NanoCode: Clones from GitHub into `Tools/nanocode-2` and runs `npm link`. |
-| `:CHECK_JUNIE` | Logic for Junie: Downloads and executes the official JetBrains installation script (`install.ps1`) via PowerShell. |
-| `:CHECK_KIRO` | Logic for Kiro: Downloads and executes the official installation script via `bash` using `curl`. |
-| `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. Handles scoped NPM packages, PIP version parsing, and local binary checks for Junie. |
-| `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "Open with AI CLI" menu. |
+| `:CHECK_JUNIE` | Logic for Junie: Downloads and executes the official JetBrains installation script (`install.ps1`) via PowerShell. Displays the source URL before running. |
+| `:CHECK_KIRO` | Logic for Kiro: Skipped on Windows (no native support). Refer to Linux script for curl-based install. |
+| `:CHECK_CLI_EXEC` | **[v1.2.17]** Pre-launch guard. Uses `where` to verify a CLI command is in PATH before a terminal is spawned. Returns exit code 1 and shows a descriptive error if the command is missing. Called by every `:LAUNCH_*` label. |
+| `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. Handles scoped NPM packages, PIP version parsing, and local binary checks for Junie and Kiro. |
+| `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "Open with AI CLI" menu. Uses `%SCRIPT_DIR%` for absolute Kiro launcher path with double-double-quoting for space-safe registry values. |
 | `:REMOVE_CONTEXT_MENU` | Performs `reg delete` to clean up registry entries. |
 | `:BACKUP_REGISTRY` | Exports relevant registry keys to a `.reg` file for safety. |
-| `:RESTART_EXPLORER` | Restarts the `explorer.exe` process to refresh shell extensions. |
-| `:DEEP_REFRESH_ICONS` | Force-clears Windows Icon Cache by deleting `.db` files and restarting Explorer. |
-| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, Cline, Junie, Qoder, etc.) with directory context. |
+| `:RESTART_EXPLORER` | Restarts the `explorer.exe` process. Polls `tasklist` in a loop to wait until the process is fully terminated before restarting. |
+| `:DEEP_REFRESH_ICONS` | Force-clears Windows Icon Cache by deleting `.db` files and restarting Explorer. Uses the same poll-loop as `:RESTART_EXPLORER` to avoid race conditions on slow systems. |
+| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, Cline, Junie, Qoder, etc.) with directory context. Each calls `:CHECK_CLI_EXEC` before spawning a terminal. |
 
 
 ## 🧩 Core Functions (Linux/macOS Bash)
 
 | Function | Description |
 |----------|-------------|
-| `install_npm_cli()` | Checks for and installs global NPM packages. |
-| `install_pip_cli()` | Checks for and installs Python pip packages. |
-| `add_context_menu_linux()` | Generates Nautilus scripts for GNOME users. |
+| `check_dependencies()` | Verifies Node.js, Python 3. Curl is checked inline before Junie/Kiro installs. |
+| `install_npm_cli()` | Checks for and installs/updates global NPM packages. Compares local vs. registry version. |
+| `install_pip_cli()` | Checks for and installs/updates Python pip packages via PyPI JSON API. |
+| `install_nanocode()` | Git-clone + `npm link` workflow for NanoCode. Verifies `git` is available first. |
+| `launch_tool()` | **[v1.2.17]** Pre-launch guard using `command -v` before executing a CLI. Shows a clear error and returns to menu if not found. |
+| `create_script_file()` | **[v1.2.17]** Generates a Nautilus context menu script. Auto-detects the available terminal emulator in priority order: `gnome-terminal` → `xfce4-terminal` → `konsole` → `tilix` → `alacritty` → `xterm` → `x-terminal-emulator`. |
+| `add_context_menu_linux()` | Generates Nautilus scripts for GNOME users by calling `create_script_file()` for each tool. |
+| `remove_context_menu_linux()` | Removes the `AI CLI Tools` Nautilus scripts directory. |
+| `restart_nautilus()` | Kills all Nautilus processes to refresh the context menu. |
+| `show_versions()` | Displays installed versions for all managed tools. |
 
 ## 🔄 Data Flow
 
-1. **Initialization**: Script runs -> Admin Check -> Logging Setup -> Terminal Detection.
+1. **Initialization**: Script runs → Admin Check → Logging Setup → Terminal Detection.
 2. **Selection**: User selects an option from the interactive menu.
 3. **Execution**:
-   - **Install**: Check tool existence -> `npm install` or `pip install`.
-   - **Launch**: Detect directory -> Spawn `wt.exe` or `cmd.exe` in target path.
-   - **Registry**: Show safety info -> User confirmation -> `reg export` (optional) -> `reg add`.
-4. **Finalization**: Log action -> Loop back to menu or Exit.
+   - **Install**: Check Node.js/Python/Git/curl → Check tool existence → `npm install`, `pip install`, or curl-based script.
+   - **Launch**: Verify CLI in PATH (`CHECK_CLI_EXEC` / `command -v`) → Show error if missing → Detect directory → Spawn `wt.exe` or `cmd.exe` in target path.
+   - **Registry**: Show safety info → User confirmation → `reg export` (optional) → `reg add` using absolute paths.
+4. **Explorer Restart**: Terminate `explorer.exe` → Poll until process is gone → Clear cache files → Restart.
+5. **Finalization**: Log action → Loop back to menu or Exit.
 
 ## 📦 Dependencies
 
 - **Node.js**: Required for most CLIs.
 - **Python 3 & pip**: Required for Mistral Vibe.
 - **Git**: Required for cloning NanoCode and other repository-based tools.
-- **Windows Terminal**: Highly recommended for the best experience.
+- **curl**: (Linux/macOS) Required for Junie and Kiro installation scripts.
+- **Windows Terminal**: Highly recommended for the best experience on Windows.
 - **Nautilus**: (Linux) Required for the script's automated context menu feature.
-- **Pillow (PIL)**: Python library required only if running the `convert_icons.py` utility.
+- **tmux**: (Linux/macOS) Required for CLI Beast Mode grid layout.
+- **Pillow (PIL)**: Python library required only if running the `convert_icons.py` utility. Install with `pip install Pillow`.
 
 ## 🔌 API & External Integrations
 

@@ -7,7 +7,7 @@
 
 
 ## Overview
-**AI CLI Manager (v1.2.13)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
+**AI CLI Manager (v1.2.17)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
 
 
 ---
@@ -15,7 +15,8 @@
 ## ✨ Key Features
 *   **Unified Launcher**: Launch any supported AI CLI (Gemini, Claude, Copilot, etc.) with a single keystroke.
 *   **🔥 CLI Beast Mode**: Launch up to 4 AI CLIs simultaneously in a perfectly aligned 2x2 grid (Windows Terminal or tmux).
-*   **Smart Installation**: Automated dependency checks (Node.js, Python, Git) and one-click installs for missing tools.
+*   **Smart Installation**: Automated dependency checks (Node.js, Python, Git, curl) and one-click installs for missing tools.
+*   **Pre-Launch Validation**: Verifies a CLI is actually installed before attempting to launch — clear error messages guide you to fix it.
 *   **Windows Integration**: Add a cascading "Open with AI CLI" menu to your right-click context menu in File Explorer.
 *   **Cross-Platform**: Primary focus on Windows (Batch) with robust support for Linux & macOS (Shell).
 *   **Session Awareness**: Comprehensive logging and registry backup utilities for system safety.
@@ -116,6 +117,9 @@ You can run `AI_CLI_Manager.sh` on Windows for cross-platform testing:
 | **Menu not appearing** | Use Option `D` (Restart Explorer). |
 | **Broken Icons** | Use Option `E` (Deep Refresh). |
 | **PATH errors** | Restart your computer after new tool installations. |
+| **"CLI not found in PATH"** | Run Option `I` to install the missing tool, then retry. |
+| **Junie/Kiro install fails** | Ensure `curl` (Linux/macOS) or internet access (Windows) is available. |
+| **Context menu icons persist after removal** | Use Option `E` (Deep Refresh Icons) after removing the menu. |
 
 *   **Logs**: `AI_CLI_MG_YYYYMMDD_HHMMSS.log` in `Log Files/`.
 *   **Backups**: `AI_CLI_Backup_YYYYMMDD_HHMMSS.reg` in `Log Files/`.
