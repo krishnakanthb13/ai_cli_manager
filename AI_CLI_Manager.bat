@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.13)
+echo           AI CLI TOOLS MANAGER (v1.2.17)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -132,6 +132,8 @@ REM ========================================
 echo [%time%] === Launching Gemini CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC gemini
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k gemini >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k gemini
@@ -145,6 +147,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching Jules CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC jules
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k jules >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k jules
@@ -158,6 +162,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching Mistral Vibe === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC vibe
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k vibe >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k vibe
@@ -171,6 +177,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching iFlow CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC iflow
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k iflow >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k iflow
@@ -184,6 +192,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching OpenCode CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC opencode
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k opencode >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k opencode
@@ -197,6 +207,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching Qwen Code CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC qwen
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k qwen >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k qwen
@@ -210,6 +222,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching KiloCode CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC kilocode
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k kilocode >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k kilocode
@@ -223,6 +237,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching GitHub Copilot CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC copilot
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k copilot >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k copilot
@@ -236,6 +252,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching Claude CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC claude
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k claude >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k claude
@@ -249,6 +267,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching OpenAI Codex CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC codex
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k codex >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k codex
@@ -262,6 +282,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching NanoCode CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC nanocode
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k nanocode >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k nanocode
@@ -275,6 +297,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching Cline CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC cline
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k cline >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k cline
@@ -288,6 +312,8 @@ goto EXIT_SCRIPT
 echo [%time%] === Launching Junie CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC junie
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k junie >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k junie
@@ -320,6 +346,8 @@ goto MAIN_MENU
 echo [%time%] === Launching Qoder CLI === >> "%LOG_FILE%"
 set "LAUNCH_DIR=%~1"
 if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC qodercli
+if errorlevel 1 goto MAIN_MENU
 if "%UseWT%"=="1" (
     echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k qodercli >> "%LOG_FILE%"
     start wt.exe -d "%LAUNCH_DIR%" cmd /k qodercli
@@ -714,7 +742,10 @@ echo --- Junie CLI --- >> "%LOG_FILE%"
 where junie >nul 2>&1
 if %errorlevel% neq 0 (
     echo [MISSING] Installing Junie CLI...
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://junie.jetbrains.com/install.ps1')" >nul 2>&1
+    echo [INFO] Downloading official installer from: https://junie.jetbrains.com/install.ps1
+    echo [INFO] This runs JetBrains' official installation script.
+    echo [%time%] [INFO] Running Junie official installer >> "%LOG_FILE%"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://junie.jetbrains.com/install.ps1')"
     if errorlevel 1 (
         echo [FAILED]
         echo [%time%] [FAILED] Junie install >> "%LOG_FILE%"
@@ -733,6 +764,24 @@ echo --- Kiro CLI (Skipped) --- >> "%LOG_FILE%"
 echo [SKIP] Kiro CLI does not have a native Windows version.
 echo Use WSL or Git Bash for Linux installation.
 exit /b
+
+REM ========================================
+REM Subroutine: Check if a CLI command exists in PATH
+REM Usage: call :CHECK_CLI_EXEC <command>
+REM Returns: exit code 1 if not found, 0 if found
+REM ========================================
+:CHECK_CLI_EXEC
+where %~1 >nul 2>&1
+if errorlevel 1 (
+    echo.
+    echo [ERROR] '%~1' not found in PATH.
+    echo Run option 'I' to install all CLIs first.
+    echo [%time%] [ERROR] CLI not found: %~1 >> "%LOG_FILE%"
+    echo.
+    pause
+    exit /b 1
+)
+exit /b 0
 
 REM ========================================
 REM BACKUP REGISTRY
@@ -883,7 +932,7 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie\co
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c \"%%~dp0Batch Files\LaunchKiro.bat\"" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchKiro.bat\"\"" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder" /ve /d "Open with Qoder CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
@@ -944,7 +993,7 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie\command" /ve 
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c \"%%~dp0Batch Files\LaunchKiro.bat\"" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchKiro.bat\"\"" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder" /ve /d "Open with Qoder CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
@@ -1022,7 +1071,12 @@ pause
 
 echo Restarting Explorer...
 taskkill /f /im explorer.exe >nul 2>&1
-timeout /t 2 >nul
+:WAIT_EXPLORER_RESTART
+tasklist /fi "imagename eq explorer.exe" 2>nul | find /i "explorer.exe" >nul
+if not errorlevel 1 (
+    timeout /t 1 >nul
+    goto WAIT_EXPLORER_RESTART
+)
 start explorer.exe
 echo.
 echo [SUCCESS] Explorer restarted!
@@ -1050,7 +1104,12 @@ pause
 
 echo Killing Explorer...
 taskkill /f /im explorer.exe >nul 2>&1
-timeout /t 2 >nul
+:WAIT_EXPLORER_DEEP
+tasklist /fi "imagename eq explorer.exe" 2>nul | find /i "explorer.exe" >nul
+if not errorlevel 1 (
+    timeout /t 1 >nul
+    goto WAIT_EXPLORER_DEEP
+)
 
 echo Clearing Icon Cache (Legacy)...
 attrib -h -s -r "%LocalAppData%\IconCache.db" >nul 2>&1

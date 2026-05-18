@@ -11,7 +11,8 @@ CYAN='\033[0;36m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-LOG_DIR="./Log Files"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOG_DIR="$SCRIPT_DIR/Log Files"
 mkdir -p "$LOG_DIR"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 LOG_FILE="$LOG_DIR/AI_CLI_MG_Linux_$TIMESTAMP.log"
@@ -27,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.13) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.17) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -221,17 +222,45 @@ install_all() {
     echo "[Junie CLI] Checking..."
     if ! command -v junie &> /dev/null; then
         echo -e "${YELLOW}[MISSING]${NC} Installing Junie CLI..."
-        curl -fsSL https://junie.jetbrains.com/install.sh | bash
+        if ! command -v curl &> /dev/null; then
+            echo -e "${RED}[FAILED]${NC} curl not found. Install curl first."
+            log "ERROR" "Junie install failed: curl missing"
+        else
+            echo -e "${CYAN}[INFO]${NC} Downloading from: https://junie.jetbrains.com/install.sh"
+            curl -fsSL https://junie.jetbrains.com/install.sh | bash
+            if [ ${PIPESTATUS[0]} -eq 0 ]; then
+                echo -e "${GREEN}[INSTALLED]${NC}"
+                log "SUCCESS" "Junie CLI installed"
+            else
+                echo -e "${RED}[FAILED]${NC}"
+                log "ERROR" "Junie install failed"
+            fi
+        fi
     else
         echo -e "${GREEN}[OK] Installed${NC}"
+        log "INFO" "Junie already installed"
     fi
     echo ""
     echo "[Kiro CLI] Checking..."
     if ! command -v kiro-cli &> /dev/null; then
         echo -e "${YELLOW}[MISSING]${NC} Installing Kiro CLI..."
-        curl -fsSL https://cli.kiro.dev/install | bash
+        if ! command -v curl &> /dev/null; then
+            echo -e "${RED}[FAILED]${NC} curl not found. Install curl first."
+            log "ERROR" "Kiro install failed: curl missing"
+        else
+            echo -e "${CYAN}[INFO]${NC} Downloading from: https://cli.kiro.dev/install"
+            curl -fsSL https://cli.kiro.dev/install | bash
+            if [ ${PIPESTATUS[0]} -eq 0 ]; then
+                echo -e "${GREEN}[INSTALLED]${NC}"
+                log "SUCCESS" "Kiro CLI installed"
+            else
+                echo -e "${RED}[FAILED]${NC}"
+                log "ERROR" "Kiro install failed"
+            fi
+        fi
     else
         echo -e "${GREEN}[OK] Installed${NC}"
+        log "INFO" "Kiro already installed"
     fi
     install_npm_cli "Qoder CLI" "@qoder-ai/qodercli"
     echo ""
@@ -324,6 +353,13 @@ show_versions() {
 
 launch_tool() {
     local cmd=$1
+    if ! command -v "$cmd" &> /dev/null; then
+        echo -e "${RED}[ERROR]${NC} '$cmd' not found in PATH."
+        echo "Run option 'I' to install all CLIs first."
+        log "ERROR" "CLI not found: $cmd"
+        sleep 2
+        return 1
+    fi
     echo -e "${GREEN}Launching $cmd...${NC}"
     log "INFO" "Launching $cmd"
     $cmd
@@ -335,10 +371,28 @@ create_script_file() {
     local cmd=$2
     local dir="$HOME/.local/share/nautilus/scripts/AI CLI Tools"
     local file="$dir/$tool"
+    local term_cmd
+
+    # Detect available terminal emulator
+    if command -v gnome-terminal &> /dev/null; then
+        term_cmd="gnome-terminal --"
+    elif command -v xfce4-terminal &> /dev/null; then
+        term_cmd="xfce4-terminal -e"
+    elif command -v konsole &> /dev/null; then
+        term_cmd="konsole -e"
+    elif command -v tilix &> /dev/null; then
+        term_cmd="tilix -e"
+    elif command -v alacritty &> /dev/null; then
+        term_cmd="alacritty -e"
+    elif command -v xterm &> /dev/null; then
+        term_cmd="xterm -e"
+    else
+        term_cmd="x-terminal-emulator -e"
+    fi
 
     mkdir -p "$dir"
     echo "#!/bin/bash" > "$file"
-    echo "gnome-terminal -- $cmd" >> "$file"
+    echo "$term_cmd $cmd" >> "$file"
     chmod +x "$file"
     echo -e "Created ${CYAN}$tool${NC} script."
 }
