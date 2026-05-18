@@ -49,11 +49,10 @@ echo.
 echo  Select a model to run:
 echo.
 echo    [1] Big Pickle
-echo    [2] MiniMax M2.5 Free
-echo    [3] Ling 2.6 Flash Free
-echo    [4] Hy3 Preview Flash Free
-echo    [5] Trinity Large Preview Free
-echo    [6] Nemotron 3 Super Free
+echo    [2] DeepSeek V4 Flash Free
+echo    [3] Qwen 3.6 Plus Free
+echo    [4] MiniMax M2.5 Free
+echo    [5] Nemotron 3 Super Free
 echo.
 echo    [0] Exit
 echo.
@@ -61,19 +60,18 @@ echo ============================================================
 echo.
 
 set "choice="
-set /p choice="  Enter your choice (0-6): "
+set /p choice="  Enter your choice (0-5): "
 
 if "%choice%"=="0" goto exit
 if "%choice%"=="1" set "model=opencode/big-pickle" & set "modelname=Big Pickle"
-if "%choice%"=="2" set "model=opencode/minimax-m2.5-free" & set "modelname=MiniMax M2.5 Free"
-if "%choice%"=="3" set "model=opencode/ling-2.6-flash-free" & set "modelname=Ling 2.6 Flash Free"
-if "%choice%"=="4" set "model=opencode/hy3-preview-free" & set "modelname=Hy3 Preview Flash Free"
-if "%choice%"=="5" set "model=opencode/trinity-large-preview-free" & set "modelname=Trinity Large Preview Free"
-if "%choice%"=="6" set "model=opencode/nemotron-3-super-free" & set "modelname=Nemotron 3 Super Free"
+if "%choice%"=="2" set "model=opencode/deepseek-v4-flash-free" & set "modelname=DeepSeek V4 Flash Free"
+if "%choice%"=="3" set "model=opencode/qwen3.6-plus-free" & set "modelname=Qwen 3.6 Plus Free"
+if "%choice%"=="4" set "model=opencode/minimax-m2.5-free" & set "modelname=MiniMax M2.5 Free"
+if "%choice%"=="5" set "model=opencode/nemotron-3-super-free" & set "modelname=Nemotron 3 Super Free"
 
 if not defined model (
     echo.
-    echo  [!] Invalid choice. Please enter a number between 0-6.
+    echo  [!] Invalid choice. Please enter a number between 0-5.
     timeout /t 2 >nul
     goto menu
 )
