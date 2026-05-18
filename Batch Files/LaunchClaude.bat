@@ -10,7 +10,7 @@ echo           ANTHROPIC CLAUDE CLI LAUNCHER
 echo ============================================================
 echo.
 echo  Tool    : Claude CLI (Claude Code)
-echo  Install : npm install -g @anthropic-ai/claude-code
+echo  Install : powershell "iex (irm https://claude.ai/install.ps1)"
 echo  Update  : claude install
 echo.
 echo ============================================================
@@ -26,9 +26,9 @@ if %ERRORLEVEL% neq 0 (
     echo ============================================================
     echo.
     echo  To install, run:
-    echo    npm install -g @anthropic-ai/claude-code
+    echo    powershell "iex (irm https://claude.ai/install.ps1)"
     echo.
-    echo  Make sure you have Node.js and npm installed first.
+    echo  Make sure you run PowerShell with internet access.
     echo.
     echo ============================================================
     echo.

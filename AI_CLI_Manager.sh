@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.17) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.19) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -211,7 +211,27 @@ install_all() {
     echo ""
     install_npm_cli "GitHub Copilot CLI" "@github/copilot"
     echo ""
-    install_npm_cli "Claude CLI" "@anthropic-ai/claude-code"
+    echo "[Claude CLI] Checking..."
+    if ! command -v claude &> /dev/null; then
+        echo -e "${YELLOW}[MISSING]${NC} Installing Claude CLI..."
+        if ! command -v curl &> /dev/null; then
+            echo -e "${RED}[FAILED]${NC} curl not found. Install curl first."
+            log "ERROR" "Claude install failed: curl missing"
+        else
+            echo -e "${CYAN}[INFO]${NC} Downloading from: https://claude.ai/install.sh"
+            curl -fsSL https://claude.ai/install.sh | bash
+            if [ ${PIPESTATUS[0]} -eq 0 ]; then
+                echo -e "${GREEN}[INSTALLED]${NC}"
+                log "SUCCESS" "Claude CLI installed"
+            else
+                echo -e "${RED}[FAILED]${NC}"
+                log "ERROR" "Claude install failed"
+            fi
+        fi
+    else
+        echo -e "${GREEN}[OK] Installed${NC}"
+        log "INFO" "Claude already installed"
+    fi
     echo ""
     install_npm_cli "OpenAI Codex CLI" "@openai/codex"
     echo ""
@@ -308,7 +328,11 @@ show_versions() {
 
     echo -e "\n${CYAN}--- Claude CLI ---${NC}"
     echo -e "\n--- Claude CLI ---" >> "$LOG_FILE"
-    npm list -g @anthropic-ai/claude-code --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+    if command -v claude &> /dev/null; then
+        echo "[INSTALLED]" | tee -a "$LOG_FILE"
+    else
+        echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
+    fi
 
     echo -e "\n${CYAN}--- OpenAI Codex CLI ---${NC}"
     echo -e "\n--- OpenAI Codex CLI ---" >> "$LOG_FILE"

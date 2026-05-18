@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.17)
+echo           AI CLI TOOLS MANAGER (v1.2.19)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -421,7 +421,8 @@ echo.
 echo --- Claude CLI ---
 echo --- Claude CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g @anthropic-ai/claude-code 2^>nul ^| findstr "@anthropic-ai/claude-code"') do set "_result=%%V"
+where claude >nul 2>&1
+if %errorlevel% equ 0 (set "_result=[INSTALLED]") else (set "_result=")
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
@@ -536,7 +537,7 @@ echo [GitHub Copilot CLI] Checking...
 call :CHECK_NPM "@github/copilot" "GitHub Copilot CLI"
 
 echo [Claude CLI] Checking...
-call :CHECK_NPM "@anthropic-ai/claude-code" "Claude CLI"
+call :CHECK_CLAUDE
 
 echo [OpenAI Codex CLI] Checking...
 call :CHECK_NPM "@openai/codex" "OpenAI Codex CLI"
@@ -763,6 +764,31 @@ exit /b
 echo --- Kiro CLI (Skipped) --- >> "%LOG_FILE%"
 echo [SKIP] Kiro CLI does not have a native Windows version.
 echo Use WSL or Git Bash for Linux installation.
+exit /b
+
+REM ========================================
+REM Check Claude CLI (Official Script)
+REM ========================================
+:CHECK_CLAUDE
+echo --- Claude CLI --- >> "%LOG_FILE%"
+where claude >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [MISSING] Installing Claude CLI...
+    echo [INFO] Downloading official installer from: https://claude.ai/install.ps1
+    echo [INFO] This runs Anthropic's official installation script.
+    echo [%time%] [INFO] Running Claude official installer >> "%LOG_FILE%"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://claude.ai/install.ps1')"
+    if errorlevel 1 (
+        echo [FAILED]
+        echo [%time%] [FAILED] Claude install >> "%LOG_FILE%"
+    ) else (
+        echo [INSTALLED] Official Script
+        echo [%time%] [OK] Installed Claude CLI >> "%LOG_FILE%"
+    )
+) else (
+    echo [OK] Installed
+    echo [%time%] [SKIP] Claude already installed >> "%LOG_FILE%"
+)
 exit /b
 
 REM ========================================

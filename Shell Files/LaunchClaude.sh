@@ -3,15 +3,14 @@
 # Compatible with Linux & macOS
 
 CMD="claude"
-PKG="@anthropic-ai/claude-code"
+PKG="curl -fsSL https://claude.ai/install.sh | bash"
 
 echo "Checking for $CMD..."
 
 if ! command -v $CMD &> /dev/null; then
     echo "❌ $CMD not found."
     echo "To install, run:"
-    echo "  npm install -g $PKG"
-    echo "  (You might need sudo)"
+    echo "  $PKG"
 else
     echo "✅ Launching $CMD..."
     $CMD
