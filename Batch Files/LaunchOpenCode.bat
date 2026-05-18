@@ -85,7 +85,7 @@ echo.
 
 :run
 REM cls
-cmd /c opencode --model %model%
+cmd /c opencode --model "%model%"
 
 echo.
 echo ============================================================

@@ -14,7 +14,7 @@ This skill automates the process of fetching the latest free models offered by O
    - Read content from `https://opencode.ai/zen/v1/models`.
    - Compile a list of all models classified as "free" (typically suffixed with `-free`, along with stealth/preview ones like `big-pickle`).
 
-2. **Update `Batch Files/LaunchOpencode.bat`**
+2. **Update `Batch Files/LaunchOpenCode.bat`**
    - Locate the `OPENCODE CLI - MODEL SELECTOR` section.
    - Replace the list of printed model options with the updated list.
    - Update the interactive prompt max range (e.g., `(0-8)`).

@@ -7,14 +7,14 @@ PKG="mistral-vibe"
 
 echo "Checking for $CMD..."
 
-if ! command -v $CMD &> /dev/null; then
+if ! command -v "$CMD" &> /dev/null; then
     echo "❌ $CMD not found."
     echo "To install, run:"
     echo "  pip3 install $PKG"
     echo "  (Ensure you have Python 3 installed)"
 else
     echo "✅ Launching $CMD..."
-    $CMD
+    "$CMD"
 fi
 
 # Keep window open if double-clicked

@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.19) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.20) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -220,7 +220,7 @@ install_all() {
         else
             echo -e "${CYAN}[INFO]${NC} Downloading from: https://claude.ai/install.sh"
             curl -fsSL https://claude.ai/install.sh | bash
-            if [ ${PIPESTATUS[0]} -eq 0 ]; then
+            if [ "${PIPESTATUS[0]}" -eq 0 ] && [ "${PIPESTATUS[1]}" -eq 0 ]; then
                 echo -e "${GREEN}[INSTALLED]${NC}"
                 log "SUCCESS" "Claude CLI installed"
             else
@@ -248,7 +248,7 @@ install_all() {
         else
             echo -e "${CYAN}[INFO]${NC} Downloading from: https://junie.jetbrains.com/install.sh"
             curl -fsSL https://junie.jetbrains.com/install.sh | bash
-            if [ ${PIPESTATUS[0]} -eq 0 ]; then
+            if [ "${PIPESTATUS[0]}" -eq 0 ] && [ "${PIPESTATUS[1]}" -eq 0 ]; then
                 echo -e "${GREEN}[INSTALLED]${NC}"
                 log "SUCCESS" "Junie CLI installed"
             else
@@ -270,7 +270,7 @@ install_all() {
         else
             echo -e "${CYAN}[INFO]${NC} Downloading from: https://cli.kiro.dev/install"
             curl -fsSL https://cli.kiro.dev/install | bash
-            if [ ${PIPESTATUS[0]} -eq 0 ]; then
+            if [ "${PIPESTATUS[0]}" -eq 0 ] && [ "${PIPESTATUS[1]}" -eq 0 ]; then
                 echo -e "${GREEN}[INSTALLED]${NC}"
                 log "SUCCESS" "Kiro CLI installed"
             else
@@ -375,6 +375,55 @@ show_versions() {
     pause
 }
 
+detect_terminal() {
+    # Echo a terminal-spawn command prefix that accepts a shell command as its trailing arg.
+    # Empty result = no terminal emulator found.
+    if [ "$(uname)" = "Darwin" ]; then
+        echo "osascript-mac"
+        return
+    fi
+    if [ -n "$DISPLAY$WAYLAND_DISPLAY" ] || command -v gnome-terminal &> /dev/null; then
+        if command -v gnome-terminal &> /dev/null;     then echo "gnome-terminal";   return; fi
+        if command -v konsole &> /dev/null;            then echo "konsole";          return; fi
+        if command -v xfce4-terminal &> /dev/null;     then echo "xfce4-terminal";   return; fi
+        if command -v tilix &> /dev/null;              then echo "tilix";            return; fi
+        if command -v alacritty &> /dev/null;          then echo "alacritty";        return; fi
+        if command -v kitty &> /dev/null;              then echo "kitty";            return; fi
+        if command -v xterm &> /dev/null;              then echo "xterm";            return; fi
+        if command -v x-terminal-emulator &> /dev/null; then echo "x-terminal-emulator"; return; fi
+    fi
+    echo ""
+}
+
+spawn_in_terminal() {
+    # Spawn "$@" in a new terminal window (returns immediately).
+    # Falls back to running inline if no terminal emulator is available.
+    local term
+    term="$(detect_terminal)"
+    case "$term" in
+        gnome-terminal)       gnome-terminal -- "$@" & ;;
+        konsole)              konsole -e "$@" & ;;
+        xfce4-terminal)       xfce4-terminal -e "$*" & ;;
+        tilix)                tilix -e "$@" & ;;
+        alacritty)            alacritty -e "$@" & ;;
+        kitty)                kitty "$@" & ;;
+        xterm)                xterm -e "$@" & ;;
+        x-terminal-emulator)  x-terminal-emulator -e "$@" & ;;
+        osascript-mac)
+            local quoted
+            printf -v quoted '%q ' "$@"
+            osascript -e "tell application \"Terminal\" to do script \"$quoted\""
+            ;;
+        *)
+            echo -e "${YELLOW}[WARN]${NC} No terminal emulator detected; running inline."
+            "$@"
+            pause
+            return
+            ;;
+    esac
+    disown 2>/dev/null
+}
+
 launch_tool() {
     local cmd=$1
     if ! command -v "$cmd" &> /dev/null; then
@@ -384,10 +433,10 @@ launch_tool() {
         sleep 2
         return 1
     fi
-    echo -e "${GREEN}Launching $cmd...${NC}"
+    echo -e "${GREEN}Launching $cmd in a new terminal...${NC}"
     log "INFO" "Launching $cmd"
-    $cmd
-    pause
+    spawn_in_terminal "$cmd"
+    sleep 1
 }
 
 create_script_file() {

@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.19)
+echo           AI CLI TOOLS MANAGER (v1.2.20)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -141,7 +141,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k gemini (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && gemini"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_JULES
 echo [%time%] === Launching Jules CLI === >> "%LOG_FILE%"
@@ -156,7 +156,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k jules (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && jules"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_VIBE
 echo [%time%] === Launching Mistral Vibe === >> "%LOG_FILE%"
@@ -171,7 +171,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k vibe (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && vibe"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_IFLOW
 echo [%time%] === Launching iFlow CLI === >> "%LOG_FILE%"
@@ -186,7 +186,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k iflow (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && iflow"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_OPENCODE
 echo [%time%] === Launching OpenCode CLI === >> "%LOG_FILE%"
@@ -201,7 +201,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k opencode (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && opencode"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_QWEN
 echo [%time%] === Launching Qwen Code CLI === >> "%LOG_FILE%"
@@ -216,7 +216,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k qwen (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && qwen"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_KILOCODE
 echo [%time%] === Launching KiloCode CLI === >> "%LOG_FILE%"
@@ -231,7 +231,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k kilocode (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && kilocode"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_COPILOT
 echo [%time%] === Launching GitHub Copilot CLI === >> "%LOG_FILE%"
@@ -246,7 +246,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k copilot (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && copilot"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_CLAUDE
 echo [%time%] === Launching Claude CLI === >> "%LOG_FILE%"
@@ -261,7 +261,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k claude (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && claude"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_OPENAI
 echo [%time%] === Launching OpenAI Codex CLI === >> "%LOG_FILE%"
@@ -276,7 +276,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k codex (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && codex"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_NANOCODE
 echo [%time%] === Launching NanoCode CLI === >> "%LOG_FILE%"
@@ -291,7 +291,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k nanocode (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && nanocode"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_CLINE
 echo [%time%] === Launching Cline CLI === >> "%LOG_FILE%"
@@ -306,7 +306,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k cline (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && cline"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_JUNIE
 echo [%time%] === Launching Junie CLI === >> "%LOG_FILE%"
@@ -321,7 +321,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k junie (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && junie"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 :LAUNCH_KIRO
 echo [%time%] === Kiro CLI not natively supported === >> "%LOG_FILE%"
@@ -355,7 +355,7 @@ if "%UseWT%"=="1" (
     echo [%time%] Command: cmd /k qodercli (in %LAUNCH_DIR%) >> "%LOG_FILE%"
     start cmd /k "cd /d "%LAUNCH_DIR%" && qodercli"
 )
-goto EXIT_SCRIPT
+goto LAUNCH_DONE
 
 REM ========================================
 REM SHOW VERSIONS
@@ -372,49 +372,49 @@ echo [%time%] === Checking versions === >> "%LOG_FILE%"
 echo --- Gemini CLI ---
 echo --- Gemini CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g @google/gemini-cli 2^>nul ^| findstr "@google/gemini-cli"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g @google/gemini-cli --depth=0 2^>nul ^| findstr /C:"-- @google/gemini-cli@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
 echo --- Jules CLI ---
 echo --- Jules CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g @google/jules 2^>nul ^| findstr "@google/jules"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g @google/jules --depth=0 2^>nul ^| findstr /C:"-- @google/jules@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
 echo --- iFlow CLI ---
 echo --- iFlow CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g @iflow-ai/iflow-cli 2^>nul ^| findstr "@iflow-ai/iflow-cli"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g @iflow-ai/iflow-cli --depth=0 2^>nul ^| findstr /C:"-- @iflow-ai/iflow-cli@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
 echo --- OpenCode CLI ---
 echo --- OpenCode CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g opencode-ai 2^>nul ^| findstr "opencode-ai"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g opencode-ai --depth=0 2^>nul ^| findstr /C:"-- opencode-ai@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
 echo --- Qwen Code CLI ---
 echo --- Qwen Code CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g @qwen-code/qwen-code 2^>nul ^| findstr "@qwen-code/qwen-code"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g @qwen-code/qwen-code --depth=0 2^>nul ^| findstr /C:"-- @qwen-code/qwen-code@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
 echo --- KiloCode CLI ---
 echo --- KiloCode CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g @kilocode/cli 2^>nul ^| findstr "@kilocode/cli"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g @kilocode/cli --depth=0 2^>nul ^| findstr /C:"-- @kilocode/cli@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
 echo --- GitHub Copilot CLI ---
 echo --- GitHub Copilot CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g @github/copilot 2^>nul ^| findstr "@github/copilot"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g @github/copilot --depth=0 2^>nul ^| findstr /C:"-- @github/copilot@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
@@ -429,21 +429,21 @@ echo.
 echo --- OpenAI Codex CLI ---
 echo --- OpenAI Codex CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g @openai/codex 2^>nul ^| findstr "@openai/codex"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g @openai/codex --depth=0 2^>nul ^| findstr /C:"-- @openai/codex@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
 echo --- NanoCode CLI ---
 echo --- NanoCode CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g nanocode-agent 2^>nul ^| findstr "nanocode-agent"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g nanocode-agent --depth=0 2^>nul ^| findstr /C:"-- nanocode-agent@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
 echo --- Cline CLI ---
 echo --- Cline CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g cline 2^>nul ^| findstr "cline"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g cline --depth=0 2^>nul ^| findstr /C:"-- cline@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
@@ -466,14 +466,14 @@ echo.
 echo --- Qoder CLI ---
 echo --- Qoder CLI --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('npm list -g @qoder-ai/qodercli 2^>nul ^| findstr "@qoder-ai/qodercli"') do set "_result=%%V"
+for /f "delims=" %%V in ('npm list -g @qoder-ai/qodercli --depth=0 2^>nul ^| findstr /C:"-- @qoder-ai/qodercli@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
 echo --- Mistral Vibe ---
 echo --- Mistral Vibe --- >> "%LOG_FILE%"
 set "_result="
-for /f "delims=" %%V in ('pip show mistral-vibe 2^>nul ^| findstr "Version"') do set "_result=%%V"
+for /f "delims=" %%V in ('pip show mistral-vibe 2^>nul ^| findstr /B /C:"Version:"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
@@ -582,7 +582,9 @@ set "CVER="
 echo --- %DNAME% --- >> "%LOG_FILE%"
 
 rem Get local version (handles scoped and non-scoped packages)
-for /f "tokens=*" %%A in ('npm list -g %PKG% --depth=0 2^>nul ^| findstr "%PKG%@"') do (
+rem Anchor match with "-- " prefix so we only catch the top-level tree entry
+rem (e.g. "+-- cline@1.0.0") and not substrings from sub-dependencies.
+for /f "tokens=*" %%A in ('npm list -g %PKG% --depth=0 2^>nul ^| findstr /C:"-- %PKG%@"') do (
     set "TLINE=%%A"
     set "LVER="
     for /f "tokens=1,2,3 delims=@" %%X in ("!TLINE!") do (
@@ -683,8 +685,8 @@ REM ========================================
 echo --- NanoCode CLI --- >> "%LOG_FILE%"
 set "LVER="
 
-rem Get local version
-for /f "tokens=*" %%A in ('npm list -g nanocode-agent --depth=0 2^>nul ^| findstr "nanocode-agent@"') do (
+rem Get local version (anchor on "-- " tree prefix to avoid sub-dep substring matches)
+for /f "tokens=*" %%A in ('npm list -g nanocode-agent --depth=0 2^>nul ^| findstr /C:"-- nanocode-agent@"') do (
     set "TLINE=%%A"
     for /f "tokens=2 delims=@" %%Y in ("!TLINE!") do (
         set "LVER=%%Y"
@@ -820,7 +822,10 @@ echo         Export Registry Backup
 echo ================================================
 echo.
 
-set "BACKUP_FILE=%LOG_FOLDER%\AI_CLI_Backup_%TIMESTAMP%.reg"
+rem Use a fresh timestamp so multiple backups in one session don't clobber each other
+for /f "tokens=2 delims==" %%I in ('wmic os get localdatetime /value') do set "DT_BK=%%I"
+set "BK_STAMP=%DT_BK:~0,4%%DT_BK:~4,2%%DT_BK:~6,2%_%DT_BK:~8,2%%DT_BK:~10,2%%DT_BK:~12,2%"
+set "BACKUP_FILE=%LOG_FOLDER%\AI_CLI_Backup_%BK_STAMP%.reg"
 echo Saving to: %BACKUP_FILE%
 echo [%time%] Backup to: %BACKUP_FILE% >> "%LOG_FILE%"
 echo.
@@ -1097,11 +1102,18 @@ pause
 
 echo Restarting Explorer...
 taskkill /f /im explorer.exe >nul 2>&1
+set "WAIT_RETRIES=0"
 :WAIT_EXPLORER_RESTART
 tasklist /fi "imagename eq explorer.exe" 2>nul | find /i "explorer.exe" >nul
 if not errorlevel 1 (
-    timeout /t 1 >nul
-    goto WAIT_EXPLORER_RESTART
+    set /a WAIT_RETRIES+=1
+    if !WAIT_RETRIES! geq 10 (
+        echo [WARN] explorer.exe still running after 10s, proceeding anyway.
+        echo [%time%] [WARN] Explorer poll timeout >> "%LOG_FILE%"
+    ) else (
+        timeout /t 1 >nul
+        goto WAIT_EXPLORER_RESTART
+    )
 )
 start explorer.exe
 echo.
@@ -1130,11 +1142,18 @@ pause
 
 echo Killing Explorer...
 taskkill /f /im explorer.exe >nul 2>&1
+set "WAIT_DEEP_RETRIES=0"
 :WAIT_EXPLORER_DEEP
 tasklist /fi "imagename eq explorer.exe" 2>nul | find /i "explorer.exe" >nul
 if not errorlevel 1 (
-    timeout /t 1 >nul
-    goto WAIT_EXPLORER_DEEP
+    set /a WAIT_DEEP_RETRIES+=1
+    if !WAIT_DEEP_RETRIES! geq 10 (
+        echo [WARN] explorer.exe still running after 10s, proceeding anyway.
+        echo [%time%] [WARN] Explorer poll timeout (deep) >> "%LOG_FILE%"
+    ) else (
+        timeout /t 1 >nul
+        goto WAIT_EXPLORER_DEEP
+    )
 )
 
 echo Clearing Icon Cache (Legacy)...
@@ -1151,6 +1170,15 @@ echo.
 echo [SUCCESS] Icon cache cleared and Explorer restarted!
 echo [%time%] [OK] Deep Refresh Completed >> "%LOG_FILE%"
 timeout /t 3 >nul
+goto MAIN_MENU
+
+REM ========================================
+REM POST-LAUNCH: return to main menu so multiple CLIs can be opened
+REM ========================================
+:LAUNCH_DONE
+echo.
+echo [OK] CLI launched in a new window. Returning to menu...
+timeout /t 1 >nul
 goto MAIN_MENU
 
 REM ========================================

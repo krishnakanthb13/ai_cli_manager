@@ -171,8 +171,8 @@ if "!LAUNCH_DIR!"=="" set "LAUNCH_DIR=%USERPROFILE%"
 REM Remove trailing backslash if present
 if "!LAUNCH_DIR:~-1!"=="\" set "LAUNCH_DIR=!LAUNCH_DIR:~0,-1!"
 
-REM Validate folder exists
-if not exist "!LAUNCH_DIR!\*" (
+REM Validate folder exists (trailing backslash tests for directory, works for empty dirs)
+if not exist "!LAUNCH_DIR!\" (
     echo.
     echo  [ERROR] Folder not found: !LAUNCH_DIR!
     echo  Please enter a valid folder path.

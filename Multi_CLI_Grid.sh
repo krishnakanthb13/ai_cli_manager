@@ -78,25 +78,29 @@ ask_folder() {
     echo ""
     echo "   Press Enter to use default: $HOME"
     echo ""
-    read -p "  Folder path: " LAUNCH_DIR
-    if [ -z "$LAUNCH_DIR" ]; then
-        LAUNCH_DIR="$HOME"
-    fi
 
-    # Expand leading tilde (~) to $HOME
-    LAUNCH_DIR="${LAUNCH_DIR/#\~/$HOME}"
+    while true; do
+        read -p "  Folder path: " LAUNCH_DIR
+        if [ -z "$LAUNCH_DIR" ]; then
+            LAUNCH_DIR="$HOME"
+        fi
 
-    # Remove trailing slash if present
-    LAUNCH_DIR="${LAUNCH_DIR%/}"
+        # Expand leading tilde (~) to $HOME
+        LAUNCH_DIR="${LAUNCH_DIR/#\~/$HOME}"
 
-    # Validate folder exists
-    if [ ! -d "$LAUNCH_DIR" ]; then
+        # Remove trailing slash if present (but preserve "/" itself)
+        if [ "$LAUNCH_DIR" != "/" ]; then
+            LAUNCH_DIR="${LAUNCH_DIR%/}"
+        fi
+
+        if [ -d "$LAUNCH_DIR" ]; then
+            break
+        fi
+
         echo -e "  ${RED}[ERROR]${NC} Folder not found: $LAUNCH_DIR"
         echo "  Please enter a valid folder path."
-        sleep 2
-        ask_folder
-        return
-    fi
+        echo ""
+    done
 
     echo ""
     echo -e "  ${GREEN}[OK]${NC} Using folder: $LAUNCH_DIR"
