@@ -72,7 +72,7 @@ Uses standard `tmux` commands for session orchestration:
 | `:CHECK_NANOCODE` | Specific logic for NanoCode: Clones from GitHub into `Tools/nanocode-2` and runs `npm link`. |
 | `:CHECK_JUNIE` | Logic for Junie: Downloads and executes the official JetBrains installation script (`install.ps1`) via PowerShell. Displays the source URL before running. |
 | `:CHECK_KIRO` | Logic for Kiro: Skipped on Windows (no native support). Refer to Linux script for curl-based install. |
-| `:CHECK_CLI_EXEC` | **[v1.2.17]** Pre-launch guard. Uses `where` to verify a CLI command is in PATH before a terminal is spawned. Returns exit code 1 and shows a descriptive error if the command is missing. Called by every `:LAUNCH_*` label. |
+| `:CHECK_CLI_EXEC` | **[v1.2.18]** Pre-launch guard. Uses `where` to verify a CLI command is in PATH before a terminal is spawned. Returns exit code 1 and shows a descriptive error if the command is missing. Called by every `:LAUNCH_*` label. |
 | `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. Handles scoped NPM packages, PIP version parsing, and local binary checks for Junie and Kiro. |
 | `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "Open with AI CLI" menu. Uses `%SCRIPT_DIR%` for absolute Kiro launcher path with double-double-quoting for space-safe registry values. |
 | `:REMOVE_CONTEXT_MENU` | Performs `reg delete` to clean up registry entries. |
@@ -90,8 +90,8 @@ Uses standard `tmux` commands for session orchestration:
 | `install_npm_cli()` | Checks for and installs/updates global NPM packages. Compares local vs. registry version. |
 | `install_pip_cli()` | Checks for and installs/updates Python pip packages via PyPI JSON API. |
 | `install_nanocode()` | Git-clone + `npm link` workflow for NanoCode. Verifies `git` is available first. |
-| `launch_tool()` | **[v1.2.17]** Pre-launch guard using `command -v` before executing a CLI. Shows a clear error and returns to menu if not found. |
-| `create_script_file()` | **[v1.2.17]** Generates a Nautilus context menu script. Auto-detects the available terminal emulator in priority order: `gnome-terminal` → `xfce4-terminal` → `konsole` → `tilix` → `alacritty` → `xterm` → `x-terminal-emulator`. |
+| `launch_tool()` | **[v1.2.18]** Pre-launch guard using `command -v` before executing a CLI. Shows a clear error and returns to menu if not found. |
+| `create_script_file()` | **[v1.2.18]** Generates a Nautilus context menu script. Auto-detects the available terminal emulator in priority order: `gnome-terminal` → `xfce4-terminal` → `konsole` → `tilix` → `alacritty` → `xterm` → `x-terminal-emulator`. |
 | `add_context_menu_linux()` | Generates Nautilus scripts for GNOME users by calling `create_script_file()` for each tool. |
 | `remove_context_menu_linux()` | Removes the `AI CLI Tools` Nautilus scripts directory. |
 | `restart_nautilus()` | Kills all Nautilus processes to refresh the context menu. |
@@ -122,9 +122,9 @@ Uses standard `tmux` commands for session orchestration:
 ## 🔌 API & External Integrations
 
 The project integrates with the following package managers:
-- **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, `@anthropic-ai/claude-code`, `@openai/codex`, `cline`, `@qoder-ai/qodercli`, etc.
+- **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, `@openai/codex`, `cline`, `@qoder-ai/qodercli`, etc.
 
 - **Git & npm link**: Specifically for `nanocode-agent` (cloned from GitHub).
-- **Official One-liners**: For `Junie` (JetBrains) and `Kiro`.
+- **Official One-liners**: For `Junie` (JetBrains), `Kiro`, and `Claude` (Anthropic).
 - **pip (Python Package Installer)**: For `mistral-vibe`.
 - **Windows Registry**: For shell context menu integration.

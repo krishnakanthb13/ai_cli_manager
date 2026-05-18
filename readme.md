@@ -7,7 +7,7 @@
 
 
 ## Overview
-**AI CLI Manager (v1.2.17)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
+**AI CLI Manager (v1.2.19)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
 
 
 ---
@@ -60,7 +60,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 |:---|:---|:---|:---|
 | **Gemini** | `@google/gemini-cli` | `gemini` | NPM |
 | **Jules** | `@google/jules` | `jules` | NPM |
-| **Claude** | `@anthropic-ai/claude-code` | `claude` | NPM |
+| **Claude** | `Official Script` | `claude` | PowerShell / Curl |
 | **OpenAI Codex** | `@openai/codex` | `codex` | NPM |
 | **Mistral Vibe** | `mistral-vibe` | `vibe` | PIP (Python) |
 | **GitHub Copilot** | `@github/copilot` | `copilot` | NPM |

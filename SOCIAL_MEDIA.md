@@ -1,3 +1,82 @@
+# AI CLI Manager - Social Media Announcements
+
+# AI CLI Manager - Social Media Announcements (v1.2.19)
+
+## 🟦 LinkedIn (v1.2.19)
+Headline: Redefining the AI Developer Hub: Pre-Launch Guards, Self-Healing Terminals, and OpenCode Automation. 🤖🔥
+
+AI CLI Manager has officially reached v1.2.19! Following our massive v1.2.13 "Beast Mode" grid release, this cumulative update represents our largest reliability and developer experience upgrade to date.
+
+If you are juggling multiple terminal agents like Claude Code, GitHub Copilot, Gemini, Cline, or local reasoning models, you know the friction of silent terminal launch failures, broken system path references, or missing OS packages. v1.2.19 turns this hub into a resilient, self-healing developer workspace.
+
+Here is what's new in the v1.2.13 -> v1.2.19 cycle:
+
+🚀 Pre-Launch PATH Validation (v1.2.18)
+No more silent failures or dead command prompts. Every one of our 15+ launcher paths now dynamically probes your system's environment variables (using 'where' on Windows and 'command -v' on Linux/macOS) before spawning a process. If an agent is missing, it displays a clean, readable warning and guides you on how to install it.
+
+💻 Intelligent Terminal Auto-Detection (v1.2.18)
+For Linux (Nautilus) desktop power users, context menus now dynamically detect and launch your preferred emulator: gnome-terminal, xfce4-terminal, konsole, tilix, alacritty, or xterm, rather than forcing a single default terminal.
+
+🧠 OpenCode Model Selector & Automation (v1.2.14 - v1.2.17)
+Launch scripts now feature interactive model selectors for OpenCode, including full support for cutting-edge models like GPT-5 Nano. Even better, a dedicated background automation skill keeps these model lists updated in real-time.
+
+⚡ Self-Healing Icon Cache engine (v1.2.18)
+Windows Explorer restarts during icon cache refreshes are now completely race-condition proof. A recursive tasklist poll loop locks down process status to prevent file-lock errors on slower drives.
+
+🎨 Premium Icon Processing Utility
+Our image converter now includes Pillow dependency guards, a 4KB image dimension safety valve, and specific exception typing to skip corrupted images without crashing.
+
+Juggling terminal CLIs shouldn't feel like a chore. With over 15+ managed agents, a side-by-side terminal grid, cascading right-click context menus, and now pre-launch environmental guards, this project is the ultimate unified dashboard for modern AI-assisted engineering.
+
+Check out the open-source code and level up your CLI game today!
+
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #DevTools #OpenSource #GitHub #DeveloperProductivity #Automation #CLI #SoftwareEngineering #SysAdmin #DevOps
+
+---
+
+## 🟥 Reddit (v1.2.19)
+**Post Title: [Update] AI CLI Manager v1.2.19: Added Pre-Launch PATH Validation, Nautilus Terminal Auto-Detection, and Automated OpenCode Models (Cumulative Update from v1.2.13)**
+
+Hey command line power users!
+
+Following up on our **v1.2.13** release which introduced the 2x2 "CLI Beast Mode" grid launcher (combining Windows Terminal/tmux), I’ve just released **v1.2.19** of the **AI CLI Manager**. 
+
+This cycle is purely focused on engineering reliability, script robustness, and model automation. We’ve resolved the classic pain points of silent launcher crashes, hardcoded OS defaults, and model list drift.
+
+Here’s a breakdown of the new features in the **v1.2.13 -> v1.2.19** sprint:
+
+1. **Pre-Launch PATH Guard (v1.2.18)**: Previously, trying to launch an uninstalled CLI from the dashboard or context menu spawned a command prompt that immediately crashed or did nothing. Now, all 14 execution blocks dynamically query the OS PATH environment (`where` on Windows, `command -v` on Unix) beforehand. If a dependency is missing, it displays a friendly setup prompt and redirects you back safely.
+2. **Terminal Emulator Auto-Detection on Linux (v1.2.18)**: Context-menu creation for Nautilus (GNOME) is no longer hardcoded to `gnome-terminal`. The shell script probes and binds your active terminal emulator automatically by iterating over: `gnome-terminal` -> `xfce4-terminal` -> `konsole` -> `tilix` -> `alacritty` -> `xterm` -> `x-terminal-emulator`.
+3. **OpenCode Model Selector & Auto-Update (v1.2.14 - v1.2.17)**: OpenCode launcher scripts now present an interactive model selection grid before starting. Supports new models like GPT-5 Nano out of the box. We also built a dedicated background agent skill (`update_opencode_models`) to query the API and hot-reload model manifests automatically.
+4. **Self-Healing Registry & Cache Refreshes (v1.2.18)**: When clearing Windows explorer icon cache database, we replaced static `sleep` timeouts (which lock up on slow hard drives) with a strict `tasklist` polling loop. This ensures `explorer.exe` is 100% stopped before deleting cache files, preventing locked-file permissions errors.
+5. **Robust Image Engine (`convert_icons.py`)**: Our Windows custom icon generator now features a soft-landing `ImportError` catch for Pillow, image dimension clipping (ignores images >4096px), and structured typed exceptions (`OSError`/`SyntaxError`) to skip corrupt image assets gracefully.
+
+If you are switching between Claude Code, Copilot, Gemini, Cline, Codex, or local Ollama instances, this manager organizes your tools into a unified right-click desktop shell extension and lightweight CLI dashboard.
+
+**GitHub Repository**: [https://github.com/krishnakanthb13/ai_cli_manager](https://github.com/krishnakanthb13/ai_cli_manager)
+
+**Suggested Subreddits**: r/programming, r/webdev, r/commandline, r/SideProject, r/ClaudeAI, r/GithubCopilot, r/tmux, r/WindowsTerminal
+
+---
+
+## ⬛ X (v1.2.19)
+AI CLI Manager v1.2.19 is live! 🚀
+
+Upgrades since v1.2.13:
+🛡️ PATH Guards (no crashes)
+💻 Linux terminal auto-detect
+🧠 OpenCode selector + GPT-5
+🔄 Auto-update models
+⚡ Self-healing cache poll
+
+GitHub: https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #OpenSource
+
+---
+
 # AI CLI Manager - Social Media Announcements (v1.2.13)
 
 ## 🟦 LinkedIn (v1.2.13)

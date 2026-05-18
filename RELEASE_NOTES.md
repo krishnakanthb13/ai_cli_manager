@@ -1,5 +1,28 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.19] - 2026-05-18
+
+### ⚡ Improvements
+- **Comprehensive Documentation Sync**: Formalized pre-launch guards and terminal detection lists in `CODE_DOCUMENTATION.md` and `DESIGN_PHILOSOPHY.md`.
+- **Linux/macOS Dependency Guidelines**: Added curl and installer details for Kiro CLI to `LINUX_MAC_README.md`.
+- **Active Version Sync**: Updated version references across all launchers and docs to `v1.2.19` to establish a new stable release point.
+
+---
+
+## [v1.2.18] - 2026-05-18
+
+### 🚀 New Features
+- **Pre-Launch CLI Validation**: Integrated robust PATH verification (`where` / `command -v`) across all 14 CLI launchers. If a tool is missing, it logs a clean error message and advises running Option `I` (install) instead of silently crashing or spawning a broken terminal.
+- **Intelligent Linux Terminal Auto-detection**: Refactored the context menu generation for Nautilus (GNOME). Instead of hardcoding `gnome-terminal`, the installer auto-detects the active emulator in order of priority: `gnome-terminal` → `xfce4-terminal` → `konsole` → `tilix` → `alacritty` → `xterm` → falling back to `x-terminal-emulator`.
+- **Self-Healing Explorer Restart (Polling Lock)**: Fixed a race condition during Windows Explorer restarts for Icon Cache refreshes. A recursive poll loop (`tasklist` check) ensures `explorer.exe` is completely stopped before any cache files are deleted, avoiding locked-file conflicts.
+- **Enhanced Icon Processing Engine (`convert_icons.py`)**:
+  - Added a clean `ImportError` guard for missing `Pillow` with a friendly hint to run `pip install Pillow`.
+  - Integrated image dimension limit (maximum 4096px) to protect system memory.
+  - Upgraded to typed exceptions (`OSError`, `SyntaxError`) to catch corrupt image files specifically.
+  - Improved summary counts (tracks converted, skipped, and failed icons).
+
+---
+
 ## [v1.2.17] - 2026-05-18
 
 ### 🐛 Bug Fixes
