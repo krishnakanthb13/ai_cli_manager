@@ -1,5 +1,30 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.20] - 2026-05-18
+
+### 🐛 Bug Fixes
+- **Windows manager no longer exits after launching a CLI**: All 14 `:LAUNCH_*` labels in `AI_CLI_Manager.bat` previously ended with `goto EXIT_SCRIPT`, forcing the user to relaunch the manager between CLIs. They now route through a new `:LAUNCH_DONE` label that returns to `:MAIN_MENU`, matching the Linux/macOS behavior.
+- **Linux/macOS launcher no longer blocks the menu**: `launch_tool` in `AI_CLI_Manager.sh` previously ran `$cmd` inline, which made the CLI hijack the manager process (Ctrl+C in the CLI would kill the menu). It now spawns the CLI in a new terminal window via the new `spawn_in_terminal` helper, with `detect_terminal` covering gnome-terminal, konsole, xfce4-terminal, tilix, alacritty, kitty, xterm, x-terminal-emulator, and macOS Terminal.app via `osascript`. Falls back to inline run if no emulator is available.
+- **Piped install exit-code check fixed (Linux/macOS)**: Claude, Junie, and Kiro installers piped `curl ... | bash` and only checked `${PIPESTATUS[0]}` (curl). A failing install script was reported as `[INSTALLED]`. Now requires both `PIPESTATUS[0]` (curl) and `PIPESTATUS[1]` (bash) to be zero.
+- **Empty folders no longer rejected in Beast Mode (Windows)**: `Multi_CLI_Grid.bat` validated the user-supplied directory with `if not exist "!LAUNCH_DIR!\*"`, which is false for valid but empty folders. Switched to `if not exist "!LAUNCH_DIR!\"` (trailing-backslash form).
+- **Beast Mode folder retry no longer recurses (Linux/macOS)**: `ask_folder` in `Multi_CLI_Grid.sh` recursively self-called on invalid input, growing the stack on each retry. Replaced with a `while true; do … done` loop.
+- **npm version parsing tightened**: `:CHECK_NPM`, `:CHECK_NANOCODE`, and `:SHOW_VERSIONS` previously used `findstr "<pkg>"`, which could substring-match unrelated sub-dependency lines (a real risk for short package names like `cline`). All `findstr` calls now use `/C:"-- <pkg>@"` to anchor on the npm tree marker, plus `--depth=0` on every `npm list -g` call for the version listing.
+- **Mistral Vibe version parser anchored**: `pip show mistral-vibe | findstr "Version"` could match `Requires-Version:` or similar fields. Now uses `findstr /B /C:"Version:"` to only match the line that starts with `Version:`.
+- **Backups no longer overwrite each other**: `:BACKUP_REGISTRY` reused the session-start `%TIMESTAMP%`, so multiple backups in a single session clobbered the previous file. It now computes a fresh timestamp via `wmic` at backup time.
+- **Explorer-restart polling now has a timeout**: `:WAIT_EXPLORER_RESTART` and `:WAIT_EXPLORER_DEEP` polled `tasklist` indefinitely if `explorer.exe` failed to terminate. Capped at 10 retries (≈10 s) and proceeds with a logged `[WARN]` afterwards.
+- **Quoted `%model%` in OpenCode launcher**: `Batch Files/LaunchOpenCode.bat` invoked `cmd /c opencode --model %model%` with an unquoted variable. Wrapped in `"…"` so a future model ID containing spaces is passed as a single argument.
+- **Quoted `$CMD` expansions in Mistral launcher**: `Shell Files/LaunchMistral.sh` used unquoted `command -v $CMD` and `$CMD`. Switched to `"$CMD"` in both spots to avoid word-splitting/globbing if the variable is ever changed.
+- **Root path "/" preserved in Beast Mode folder picker**: `Multi_CLI_Grid.sh` stripped trailing slashes via `${LAUNCH_DIR%/}`, which collapsed `/` to an empty string and broke the subsequent `-d` validation. Guarded so `/` is preserved while other paths still get their trailing slash trimmed.
+
+### 🧹 Housekeeping
+- **Cross-platform launcher filename parity**: Renamed `Batch Files/LaunchOpencode.bat` → `LaunchOpenCode.bat` and `Shell Files/LaunchMistralVibe.sh` → `LaunchMistral.sh` so the same name works on case-sensitive Linux/macOS file systems. Updated all references in `.agent/skills/update_opencode_models/SKILL.md`, `.agent/workflows/update_opencode_models.md`, and `Log Files/0_CLI_README.md`.
+- **Legacy launcher archived**: Moved the stale `Batch Files/AI_CLI_Manager_0.bat` (v1.1-era, 510 lines) to `Batch Files/archive/` so it's not mistaken for the current entry point.
+
+### 📚 Version Sync
+- Version strings updated from `v1.2.19` to `v1.2.20` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and `README.md`.
+
+---
+
 ## [v1.2.19] - 2026-05-18
 
 ### ⚡ Improvements

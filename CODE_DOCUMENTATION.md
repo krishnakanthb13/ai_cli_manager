@@ -13,6 +13,7 @@ This document describes the technical implementation and architecture of the AI 
 | `Multi_CLI_Grid.bat` | **[NEW]** Beast Mode grid launcher for Windows Terminal. |
 | `Multi_CLI_Grid.sh` | **[NEW]** Beast Mode grid launcher for tmux (Linux/macOS). |
 | `/Batch Files/` | Standalone `.bat` launch scripts for individual tools (Windows). |
+| `/Batch Files/archive/` | Legacy/superseded launcher scripts kept for historical reference (e.g., `AI_CLI_Manager_0.bat`). |
 | `/Shell Files/` | Standalone `.sh` launch scripts for individual tools (Linux/macOS). |
 | `Icons/` | Directory containing tool icons and the conversion script. |
 | `Icons/*_v2.ico` | Standardized icons with `_v2` suffix to bypass Windows Icon Cache (Cache Busting). |
@@ -73,13 +74,15 @@ Uses standard `tmux` commands for session orchestration:
 | `:CHECK_JUNIE` | Logic for Junie: Downloads and executes the official JetBrains installation script (`install.ps1`) via PowerShell. Displays the source URL before running. |
 | `:CHECK_KIRO` | Logic for Kiro: Skipped on Windows (no native support). Refer to Linux script for curl-based install. |
 | `:CHECK_CLI_EXEC` | **[v1.2.18]** Pre-launch guard. Uses `where` to verify a CLI command is in PATH before a terminal is spawned. Returns exit code 1 and shows a descriptive error if the command is missing. Called by every `:LAUNCH_*` label. |
-| `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. Handles scoped NPM packages, PIP version parsing, and local binary checks for Junie and Kiro. |
+| `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. **[v1.2.20]** All `npm list -g` calls use `--depth=0` and `findstr /C:"-- <pkg>@"` to anchor on the npm tree prefix, preventing substring matches against sub-dependencies. Mistral Vibe uses `findstr /B /C:"Version:"` to anchor on the first column. |
 | `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "Open with AI CLI" menu. Uses `%SCRIPT_DIR%` for absolute Kiro launcher path with double-double-quoting for space-safe registry values. |
 | `:REMOVE_CONTEXT_MENU` | Performs `reg delete` to clean up registry entries. |
-| `:BACKUP_REGISTRY` | Exports relevant registry keys to a `.reg` file for safety. |
-| `:RESTART_EXPLORER` | Restarts the `explorer.exe` process. Polls `tasklist` in a loop to wait until the process is fully terminated before restarting. |
-| `:DEEP_REFRESH_ICONS` | Force-clears Windows Icon Cache by deleting `.db` files and restarting Explorer. Uses the same poll-loop as `:RESTART_EXPLORER` to avoid race conditions on slow systems. |
-| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, Cline, Junie, Qoder, etc.) with directory context. Each calls `:CHECK_CLI_EXEC` before spawning a terminal. |
+| `:BACKUP_REGISTRY` | Exports relevant registry keys to a `.reg` file for safety. **[v1.2.20]** Generates a fresh `wmic` timestamp at backup time so multiple backups in one session don't overwrite each other. |
+| `:RESTART_EXPLORER` | Restarts the `explorer.exe` process. **[v1.2.20]** Polls `tasklist` with a 10-retry (≈10 s) cap before proceeding with a logged `[WARN]` to avoid infinite waits if explorer fails to terminate. |
+| `:DEEP_REFRESH_ICONS` | Force-clears Windows Icon Cache by deleting `.db` files and restarting Explorer. Uses the same bounded poll-loop as `:RESTART_EXPLORER`. |
+| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, Cline, Junie, Qoder, etc.) with directory context. Each calls `:CHECK_CLI_EXEC` before spawning a terminal. **[v1.2.20]** All launch labels route through `:LAUNCH_DONE` after spawning, which returns to `:MAIN_MENU` so multiple CLIs can be launched in one session. |
+| `:LAUNCH_DONE` | **[v1.2.20]** Post-launch trampoline. Logs success and `goto MAIN_MENU` so the manager menu remains the foreground process. Previously every launch ended at `:EXIT_SCRIPT`, terminating the manager. |
+| `:CHECK_NPM` / `:CHECK_NANOCODE` | **[v1.2.20]** `findstr` calls use `/C:"-- <pkg>@"` to anchor on the npm tree prefix (`+-- ` / `\`-- `), preventing false matches against sub-dependencies for generic names like `cline`. |
 
 
 ## 🧩 Core Functions (Linux/macOS Bash)
@@ -90,7 +93,9 @@ Uses standard `tmux` commands for session orchestration:
 | `install_npm_cli()` | Checks for and installs/updates global NPM packages. Compares local vs. registry version. |
 | `install_pip_cli()` | Checks for and installs/updates Python pip packages via PyPI JSON API. |
 | `install_nanocode()` | Git-clone + `npm link` workflow for NanoCode. Verifies `git` is available first. |
-| `launch_tool()` | **[v1.2.18]** Pre-launch guard using `command -v` before executing a CLI. Shows a clear error and returns to menu if not found. |
+| `launch_tool()` | **[v1.2.18]** Pre-launch guard using `command -v` before executing a CLI. **[v1.2.20]** Now delegates to `spawn_in_terminal` to open the CLI in a new terminal window, so the manager menu no longer blocks (previously `$cmd` ran inline, allowing Ctrl+C in the CLI to kill the manager). |
+| `detect_terminal()` | **[v1.2.20]** Returns the name of the first available terminal emulator (`gnome-terminal`, `konsole`, `xfce4-terminal`, `tilix`, `alacritty`, `kitty`, `xterm`, `x-terminal-emulator`); returns `osascript-mac` on macOS. Empty result indicates no emulator is available. |
+| `spawn_in_terminal()` | **[v1.2.20]** Cross-platform new-window launcher. Routes to the matching `--` / `-e` flag for each emulator, uses AppleScript on macOS, and falls back to running the command inline (with `pause`) if no terminal is detected. Backgrounds + disowns spawned processes so the manager menu remains responsive. |
 | `create_script_file()` | **[v1.2.18]** Generates a Nautilus context menu script. Auto-detects the available terminal emulator in priority order: `gnome-terminal` → `xfce4-terminal` → `konsole` → `tilix` → `alacritty` → `xterm` → `x-terminal-emulator`. |
 | `add_context_menu_linux()` | Generates Nautilus scripts for GNOME users by calling `create_script_file()` for each tool. |
 | `remove_context_menu_linux()` | Removes the `AI CLI Tools` Nautilus scripts directory. |

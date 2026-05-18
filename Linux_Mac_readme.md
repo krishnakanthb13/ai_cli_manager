@@ -68,7 +68,7 @@ Launch any of the supported CLIs directly from the menu:
 *   **Context Menu (Linux)**: The script supports adding right-click options for **Nautilus (GNOME)** file manager. Other file managers (Dolphin, Thunar, etc.) are not currently supported.
     *   The script auto-detects your terminal emulator (`gnome-terminal`, `xfce4-terminal`, `konsole`, `tilix`, `alacritty`, `xterm`) and uses it when generating context menu scripts.
 *   **Context Menu (macOS)**: Not supported natively by the script. See the workaround below to add it properly using Mac's Automator.
-*   **Terminal**: Launches tools inside the current shell window rather than spawning new ones (unless using the Linux Context Menu integration).
+*   **Terminal**: Launch options spawn the selected CLI in a new terminal window (auto-detected: `gnome-terminal`, `konsole`, `xfce4-terminal`, `tilix`, `alacritty`, `kitty`, `xterm`, `x-terminal-emulator`; on macOS the system Terminal.app via `osascript`). The manager menu stays open in the original shell. If no terminal emulator is detected, the script falls back to running the CLI inline.
 *   **Kiro CLI**: Supported on Linux/macOS via `curl | bash`. Not available on Windows (WSL required).
 
 ---
