@@ -1,5 +1,18 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.21] - 2026-05-20
+
+### 🚀 New Features
+- **Google Antigravity CLI Support**: Added support for Google's agentic coding assistant CLI. Included installation routines (`CHECK_ANTIGRAVITY` using Google's official install script via PowerShell), menu launching logic, and Windows Terminal/cmd launch parameters.
+- **Nautilus and Registry Context Menu Integration**: Integrated Antigravity CLI into right-click context menus (`Open with Antigravity CLI` in Windows Explorer registry additions and Linux Nautilus scripts).
+- **Beast Mode Custom Grid Picker**: Added option `16. agy` to Custom Grid Picker in `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` allowing users to include Antigravity in their quad-pane workspace.
+- **Cache-Busted Visual Identity**: Generated and added high-quality `antigravity_v2.ico` for seamless system cascading menu integration.
+
+### 📚 Documentation Sync
+- **Technical & Design Guides**: Synced `README.md`, `CODE_DOCUMENTATION.md`, and `DESIGN_PHILOSOPHY.md` to document the 16th CLI tool addition.
+
+---
+
 ## [v1.2.20] - 2026-05-18
 
 ### 🐛 Bug Fixes

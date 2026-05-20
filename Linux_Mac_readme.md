@@ -9,7 +9,7 @@ Ensure you have the following installed:
 *   **Node.js**: Required for most CLIs (npm).
 *   **Python 3 & pip**: Required for Mistral Vibe.
 *   **Git**: Required for NanoCode (cloned from GitHub).
-*   **curl**: Required for Junie and Kiro CLI installers.
+*   **curl**: Required for Junie, Kiro, and Antigravity CLI installers.
 
 To check if you have them:
 ```bash
@@ -37,10 +37,10 @@ Run the script directly from your terminal:
 
 The script offers a simple interactive menu:
 
-*   **I. Check and Install All CLIs**: Automatically checks if supported tools (Gemini, Jules, iFlow, OpenCode, Qwen, KiloCode, Mistral Vibe, GitHub Copilot CLI, NanoCode, Claude, OpenAI Codex, Cline, Qoder) are installed. If missing, it attempts to install them via `npm` or `pip`.
+*   **I. Check and Install All CLIs**: Automatically checks if supported tools (Gemini, Jules, iFlow, OpenCode, Qwen, KiloCode, Mistral Vibe, GitHub Copilot CLI, NanoCode, Claude, OpenAI Codex, Cline, Qoder, Antigravity) are installed. If missing, it attempts to install them via `npm` or `pip`.
 
     *   *Note*: If you run into permission errors, the script will attempt to ask for `sudo` password to install global packages.
-    *   Junie and Kiro are installed via official `curl | bash` scripts. The download URL is shown before the script runs.
+    *   Junie, Kiro, and Antigravity are installed via official `curl | bash` scripts. The download URL is shown before the script runs.
 *   **V. Show Installed CLI Versions**: Displays the currently installed version of each tool.
 
 ### Launch Tools
@@ -62,6 +62,7 @@ Launch any of the supported CLIs directly from the menu:
 *   Junie CLI *(installed via JetBrains official script)*
 *   Kiro CLI *(installed via official curl script)*
 *   Qoder CLI
+*   Antigravity CLI *(installed via official curl script)*
 
 
 ## ⚠️ Known Differences (vs Windows)
@@ -86,7 +87,7 @@ Since macOS context menus ("Quick Actions") are complex to script, you can creat
     *   **In**: `Finder`
 4.  In the left sidebar search, find **"Run AppleScript"** and drag it to the right panel.
 5.  Paste the following code (replace `gemini` with the tool you want, e.g., `jules`, `vibe`):
-    - gemini, jules, vibe, iflow, opencode, qwen, kilocode, copilot, nanocode, claude, codex, cline, qoder.
+    - gemini, jules, vibe, iflow, opencode, qwen, kilocode, copilot, nanocode, claude, codex, cline, qoder, agy.
 
 
 ```applescript

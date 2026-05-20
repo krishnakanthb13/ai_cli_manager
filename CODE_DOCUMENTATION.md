@@ -73,6 +73,7 @@ Uses standard `tmux` commands for session orchestration:
 | `:CHECK_NANOCODE` | Specific logic for NanoCode: Clones from GitHub into `Tools/nanocode-2` and runs `npm link`. |
 | `:CHECK_JUNIE` | Logic for Junie: Downloads and executes the official JetBrains installation script (`install.ps1`) via PowerShell. Displays the source URL before running. |
 | `:CHECK_KIRO` | Logic for Kiro: Skipped on Windows (no native support). Refer to Linux script for curl-based install. |
+| `:CHECK_ANTIGRAVITY` | Logic for Antigravity: Downloads and executes the official Google installation script (`install.ps1`) via PowerShell. |
 | `:CHECK_CLI_EXEC` | **[v1.2.18]** Pre-launch guard. Uses `where` to verify a CLI command is in PATH before a terminal is spawned. Returns exit code 1 and shows a descriptive error if the command is missing. Called by every `:LAUNCH_*` label. |
 | `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. **[v1.2.20]** All `npm list -g` calls use `--depth=0` and `findstr /C:"-- <pkg>@"` to anchor on the npm tree prefix, preventing substring matches against sub-dependencies. Mistral Vibe uses `findstr /B /C:"Version:"` to anchor on the first column. |
 | `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "Open with AI CLI" menu. Uses `%SCRIPT_DIR%` for absolute Kiro launcher path with double-double-quoting for space-safe registry values. |
@@ -80,7 +81,7 @@ Uses standard `tmux` commands for session orchestration:
 | `:BACKUP_REGISTRY` | Exports relevant registry keys to a `.reg` file for safety. **[v1.2.20]** Generates a fresh `wmic` timestamp at backup time so multiple backups in one session don't overwrite each other. |
 | `:RESTART_EXPLORER` | Restarts the `explorer.exe` process. **[v1.2.20]** Polls `tasklist` with a 10-retry (≈10 s) cap before proceeding with a logged `[WARN]` to avoid infinite waits if explorer fails to terminate. |
 | `:DEEP_REFRESH_ICONS` | Force-clears Windows Icon Cache by deleting `.db` files and restarting Explorer. Uses the same bounded poll-loop as `:RESTART_EXPLORER`. |
-| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, Cline, Junie, Qoder, etc.) with directory context. Each calls `:CHECK_CLI_EXEC` before spawning a terminal. **[v1.2.20]** All launch labels route through `:LAUNCH_DONE` after spawning, which returns to `:MAIN_MENU` so multiple CLIs can be launched in one session. |
+| `:LAUNCH_*` | Wrapper labels for launching specific tools (Gemini, Jules, Claude, Codex, Cline, Junie, Qoder, Antigravity, etc.) with directory context. Each calls `:CHECK_CLI_EXEC` before spawning a terminal. **[v1.2.20]** All launch labels route through `:LAUNCH_DONE` after spawning, which returns to `:MAIN_MENU` so multiple CLIs can be launched in one session. |
 | `:LAUNCH_DONE` | **[v1.2.20]** Post-launch trampoline. Logs success and `goto MAIN_MENU` so the manager menu remains the foreground process. Previously every launch ended at `:EXIT_SCRIPT`, terminating the manager. |
 | `:CHECK_NPM` / `:CHECK_NANOCODE` | **[v1.2.20]** `findstr` calls use `/C:"-- <pkg>@"` to anchor on the npm tree prefix (`+-- ` / `\`-- `), preventing false matches against sub-dependencies for generic names like `cline`. |
 
@@ -130,6 +131,6 @@ The project integrates with the following package managers:
 - **npm (Node Package Manager)**: For `@google/gemini-cli`, `@google/jules`, `@iflow-ai/iflow-cli`, `@github/copilot`, `@openai/codex`, `cline`, `@qoder-ai/qodercli`, etc.
 
 - **Git & npm link**: Specifically for `nanocode-agent` (cloned from GitHub).
-- **Official One-liners**: For `Junie` (JetBrains), `Kiro`, and `Claude` (Anthropic).
+- **Official One-liners**: For `Junie` (JetBrains), `Kiro`, `Claude` (Anthropic), and `Antigravity` (Google).
 - **pip (Python Package Installer)**: For `mistral-vibe`.
 - **Windows Registry**: For shell context menu integration.

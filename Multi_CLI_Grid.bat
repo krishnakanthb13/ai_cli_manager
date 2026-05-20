@@ -97,7 +97,7 @@ echo     4.  iflow         12. cline
 echo     5.  opencode      13. junie
 echo     6.  qwen          14. kiro-cli
 echo     7.  kilocode      15. qodercli
-echo     8.  copilot
+echo     8.  copilot       16. agy
 echo.
 echo  =====================================================
 echo.
@@ -120,11 +120,11 @@ set "_var=%~2"
 set "_mapped="
 :_PICK_RETRY
 set "_num="
-set /p "_num=  %_prompt% (1-15): "
+set /p "_num=  %_prompt% (1-16): "
 if "!_num!"=="" goto _PICK_RETRY
 call :MAP_NUM !_num!
 if "!_mapped!"=="" (
-    echo   [!] Invalid. Enter a number from 1 to 15.
+    echo   [!] Invalid. Enter a number from 1 to 16.
     goto _PICK_RETRY
 )
 set "!_var!=!_mapped!"
@@ -151,6 +151,7 @@ if "%~1"=="12" set "_mapped=cline"     & exit /b
 if "%~1"=="13" set "_mapped=junie"     & exit /b
 if "%~1"=="14" set "_mapped=kiro-cli"  & exit /b
 if "%~1"=="15" set "_mapped=qodercli"  & exit /b
+if "%~1"=="16" set "_mapped=agy"       & exit /b
 exit /b
 
 REM ========================================

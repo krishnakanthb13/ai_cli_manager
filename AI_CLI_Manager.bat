@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.20)
+echo           AI CLI TOOLS MANAGER (v1.2.21)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -79,6 +79,7 @@ echo     12. Launch Cline CLI
 echo     13. Launch Junie CLI
 echo     14. Launch Kiro CLI
 echo     15. Launch Qoder CLI
+echo     16. Launch Antigravity CLI
 echo.   
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -113,6 +114,7 @@ if "%choice%"=="12" goto LAUNCH_CLINE
 if "%choice%"=="13" goto LAUNCH_JUNIE
 if "%choice%"=="14" goto LAUNCH_KIRO
 if "%choice%"=="15" goto LAUNCH_QODER
+if "%choice%"=="16" goto LAUNCH_ANTIGRAVITY
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -357,6 +359,21 @@ if "%UseWT%"=="1" (
 )
 goto LAUNCH_DONE
 
+:LAUNCH_ANTIGRAVITY
+echo [%time%] === Launching Antigravity CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC agy
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k agy >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k agy
+) else (
+    echo [%time%] Command: cmd /k agy (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && agy"
+)
+goto LAUNCH_DONE
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -470,6 +487,17 @@ for /f "delims=" %%V in ('npm list -g @qoder-ai/qodercli --depth=0 2^>nul ^| fin
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
+echo --- Antigravity CLI ---
+echo --- Antigravity CLI --- >> "%LOG_FILE%"
+set "_result="
+where agy >nul 2>&1
+if %errorlevel% equ 0 (
+    for /f "delims=" %%V in ('agy --version 2^>nul') do set "_result=%%V"
+    if not defined _result set "_result=[INSTALLED]"
+)
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
 echo --- Mistral Vibe ---
 echo --- Mistral Vibe --- >> "%LOG_FILE%"
 set "_result="
@@ -556,6 +584,9 @@ call :CHECK_KIRO
 
 echo [Qoder CLI] Checking...
 call :CHECK_NPM "@qoder-ai/qodercli" "Qoder CLI"
+
+echo [Antigravity CLI] Checking...
+call :CHECK_ANTIGRAVITY
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -768,6 +799,28 @@ echo [SKIP] Kiro CLI does not have a native Windows version.
 echo Use WSL or Git Bash for Linux installation.
 exit /b
 
+:CHECK_ANTIGRAVITY
+echo --- Antigravity CLI --- >> "%LOG_FILE%"
+where agy >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [MISSING] Installing Antigravity CLI...
+    echo [INFO] Downloading official installer from: https://antigravity.google/cli/install.ps1
+    echo [INFO] This runs Google's official installation script.
+    echo [%time%] [INFO] Running Antigravity official installer >> "%LOG_FILE%"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://antigravity.google/cli/install.ps1')"
+    if errorlevel 1 (
+        echo [FAILED]
+        echo [%time%] [FAILED] Antigravity install >> "%LOG_FILE%"
+    ) else (
+        echo [INSTALLED] Official Script
+        echo [%time%] [OK] Installed Antigravity CLI >> "%LOG_FILE%"
+    )
+) else (
+    echo [OK] Installed
+    echo [%time%] [SKIP] Antigravity already installed >> "%LOG_FILE%"
+)
+exit /b
+
 REM ========================================
 REM Check Claude CLI (Official Script)
 REM ========================================
@@ -969,6 +1022,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder" /
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k qodercli" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\antigravity" /ve /d "Open with Antigravity CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\antigravity" /v "Icon" /d "%ICONS_DIR%\antigravity_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\antigravity\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k agy" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -1030,10 +1087,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder" /ve /d "Open
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k qodercli" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\antigravity" /ve /d "Open with Antigravity CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\antigravity" /v "Icon" /d "%ICONS_DIR%\antigravity_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\antigravity\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k agy" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.

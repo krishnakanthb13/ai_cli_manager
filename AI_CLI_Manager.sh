@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.20) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.21) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -284,6 +284,28 @@ install_all() {
     fi
     install_npm_cli "Qoder CLI" "@qoder-ai/qodercli"
     echo ""
+    echo "[Antigravity CLI] Checking..."
+    if ! command -v agy &> /dev/null; then
+        echo -e "${YELLOW}[MISSING]${NC} Installing Antigravity CLI..."
+        if ! command -v curl &> /dev/null; then
+            echo -e "${RED}[FAILED]${NC} curl not found. Install curl first."
+            log "ERROR" "Antigravity install failed: curl missing"
+        else
+            echo -e "${CYAN}[INFO]${NC} Downloading from: https://antigravity.google/cli/install.sh"
+            curl -fsSL https://antigravity.google/cli/install.sh | bash
+            if [ "${PIPESTATUS[0]}" -eq 0 ] && [ "${PIPESTATUS[1]}" -eq 0 ]; then
+                echo -e "${GREEN}[INSTALLED]${NC}"
+                log "SUCCESS" "Antigravity CLI installed"
+            else
+                echo -e "${RED}[FAILED]${NC}"
+                log "ERROR" "Antigravity install failed"
+            fi
+        fi
+    else
+        echo -e "${GREEN}[OK] Installed${NC}"
+        log "INFO" "Antigravity already installed"
+    fi
+    echo ""
     install_pip_cli "Mistral Vibe" "mistral-vibe"
 
     
@@ -366,6 +388,14 @@ show_versions() {
     echo -e "\n--- Qoder CLI ---" >> "$LOG_FILE"
     npm list -g @qoder-ai/qodercli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
     
+    echo -e "\n${CYAN}--- Antigravity CLI ---${NC}"
+    echo -e "\n--- Antigravity CLI ---" >> "$LOG_FILE"
+    if command -v agy &> /dev/null; then
+        agy --version 2>/dev/null | tee -a "$LOG_FILE"
+    else
+        echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
+    fi
+
     echo -e "\n${CYAN}--- Mistral Vibe ---${NC}"
 
     echo -e "\n--- Mistral Vibe ---" >> "$LOG_FILE"
@@ -505,6 +535,7 @@ add_context_menu_linux() {
     create_script_file "Open with Junie CLI" "junie"
     create_script_file "Open with Kiro CLI" "kiro-cli"
     create_script_file "Open with Qoder CLI" "qodercli"
+    create_script_file "Open with Antigravity CLI" "agy"
 
     echo ""
 
@@ -615,6 +646,7 @@ while true; do
     echo "  13. Launch Junie CLI"
     echo "  14. Launch Kiro CLI"
     echo "  15. Launch Qoder CLI"
+    echo "  16. Launch Antigravity CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -647,6 +679,7 @@ while true; do
         13) launch_tool "junie" ;;
         14) launch_tool "kiro-cli" ;;
         15) launch_tool "qodercli" ;;
+        16) launch_tool "agy" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;

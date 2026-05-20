@@ -50,13 +50,14 @@ CLI_NAMES=(
     "junie"    # 13
     "kiro-cli" # 14
     "qodercli" # 15
+    "agy"      # 16
 )
 
 CLI_DISPLAY=(
     ""
     "Gemini"   "Jules"    "Vibe"     "iFlow"    "OpenCode"
     "Qwen"     "KiloCode" "Copilot"  "NanoCode" "Claude"
-    "Codex"    "Cline"    "Junie"    "Kiro"     "Qoder"
+    "Codex"    "Cline"    "Junie"    "Kiro"     "Qoder"    "Antigravity"
 )
 
 # ========================================
@@ -148,7 +149,7 @@ show_cli_list() {
     echo "     5.  opencode      13. junie"
     echo "     6.  qwen          14. kiro-cli"
     echo "     7.  kilocode      15. qodercli"
-    echo "     8.  copilot"
+    echo "     8.  copilot       16. agy"
     echo ""
 }
 
@@ -156,12 +157,12 @@ pick_cli() {
     local label=$1
     local result_var=$2
     while true; do
-        read -p "  $label (1-15): " num
-        if [[ "$num" =~ ^[0-9]+$ ]] && [ "$num" -ge 1 ] && [ "$num" -le 15 ]; then
+        read -p "  $label (1-16): " num
+        if [[ "$num" =~ ^[0-9]+$ ]] && [ "$num" -ge 1 ] && [ "$num" -le 16 ]; then
             eval "$result_var='${CLI_NAMES[$num]}'"
             return
         else
-            echo -e "  ${RED}[!] Invalid.${NC} Enter a number from 1 to 15."
+            echo -e "  ${RED}[!] Invalid.${NC} Enter a number from 1 to 16."
         fi
     done
 }

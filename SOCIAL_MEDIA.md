@@ -1,4 +1,72 @@
-# AI CLI Manager - Social Media Announcements
+# AI CLI Manager - Social Media Announcements (v1.2.21)
+
+## 🟦 LinkedIn (v1.2.21)
+Headline: Google's Antigravity CLI has officially landed in the AI CLI Manager! 🤖☄️
+
+AI CLI Manager has officially reached v1.2.21! In this release, we've integrated our 16th developer agent: Google's own agentic coding assistant, **Antigravity CLI** (`agy`).
+
+If you are juggling multiple terminal agents like Claude Code, Copilot, Gemini, Cline, and now Antigravity, you know the friction of installing dependencies, configuring paths, and setting up shell environments. v1.2.21 automates the entire process.
+
+Here is what's new in v1.2.21:
+
+🚀 **Google Antigravity CLI Integration**
+Full support for the `agy` command line. We've automated the official Google PowerShell/Bash install scripts so you can get up and running with a single keypress.
+
+💻 **Cascading Context Menu Integration**
+Right-click any folder or background space in Windows Explorer or Linux Nautilus, hover over "Open with AI CLI", and launch Antigravity instantly.
+
+🔥 **Beast Mode Custom Grid Support**
+We've updated our quad-pane window launcher (Windows Terminal / tmux). You can now choose Antigravity CLI as option 16 in the Custom Grid Picker to run it side-by-side with other agents.
+
+🎨 **Visual Cache-Busting Icons**
+Added a newly generated, custom developer logo asset (`antigravity_v2.ico`) to ensure your context menu looks modern and integrates seamlessly.
+
+Stop remembering command syntax or doing manual directory setups. Let the AI CLI Manager handle the plumbing so you can focus on building.
+
+Check out the open-source code and level up your local workspace today!
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #DevTools #OpenSource #GitHub #DeveloperProductivity #Automation #CLI #GoogleAntigravity #SoftwareEngineering #DevOps
+
+---
+
+## 🟥 Reddit (v1.2.21)
+**Post Title: [Update] AI CLI Manager v1.2.21: Added Google Antigravity CLI Support, Explorer/Nautilus Context Menus, and Grid-View presets**
+
+Hey terminal power users!
+
+I've just released **v1.2.21** of the **AI CLI Manager**, bringing our total managed tool count to **16 agents**. 
+
+This update integrates Google’s agentic coding assistant—**Antigravity CLI** (`agy`). 
+
+Here’s a breakdown of what’s included in v1.2.21:
+1. **Antigravity CLI Integration**: Automatically runs Google's official remote install script (`install.ps1`/`install.sh`) to setup the tool if missing, and validates PATH dependencies dynamically before launching.
+2. **Cascading shell extensions**: Right-click any folder or empty directory to select "Open with Antigravity CLI", instantly launching a terminal window focused in that path.
+3. **Beast Mode Quadrant Picker**: Added `agy` as option 16 to the custom 2x2 grid picker (`Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh`), allowing you to run it side-by-side with Claude Code, Copilot, Gemini, and others in Windows Terminal or tmux.
+4. **Custom Visual Assets**: Created and compiled a cache-busted `antigravity_v2.ico` using our `convert_icons.py` PIL pipeline to guarantee flawless system icons.
+
+Whether you're developing on Windows, WSL, or Linux/macOS, this dashboard eliminates directory switching and command-memorization friction.
+
+**GitHub Repository**: [https://github.com/krishnakanthb13/ai_cli_manager](https://github.com/krishnakanthb13/ai_cli_manager)
+
+**Suggested Subreddits**: r/programming, r/webdev, r/commandline, r/SideProject, r/ClaudeAI, r/GithubCopilot, r/tmux, r/WindowsTerminal
+
+---
+
+## ⬛ X (v1.2.21)
+Google Antigravity CLI support is live! 🤖☄️
+
+AI CLI Manager v1.2.21 released:
+🔥 NEW: Antigravity CLI (`agy`) support
+🔥 NEW: Windows Registry & Linux Nautilus context menus
+🔥 NEW: Beast Mode custom grid picker (Option 16)
+🔥 NEW: Google official installer automation
+
+https://github.com/krishnakanthb13/ai_cli_manager
+
+#AI #OpenSource #DevTools
+
+---
 
 # AI CLI Manager - Social Media Announcements (v1.2.19)
 
