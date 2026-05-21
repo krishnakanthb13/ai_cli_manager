@@ -28,27 +28,23 @@ while true; do
     echo ""
     echo "   [1] Big Pickle"
     echo "   [2] DeepSeek V4 Flash Free"
-    echo "   [3] Qwen 3.6 Plus Free"
-    echo "   [4] MiniMax M2.5 Free"
-    echo "   [5] Nemotron 3 Super Free"
+    echo "   [3] Nemotron 3 Super Free"
     echo ""
     echo "   [0] Exit"
     echo ""
     echo "============================================================"
     echo ""
     
-    read -p " Enter your choice (0-5): " choice
+    read -p " Enter your choice (0-3): " choice
     
     case $choice in
         0) exit 0 ;;
         1) model="opencode/big-pickle"; modelname="Big Pickle" ;;
         2) model="opencode/deepseek-v4-flash-free"; modelname="DeepSeek V4 Flash Free" ;;
-        3) model="opencode/qwen3.6-plus-free"; modelname="Qwen 3.6 Plus Free" ;;
-        4) model="opencode/minimax-m2.5-free"; modelname="MiniMax M2.5 Free" ;;
-        5) model="opencode/nemotron-3-super-free"; modelname="Nemotron 3 Super Free" ;;
+        3) model="opencode/nemotron-3-super-free"; modelname="Nemotron 3 Super Free" ;;
         *) 
             echo ""
-            echo " ❌ Invalid choice. Please enter a number between 0-5."
+            echo " ❌ Invalid choice. Please enter a number between 0-3."
             sleep 2
             continue
             ;;
