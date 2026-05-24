@@ -103,6 +103,17 @@ Uses standard `tmux` commands for session orchestration:
 | `restart_nautilus()` | Kills all Nautilus processes to refresh the context menu. |
 | `show_versions()` | Displays installed versions for all managed tools. |
 
+## 🤖 Standalone Per-CLI Launchers (Model Selectors)
+
+A subset of the launcher scripts in `/Batch Files/` and `/Shell Files/` expose a tool's model lineup as a numbered menu so users can pick the variant per session without remembering the CLI flag syntax. They follow a shared pattern: PATH check → grouped menu → invoke the CLI with `--model <alias>` (or no flag for the account default).
+
+| Launcher | Models exposed (passed via `--model`) |
+|----------|---------------------------------------|
+| `LaunchClaude.bat` / `LaunchClaude.sh` | **Opus**: `opus`, `opus[1m]`, `opusplan` · **Sonnet**: `sonnet`, `sonnet[1m]` · **Haiku**: `haiku` · **Other**: `best` (resolves to most capable, currently Opus), `default` (account-tier default — Opus 4.7 for Max/Team Premium, Sonnet 4.6 for Pro/Enterprise/API). The `[1m]` suffix activates the 1M-token context window per Anthropic's [model-config docs](https://code.claude.com/docs/en/model-config). Bracketed aliases are kept inside quotes (`"%model%"` / `"$model"`) so the shell does not interpret them as glob/bracket expressions. |
+| `LaunchOpenCode.bat` / `LaunchOpenCode.sh` | OpenCode model list (maintained by the `update_opencode_models` skill in `.agent/skills/`). |
+
+Menu labels include the explicit version number (e.g. *Claude Opus 4.7*, *Claude Sonnet 4.6*, *Claude Haiku 4.5*) so users see at a glance which underlying model an alias resolves to today. Aliases auto-roll forward when Anthropic publishes a new generation; only the menu strings need a bump.
+
 ## 🔄 Data Flow
 
 1. **Initialization**: Script runs → Admin Check → Logging Setup → Terminal Detection.

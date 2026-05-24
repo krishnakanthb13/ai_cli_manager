@@ -46,6 +46,8 @@ The script offers a simple interactive menu:
 ### Launch Tools
 All launch options verify the CLI exists in PATH before spawning a terminal. A clear error message is shown if a tool is not installed.
 
+> **Claude launcher model picker**: `Shell Files/LaunchClaude.sh` (and the Windows `.bat` counterpart) shows a grouped menu — **Opus** (`opus`, `opus[1m]`, `opusplan`), **Sonnet** (`sonnet`, `sonnet[1m]`), **Haiku** (`haiku`), plus `best` and `default`. Labels carry the current version (Opus 4.7, Sonnet 4.6, Haiku 4.5) and the script invokes `claude --model "<alias>"`. The `[1m]` suffix is bracket-attached with no space (e.g. `opus[1m]`) per Anthropic's [model-config spec](https://code.claude.com/docs/en/model-config).
+
 Launch any of the supported CLIs directly from the menu:
 *   Gemini CLI
 *   Jules CLI

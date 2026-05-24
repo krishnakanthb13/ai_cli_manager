@@ -1,5 +1,21 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.23] - 2026-05-24
+
+### 🚀 New Features
+- **Claude CLI Model Selector Menu**: Expanded `Batch Files/LaunchClaude.bat` and `Shell Files/LaunchClaude.sh` to expose Anthropic's full alias lineup as a grouped, numbered picker. Sections are split by model family — **Opus** (`opus`, `opus[1m]`, `opusplan`), **Sonnet** (`sonnet`, `sonnet[1m]`), **Haiku** (`haiku`) — followed by an **Other** section for `best` (most capable, currently Opus) and `default` (account-tier default). Menu labels now show the current resolved version (Opus 4.7, Sonnet 4.6, Haiku 4.5) so users can see what an alias actually maps to.
+- **1M-token context aliases surfaced**: Options `[2]` and `[5]` invoke `claude --model "opus[1m]"` / `claude --model "sonnet[1m]"`, activating Anthropic's 1M-token context window per the [model-config spec](https://code.claude.com/docs/en/model-config). The bracket suffix is kept inside double quotes so neither bash globbing nor `cmd.exe` parsing mangles it; lowercase `[1m]` and no space before the bracket match Anthropic's documented format.
+- **`opusplan` hybrid alias**: Surfaced as option `[3]`. Uses Opus during plan mode and auto-switches to Sonnet for execution, giving the best of both reasoning and throughput in a single session.
+
+### 📚 Documentation Sync
+- **`CODE_DOCUMENTATION.md`**: Added a new **Standalone Per-CLI Launchers (Model Selectors)** subsection documenting the shared launcher pattern (PATH check → grouped menu → `--model <alias>` invocation) and tabulating which aliases each launcher exposes. Notes the quoting requirement for bracketed aliases and links to Anthropic's model-config docs.
+- **`LINUX_MAC_README.md`**: Added a blockquote callout under the *Launch Tools* section describing the Claude launcher's grouped model picker, the current resolved versions, and the bracket-attached `[1m]` format.
+
+### 🧹 Housekeeping
+- **Version sync**: Bumped header banners in `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and the `README.md` overview line from `v1.2.21` to `v1.2.23`, catching the manager scripts up after the `v1.2.22` OpenCode-launcher release left them un-synced.
+
+---
+
 ## [v1.2.21] - 2026-05-20
 
 ### 🚀 New Features
