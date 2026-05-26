@@ -1,5 +1,19 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.24] - 2026-05-26
+
+### 🚀 New Features
+- **Kimi Code CLI Support**: Added MoonshotAI's `kimi-cli` (PyPI) as the 17th managed CLI. Includes `Batch Files/LaunchKimi.bat` and `Shell Files/LaunchKimi.sh` standalone launchers (mirroring the pip-based pattern used by Mistral Vibe), with `pip install kimi-cli` install/update hints and a PATH probe for the `kimi` executable.
+- **Manager Integration**: `AI_CLI_Manager.bat` and `AI_CLI_Manager.sh` now expose `17. Launch Kimi Code CLI` on the main menu, route the choice into a new `:LAUNCH_KIMI` block (Windows) / `launch_tool "kimi"` case (Linux/macOS), bundle `kimi-cli` into the Python branch of the `Install All` flow via `:CHECK_PIP` / `install_pip_cli`, and surface its version under both `:SHOW_VERSIONS` and `show_versions` using `pip show kimi-cli` / `pip3 show kimi-cli`.
+- **Context Menu Integration**: Added `Open with Kimi Code CLI` entries to both Windows registry submenus (`HKCR\Directory\Background\shell\AI_CLI_Menu` and `HKCR\Directory\shell\AI_CLI_Menu`) and the Linux Nautilus scripts folder, each pointing at the `kimi` executable.
+- **Visual Identity**: Added `Icons/kimi.png` and generated `Icons/kimi_v2.ico` via `Icons/convert_icons.py` (multi-size 16/32/48/64/128/256 ICO) so the new context-menu entry renders with a proper cascading-menu icon.
+
+### 🧹 Housekeeping
+- **Version sync**: Bumped header banners in `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and the `README.md` overview line from `v1.2.23` to `v1.2.24`.
+- **Icon re-encode noise (17 files)**: All previously committed `Icons/*_v2.ico` files appear as modified in this commit even though no source PNG changed. `Icons/convert_icons.py` is non-incremental — it globs every `*.png` in the folder and unconditionally overwrites `<name>_v2.ico` on each run. Earlier re-runs produced byte-identical output and so showed no git diff; this run was performed against **Pillow 12.2.0 / Python 3.12.10**, and Pillow's ICO encoder has shifted slightly across versions in how it writes the embedded 256×256 PNG sub-image (different zlib metadata / chunk ordering). A binary diff confirmed that for every affected ICO the header and the 16/32/48/64/128 sub-images are byte-identical; only the 256×256 frame differs by ~12 bytes. There is no visual or functional change to any icon — the diff is purely encoder-level. Committed as-is so future re-runs against this same Pillow baseline will once again show no diff.
+
+---
+
 ## [v1.2.23] - 2026-05-24
 
 ### 🚀 New Features

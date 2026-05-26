@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.23) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.24) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -307,8 +307,10 @@ install_all() {
     fi
     echo ""
     install_pip_cli "Mistral Vibe" "mistral-vibe"
+    echo ""
+    install_pip_cli "Kimi Code CLI" "kimi-cli"
 
-    
+
     echo ""
     echo -e "${CYAN}=== Completed ===${NC}"
     pause
@@ -400,7 +402,11 @@ show_versions() {
 
     echo -e "\n--- Mistral Vibe ---" >> "$LOG_FILE"
     pip3 show mistral-vibe 2>/dev/null | grep "Version" | tee -a "$LOG_FILE"
-    
+
+    echo -e "\n${CYAN}--- Kimi Code CLI ---${NC}"
+    echo -e "\n--- Kimi Code CLI ---" >> "$LOG_FILE"
+    pip3 show kimi-cli 2>/dev/null | grep "Version" | tee -a "$LOG_FILE"
+
     echo ""
     pause
 }
@@ -536,6 +542,7 @@ add_context_menu_linux() {
     create_script_file "Open with Kiro CLI" "kiro-cli"
     create_script_file "Open with Qoder CLI" "qodercli"
     create_script_file "Open with Antigravity CLI" "agy"
+    create_script_file "Open with Kimi Code CLI" "kimi"
 
     echo ""
 
@@ -647,6 +654,7 @@ while true; do
     echo "  14. Launch Kiro CLI"
     echo "  15. Launch Qoder CLI"
     echo "  16. Launch Antigravity CLI"
+    echo "  17. Launch Kimi Code CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -680,6 +688,7 @@ while true; do
         14) launch_tool "kiro-cli" ;;
         15) launch_tool "qodercli" ;;
         16) launch_tool "agy" ;;
+        17) launch_tool "kimi" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;

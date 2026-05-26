@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.23)
+echo           AI CLI TOOLS MANAGER (v1.2.24)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -80,7 +80,8 @@ echo     13. Launch Junie CLI
 echo     14. Launch Kiro CLI
 echo     15. Launch Qoder CLI
 echo     16. Launch Antigravity CLI
-echo.   
+echo     17. Launch Kimi Code CLI
+echo.
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
 echo     B. Remove from Windows Context Menu
@@ -115,6 +116,7 @@ if "%choice%"=="13" goto LAUNCH_JUNIE
 if "%choice%"=="14" goto LAUNCH_KIRO
 if "%choice%"=="15" goto LAUNCH_QODER
 if "%choice%"=="16" goto LAUNCH_ANTIGRAVITY
+if "%choice%"=="17" goto LAUNCH_KIMI
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -374,6 +376,21 @@ if "%UseWT%"=="1" (
 )
 goto LAUNCH_DONE
 
+:LAUNCH_KIMI
+echo [%time%] === Launching Kimi Code CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC kimi
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k kimi >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k kimi
+) else (
+    echo [%time%] Command: cmd /k kimi (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && kimi"
+)
+goto LAUNCH_DONE
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -505,6 +522,13 @@ for /f "delims=" %%V in ('pip show mistral-vibe 2^>nul ^| findstr /B /C:"Version
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
+echo --- Kimi Code CLI ---
+echo --- Kimi Code CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('pip show kimi-cli 2^>nul ^| findstr /B /C:"Version:"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
 echo ================================================
 pause
 goto MAIN_MENU
@@ -591,6 +615,9 @@ call :CHECK_ANTIGRAVITY
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
     call :CHECK_PIP "mistral-vibe" "Mistral Vibe"
+
+    echo [Kimi Code CLI] Checking...
+    call :CHECK_PIP "kimi-cli" "Kimi Code CLI"
 )
 
 echo.
@@ -1026,6 +1053,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\antigrav
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\antigravity" /v "Icon" /d "%ICONS_DIR%\antigravity_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\antigravity\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k agy" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kimi" /ve /d "Open with Kimi Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kimi" /v "Icon" /d "%ICONS_DIR%\kimi_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kimi\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kimi" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -1091,10 +1122,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\antigravity" /ve /d
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\antigravity" /v "Icon" /d "%ICONS_DIR%\antigravity_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\antigravity\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k agy" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kimi" /ve /d "Open with Kimi Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kimi" /v "Icon" /d "%ICONS_DIR%\kimi_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kimi\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kimi" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.
