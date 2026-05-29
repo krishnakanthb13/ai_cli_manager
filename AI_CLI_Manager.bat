@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.24)
+echo           AI CLI TOOLS MANAGER (v1.2.26)
 echo ================================================
 echo.
 echo    --- CLI Management ---

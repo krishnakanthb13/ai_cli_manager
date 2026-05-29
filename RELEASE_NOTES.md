@@ -1,5 +1,19 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.26] - 2026-05-29
+
+### 🚀 New Features
+- **Claude Opus 4.8 in the model selector**: Added Anthropic's latest flagship to `Batch Files/LaunchClaude.bat` and `Shell Files/LaunchClaude.sh`. The **Opus** group now leads with `[1] Claude Opus 4.8 (Latest - Most Capable)` and `[2] Claude Opus 4.8 [1M]` (1M-token context window), with the previous `[3] Claude Opus 4.7` / `[4] Claude Opus 4.7 [1M]` retained as legacy options and `[5] Claude Opus Plan` rounding out the group. Sonnet, Haiku, and the Other section shifted down to `[6]`–`[10]`, and the input prompt / invalid-choice guard now accept `0-10`.
+- **Version-pinned Opus aliases**: The 4.8 entries invoke the explicit model IDs `claude-opus-4-8` / `claude-opus-4-8[1m]`, and the 4.7 entries were repinned from the bare `opus` / `opus[1m]` aliases to `claude-opus-4-7` / `claude-opus-4-7[1m]`. Because the bare `opus` alias auto-rolls forward to the newest generation (now 4.8), the previous "4.7" menu items would have silently launched 4.8 — the explicit IDs keep each labeled option on its stated version.
+
+### 📚 Documentation Sync
+- **`CODE_DOCUMENTATION.md`**: Updated the *Standalone Per-CLI Launchers* table to list the new Opus 4.8 IDs and the repinned 4.7 IDs, noted that account-tier `default` now resolves to Opus 4.8 for Max/Team Premium, and refined the menu-label note to explain when an entry uses an auto-rolling alias vs. a version-pinned model ID.
+
+### 🧹 Housekeeping
+- **Version sync**: Bumped header banners in `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and the `README.md` overview line to `v1.2.26` (catching the manager scripts up from `v1.2.24` after the `v1.2.25` OpenCode-models release left them un-synced). The `README.md` release-banner image still references `assets/release_banner-v1.2.24.png`, as no newer banner asset has been generated.
+
+---
+
 ## [v1.2.24] - 2026-05-26
 
 ### 🚀 New Features

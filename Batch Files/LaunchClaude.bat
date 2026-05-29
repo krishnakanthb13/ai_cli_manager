@@ -49,20 +49,22 @@ echo.
 echo  Select a model option to run:
 echo.
 echo  --- OPUS (Complex Reasoning / Planning) ---
-echo    [1] Claude Opus 4.7
-echo    [2] Claude Opus 4.7 [1M] (1M Token Context Window)
-echo    [3] Claude Opus Plan (Hybrid: Opus plans, Sonnet executes)
+echo    [1] Claude Opus 4.8 (Latest - Most Capable)
+echo    [2] Claude Opus 4.8 [1M] (1M Token Context Window)
+echo    [3] Claude Opus 4.7
+echo    [4] Claude Opus 4.7 [1M] (1M Token Context Window)
+echo    [5] Claude Opus Plan (Hybrid: Opus plans, Sonnet executes)
 echo.
 echo  --- SONNET (Latest / Daily Coding) ---
-echo    [4] Claude Sonnet 4.6
-echo    [5] Claude Sonnet 4.6 [1M] (1M Token Context Window)
+echo    [6] Claude Sonnet 4.6
+echo    [7] Claude Sonnet 4.6 [1M] (1M Token Context Window)
 echo.
 echo  --- HAIKU (Fast ^& Efficient Tasks) ---
-echo    [6] Claude Haiku 4.5
+echo    [8] Claude Haiku 4.5
 echo.
 echo  --- OTHER ---
-echo    [7] Claude Best (Most Capable - resolves to Opus)
-echo    [8] Claude Default (Account Tier Default Model)
+echo    [9] Claude Best (Most Capable - resolves to Opus)
+echo    [10] Claude Default (Account Tier Default Model)
 echo.
 echo    [0] Exit
 echo.
@@ -70,21 +72,23 @@ echo ============================================================
 echo.
 
 set "choice="
-set /p choice="  Enter your choice (0-8): "
+set /p choice="  Enter your choice (0-10): "
 
 if "%choice%"=="0" goto exit
-if "%choice%"=="1" set "model=opus" & set "modelname=Claude Opus 4.7"
-if "%choice%"=="2" set "model=opus[1m]" & set "modelname=Claude Opus 4.7 [1M]"
-if "%choice%"=="3" set "model=opusplan" & set "modelname=Claude Opus Plan"
-if "%choice%"=="4" set "model=sonnet" & set "modelname=Claude Sonnet 4.6"
-if "%choice%"=="5" set "model=sonnet[1m]" & set "modelname=Claude Sonnet 4.6 [1M]"
-if "%choice%"=="6" set "model=haiku" & set "modelname=Claude Haiku 4.5"
-if "%choice%"=="7" set "model=best" & set "modelname=Claude Best"
-if "%choice%"=="8" set "model=default" & set "modelname=Claude Default"
+if "%choice%"=="1" set "model=claude-opus-4-8" & set "modelname=Claude Opus 4.8"
+if "%choice%"=="2" set "model=claude-opus-4-8[1m]" & set "modelname=Claude Opus 4.8 [1M]"
+if "%choice%"=="3" set "model=claude-opus-4-7" & set "modelname=Claude Opus 4.7"
+if "%choice%"=="4" set "model=claude-opus-4-7[1m]" & set "modelname=Claude Opus 4.7 [1M]"
+if "%choice%"=="5" set "model=opusplan" & set "modelname=Claude Opus Plan"
+if "%choice%"=="6" set "model=sonnet" & set "modelname=Claude Sonnet 4.6"
+if "%choice%"=="7" set "model=sonnet[1m]" & set "modelname=Claude Sonnet 4.6 [1M]"
+if "%choice%"=="8" set "model=haiku" & set "modelname=Claude Haiku 4.5"
+if "%choice%"=="9" set "model=best" & set "modelname=Claude Best"
+if "%choice%"=="10" set "model=default" & set "modelname=Claude Default"
 
 if not defined model (
     echo.
-    echo  [!] Invalid choice. Please enter a number between 0-8.
+    echo  [!] Invalid choice. Please enter a number between 0-10.
     timeout /t 2 >nul
     goto menu
 )
