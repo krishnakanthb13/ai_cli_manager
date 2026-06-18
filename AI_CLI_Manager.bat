@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.26)
+echo           AI CLI TOOLS MANAGER (v1.2.27)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -64,10 +64,10 @@ echo     I. Check and Install All CLIs
 echo     V. Show Installed CLI Versions
 echo.   
 echo    --- Launch CLIs ---
-echo     1. Launch Gemini CLI
+echo     1. Launch Gemini CLI (Deprecated)
 echo     2. Launch Jules CLI
 echo     3. Launch Mistral Vibe CLI
-echo     4. Launch iFlow CLI
+echo     4. Launch iFlow CLI (Deprecated)
 echo     5. Launch OpenCode CLI
 echo     6. Launch Qwen Code CLI
 echo     7. Launch KiloCode CLI
@@ -81,6 +81,8 @@ echo     14. Launch Kiro CLI
 echo     15. Launch Qoder CLI
 echo     16. Launch Antigravity CLI
 echo     17. Launch Kimi Code CLI
+echo     18. Launch Aider CLI
+echo     19. Launch Open Interpreter CLI
 echo.
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -117,6 +119,8 @@ if "%choice%"=="14" goto LAUNCH_KIRO
 if "%choice%"=="15" goto LAUNCH_QODER
 if "%choice%"=="16" goto LAUNCH_ANTIGRAVITY
 if "%choice%"=="17" goto LAUNCH_KIMI
+if "%choice%"=="18" goto LAUNCH_AIDER
+if "%choice%"=="19" goto LAUNCH_INTERPRETER
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -133,19 +137,19 @@ REM ========================================
 REM LAUNCH CLI SECTIONS
 REM ========================================
 :LAUNCH_GEMINI
-echo [%time%] === Launching Gemini CLI === >> "%LOG_FILE%"
-set "LAUNCH_DIR=%~1"
-if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
-call :CHECK_CLI_EXEC gemini
-if errorlevel 1 goto MAIN_MENU
-if "%UseWT%"=="1" (
-    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k gemini >> "%LOG_FILE%"
-    start wt.exe -d "%LAUNCH_DIR%" cmd /k gemini
-) else (
-    echo [%time%] Command: cmd /k gemini (in %LAUNCH_DIR%) >> "%LOG_FILE%"
-    start cmd /k "cd /d "%LAUNCH_DIR%" && gemini"
-)
-goto LAUNCH_DONE
+echo [%time%] === Gemini CLI is Deprecated === >> "%LOG_FILE%"
+cls
+echo ============================================================
+echo   Gemini CLI (Deprecated / Sunset)
+echo ============================================================
+echo.
+echo   [!] Gemini CLI was sunset on June 18, 2026.
+echo.
+echo   Please use Google Antigravity CLI (agy) instead.
+echo.
+echo ============================================================
+pause
+goto MAIN_MENU
 
 :LAUNCH_JULES
 echo [%time%] === Launching Jules CLI === >> "%LOG_FILE%"
@@ -178,19 +182,19 @@ if "%UseWT%"=="1" (
 goto LAUNCH_DONE
 
 :LAUNCH_IFLOW
-echo [%time%] === Launching iFlow CLI === >> "%LOG_FILE%"
-set "LAUNCH_DIR=%~1"
-if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
-call :CHECK_CLI_EXEC iflow
-if errorlevel 1 goto MAIN_MENU
-if "%UseWT%"=="1" (
-    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k iflow >> "%LOG_FILE%"
-    start wt.exe -d "%LAUNCH_DIR%" cmd /k iflow
-) else (
-    echo [%time%] Command: cmd /k iflow (in %LAUNCH_DIR%) >> "%LOG_FILE%"
-    start cmd /k "cd /d "%LAUNCH_DIR%" && iflow"
-)
-goto LAUNCH_DONE
+echo [%time%] === iFlow CLI is Deprecated === >> "%LOG_FILE%"
+cls
+echo ============================================================
+echo   iFlow CLI (Deprecated / Shutdown)
+echo ============================================================
+echo.
+echo   [!] iFlow CLI was shutdown.
+echo.
+echo   Please use Qoder CLI (qodercli) instead.
+echo.
+echo ============================================================
+pause
+goto MAIN_MENU
 
 :LAUNCH_OPENCODE
 echo [%time%] === Launching OpenCode CLI === >> "%LOG_FILE%"
@@ -391,6 +395,36 @@ if "%UseWT%"=="1" (
 )
 goto LAUNCH_DONE
 
+:LAUNCH_AIDER
+echo [%time%] === Launching Aider CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC aider
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k aider >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k aider
+) else (
+    echo [%time%] Command: cmd /k aider (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && aider"
+)
+goto LAUNCH_DONE
+
+:LAUNCH_INTERPRETER
+echo [%time%] === Launching Open Interpreter CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC interpreter
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k interpreter >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k interpreter
+) else (
+    echo [%time%] Command: cmd /k interpreter (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && interpreter"
+)
+goto LAUNCH_DONE
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -529,6 +563,20 @@ for /f "delims=" %%V in ('pip show kimi-cli 2^>nul ^| findstr /B /C:"Version:"')
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
+echo --- Aider CLI ---
+echo --- Aider CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('pip show aider-chat 2^>nul ^| findstr /B /C:"Version:"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
+echo --- Open Interpreter CLI ---
+echo --- Open Interpreter CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('pip show open-interpreter 2^>nul ^| findstr /B /C:"Version:"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
 echo ================================================
 pause
 goto MAIN_MENU
@@ -567,14 +615,14 @@ if not errorlevel 1 (
 )
 echo.
 
-echo [Gemini CLI] Checking...
-call :CHECK_NPM "@google/gemini-cli" "Gemini CLI"
+echo [Gemini CLI] Checking (Deprecated - Skipped)...
+rem call :CHECK_NPM "@google/gemini-cli" "Gemini CLI"
 
 echo [Jules CLI] Checking...
 call :CHECK_NPM "@google/jules" "Jules CLI"
 
-echo [iFlow CLI] Checking...
-call :CHECK_NPM "@iflow-ai/iflow-cli" "iFlow CLI"
+echo [iFlow CLI] Checking (Deprecated - Skipped)...
+rem call :CHECK_NPM "@iflow-ai/iflow-cli" "iFlow CLI"
 
 echo [OpenCode CLI] Checking...
 call :CHECK_NPM "opencode-ai" "OpenCode CLI"
@@ -618,6 +666,12 @@ if "%HAS_PYTHON%"=="1" (
 
     echo [Kimi Code CLI] Checking...
     call :CHECK_PIP "kimi-cli" "Kimi Code CLI"
+
+    echo [Aider CLI] Checking...
+    call :CHECK_PIP "aider-chat" "Aider CLI"
+
+    echo [Open Interpreter CLI] Checking...
+    call :CHECK_PIP "open-interpreter" "Open Interpreter CLI"
 )
 
 echo.
@@ -989,9 +1043,9 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "SubCommands" /t REG_
 echo [%time%] Adding submenus with cmd.exe /c start wt.exe format... >> "%LOG_FILE%"
 
 REM Add submenu items for Directory Background
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k gemini" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchGemini_deprecated.bat\"\"" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /ve /d "Open with Jules CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules_v2.ico" /f >nul
@@ -1001,9 +1055,9 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /v
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k vibe" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI (Deprecated)" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k iflow" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchIFlow_deprecated.bat\"\"" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode_v2.ico" /f >nul
@@ -1057,10 +1111,18 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kimi" /v
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kimi" /v "Icon" /d "%ICONS_DIR%\kimi_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kimi\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kimi" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\aider" /ve /d "Open with Aider CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\aider" /v "Icon" /d "%ICONS_DIR%\aider_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\aider\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k aider" /f >nul
+
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\interpreter" /ve /d "Open with Open Interpreter CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\interpreter" /v "Icon" /d "%ICONS_DIR%\interpreter_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\interpreter\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k interpreter" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k gemini" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchGemini_deprecated.bat\" \"%%1\"\"" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /ve /d "Open with Jules CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules_v2.ico" /f >nul
@@ -1070,9 +1132,9 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /ve /d "Open 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k vibe" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI (Deprecated)" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k iflow" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchIFlow_deprecated.bat\" \"%%1\"\"" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode_v2.ico" /f >nul
@@ -1125,6 +1187,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\antigravity\command
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kimi" /ve /d "Open with Kimi Code CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kimi" /v "Icon" /d "%ICONS_DIR%\kimi_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kimi\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kimi" /f >nul
+
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\aider" /ve /d "Open with Aider CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\aider" /v "Icon" /d "%ICONS_DIR%\aider_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\aider\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k aider" /f >nul
+
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\interpreter" /ve /d "Open with Open Interpreter CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\interpreter" /v "Icon" /d "%ICONS_DIR%\interpreter_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\interpreter\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k interpreter" /f >nul
 
 echo.
 echo [SUCCESS] Context menu updated!

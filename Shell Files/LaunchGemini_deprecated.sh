@@ -1,0 +1,23 @@
+#!/bin/bash
+# AI CLI Manager - Launch Gemini CLI
+# Compatible with Linux & macOS
+
+CMD="gemini"
+PKG="@google/gemini-cli"
+
+echo "Checking for $CMD..."
+
+if ! command -v $CMD &> /dev/null; then
+    echo "❌ $CMD not found."
+    echo "To install, run:"
+    echo "  npm install -g $PKG"
+    echo "  (You might need sudo)"
+else
+    echo "⚠️ Gemini CLI is deprecated and sunsetted."
+    echo "Please use Google Antigravity CLI (agy) instead."
+    # $CMD
+fi
+
+# Keep window open if double-clicked
+echo ""
+read -p "Press Enter to close..."

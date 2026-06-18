@@ -145,3 +145,15 @@ The project integrates with the following package managers:
 - **Official One-liners**: For `Junie` (JetBrains), `Kiro`, `Claude` (Anthropic), and `Antigravity` (Google).
 - **pip (Python Package Installer)**: For `mistral-vibe`.
 - **Windows Registry**: For shell context menu integration.
+
+## 🆕 Version 1.2.27 Updates
+- **Deprecations**:
+  - **Gemini CLI** and **iFlow CLI** are officially deprecated and execution has been commented out.
+  - Launcher scripts renamed to `LaunchGemini_deprecated.bat` / `.sh` and `LaunchIFlow_deprecated.bat` / `.sh`. Custom warning screens redirect users to **Antigravity CLI** (`agy`) and **Qoder CLI** (`qodercli`).
+  - Right-click Explorer context menu and Nautilus scripts updated to reflect `(Deprecated)` status and launch the warning wrappers.
+- **Additions**:
+  - Added **Aider CLI** (`aider-chat`) and **Open Interpreter CLI** (`open-interpreter`) to the manager.
+  - Created standalone launchers: `LaunchAider` and `LaunchInterpreter` (.bat and .sh).
+  - Wired into main loops: Added options 18 & 19, version validation, smart setup, and Explorer context menu integrations with cache-busted icons.
+- **OpenCode Sync**:
+  - Updated model lists in `LaunchOpenCode.bat` / `.sh` to include `minimax-m3-free`, `nemotron-3-ultra-free`, and `north-mini-code-free`.

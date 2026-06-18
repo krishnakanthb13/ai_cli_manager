@@ -3,11 +3,11 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-![Release Banner](assets/release_banner-v1.2.24.png)
+![Release Banner](assets/release_banner-v1.2.27.png)
 
 
 ## Overview
-**AI CLI Manager (v1.2.26)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
+**AI CLI Manager (v1.2.27)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
 
 
 ---
@@ -58,7 +58,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 
 | Tool | Package | Command | Installation |
 |:---|:---|:---|:---|
-| **Gemini** | `@google/gemini-cli` | `gemini` | NPM |
+| **Gemini (Deprecated)** | `@google/gemini-cli` | `gemini` | NPM |
 | **Jules** | `@google/jules` | `jules` | NPM |
 | **Claude** | `Official Script` | `claude` | PowerShell / Curl |
 | **OpenAI Codex** | `@openai/codex` | `codex` | NPM |
@@ -66,7 +66,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 | **GitHub Copilot** | `@github/copilot` | `copilot` | NPM |
 | **Qwen Code** | `@qwen-code/qwen-code` | `qwen` | NPM |
 | **Cline** | `cline` | `cline` | NPM |
-| **iFlow** | `@iflow-ai/iflow-cli` | `iflow` | NPM |
+| **iFlow (Deprecated)** | `@iflow-ai/iflow-cli` | `iflow` | NPM |
 | **OpenCode** | `opencode-ai` | `opencode` | NPM |
 | **KiloCode** | `@kilocode/cli` | `kilocode` | NPM |
 | **NanoCode** | `nanocode-agent` | `nanocode` | Git + Link |
@@ -74,6 +74,8 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 | **Kiro** | `Official Script` | `kiro-cli` | Bash / Curl (Unix only*) |
 | **Qoder** | `@qoder-ai/qodercli` | `qodercli` | NPM |
 | **Antigravity** | `Official Script` | `agy` | PowerShell / Curl |
+| **Aider** | `aider-chat` | `aider` | PIP (Python) |
+| **Open Interpreter** | `open-interpreter` | `interpreter` | PIP (Python) |
 
 
 > **Note on Installation**: Smart Install (Option `I`) automatically manages Node.js, Python, and Git. Git-based tools like NanoCode are cloned into the `/Tools` directory and linked via `npm link`. 

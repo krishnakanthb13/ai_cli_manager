@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.26) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.27) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -197,11 +197,11 @@ install_all() {
     echo ""
     check_dependencies
     
-    install_npm_cli "Gemini CLI" "@google/gemini-cli"
+    # install_npm_cli "Gemini CLI" "@google/gemini-cli"
     echo ""
     install_npm_cli "Jules CLI" "@google/jules"
     echo ""
-    install_npm_cli "iFlow CLI" "@iflow-ai/iflow-cli"
+    # install_npm_cli "iFlow CLI" "@iflow-ai/iflow-cli"
     echo ""
     install_npm_cli "OpenCode CLI" "opencode-ai"
     echo ""
@@ -309,6 +309,10 @@ install_all() {
     install_pip_cli "Mistral Vibe" "mistral-vibe"
     echo ""
     install_pip_cli "Kimi Code CLI" "kimi-cli"
+    echo ""
+    install_pip_cli "Aider CLI" "aider-chat"
+    echo ""
+    install_pip_cli "Open Interpreter CLI" "open-interpreter"
 
 
     echo ""
@@ -406,6 +410,14 @@ show_versions() {
     echo -e "\n${CYAN}--- Kimi Code CLI ---${NC}"
     echo -e "\n--- Kimi Code CLI ---" >> "$LOG_FILE"
     pip3 show kimi-cli 2>/dev/null | grep "Version" | tee -a "$LOG_FILE"
+
+    echo -e "\n${CYAN}--- Aider CLI ---${NC}"
+    echo -e "\n--- Aider CLI ---" >> "$LOG_FILE"
+    pip3 show aider-chat 2>/dev/null | grep "Version" | tee -a "$LOG_FILE"
+
+    echo -e "\n${CYAN}--- Open Interpreter CLI ---${NC}"
+    echo -e "\n--- Open Interpreter CLI ---" >> "$LOG_FILE"
+    pip3 show open-interpreter 2>/dev/null | grep "Version" | tee -a "$LOG_FILE"
 
     echo ""
     pause
@@ -526,10 +538,10 @@ add_context_menu_linux() {
         mkdir -p "$HOME/.local/share/nautilus/scripts"
     fi
 
-    create_script_file "Open with Gemini CLI" "gemini"
+    create_script_file "Open with Gemini CLI (Deprecated)" "\"$SCRIPT_DIR/Shell Files/LaunchGemini_deprecated.sh\""
     create_script_file "Open with Jules CLI" "jules"
     create_script_file "Open with Mistral Vibe CLI" "vibe"
-    create_script_file "Open with iFlow CLI" "iflow"
+    create_script_file "Open with iFlow CLI (Deprecated)" "\"$SCRIPT_DIR/Shell Files/LaunchIFlow_deprecated.sh\""
     create_script_file "Open with OpenCode CLI" "opencode"
     create_script_file "Open with Qwen Code CLI" "qwen"
     create_script_file "Open with KiloCode CLI" "kilocode"
@@ -543,6 +555,8 @@ add_context_menu_linux() {
     create_script_file "Open with Qoder CLI" "qodercli"
     create_script_file "Open with Antigravity CLI" "agy"
     create_script_file "Open with Kimi Code CLI" "kimi"
+    create_script_file "Open with Aider CLI" "aider"
+    create_script_file "Open with Open Interpreter CLI" "interpreter"
 
     echo ""
 
@@ -638,10 +652,10 @@ while true; do
     echo "  V. Show Installed CLI Versions"
     echo ""
     echo -e " ${YELLOW}--- Launch CLIs ---${NC}"
-    echo "  1. Launch Gemini CLI"
+    echo "  1. Launch Gemini CLI (Deprecated)"
     echo "  2. Launch Jules CLI"
     echo "  3. Launch Mistral Vibe CLI"
-    echo "  4. Launch iFlow CLI"
+    echo "  4. Launch iFlow CLI (Deprecated)"
     echo "  5. Launch OpenCode CLI"
     echo "  6. Launch Qwen Code CLI"
     echo "  7. Launch KiloCode CLI"
@@ -655,6 +669,8 @@ while true; do
     echo "  15. Launch Qoder CLI"
     echo "  16. Launch Antigravity CLI"
     echo "  17. Launch Kimi Code CLI"
+    echo "  18. Launch Aider CLI"
+    echo "  19. Launch Open Interpreter CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -672,10 +688,18 @@ while true; do
     case $choice in
         [Ii]) install_all ;;
         [Vv]) show_versions ;;
-        1) launch_tool "gemini" ;;
+        1) 
+            echo -e "${RED}[WARNING] Gemini CLI is deprecated and sunsetted.${NC}"
+            echo "Please use Google Antigravity CLI (agy) instead."
+            sleep 2
+            ;;
         2) launch_tool "jules" ;;
         3) launch_tool "vibe" ;;
-        4) launch_tool "iflow" ;;
+        4) 
+            echo -e "${RED}[WARNING] iFlow CLI is deprecated and shutdown.${NC}"
+            echo "Please use Qoder CLI (qodercli) instead."
+            sleep 2
+            ;;
         5) launch_tool "opencode" ;;
         6) launch_tool "qwen" ;;
         7) launch_tool "kilocode" ;;
@@ -689,6 +713,8 @@ while true; do
         15) launch_tool "qodercli" ;;
         16) launch_tool "agy" ;;
         17) launch_tool "kimi" ;;
+        18) launch_tool "aider" ;;
+        19) launch_tool "interpreter" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;

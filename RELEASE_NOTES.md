@@ -1,5 +1,25 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.27] - 2026-06-18
+
+### 🚀 New Features & Additions
+- **Aider CLI Support**: Integrated Aider CLI (`aider-chat` on PyPI). Added options `18. Launch Aider CLI` to the main menus, programmed automated version checks (`pip show aider-chat`) and install routines (`pip install aider-chat`), created standalone launchers (`LaunchAider.bat` and `LaunchAider.sh`), and added Windows/Nautilus context menu options complete with its new icon.
+- **Open Interpreter CLI Support**: Integrated Open Interpreter CLI (`open-interpreter` on PyPI). Added options `19. Launch Open Interpreter CLI` to the main menus, version validation, automatic setup, and Explorer context menu integrations utilizing a new cache-busted custom icon. Created `LaunchInterpreter.bat` and `LaunchInterpreter.sh` launchers.
+- **Icon Assets**: Added custom icon assets for both new CLIs: `aider_v2.ico` and `interpreter_v2.ico`.
+
+### 🔴 Deprecations
+- **Gemini & iFlow CLIs Sunsetted**: 
+  - Gemini CLI (`gemini`) and iFlow CLI (`iflow`) have been deprecated and their execution logic commented out.
+  - Launcher scripts renamed to `LaunchGemini_deprecated.bat` / `.sh` and `LaunchIFlow_deprecated.bat` / `.sh`. Custom warning screens redirect users to **Antigravity CLI** (`agy`) and **Qoder CLI** (`qodercli`) respectively.
+  - Explorer right-click context menu registry entries and Nautilus scripts updated to append `(Deprecated)` to their titles and point directly to the deprecated warning launchers.
+  - Main menu listings updated to display `(Deprecated)`.
+
+### 🔄 OpenCode Sync
+- **OpenCode Model Sync**: Updated model lists in `LaunchOpenCode.bat` / `LaunchOpenCode.sh` to include `minimax-m3-free`, `nemotron-3-ultra-free`, and `north-mini-code-free` (updating older Minimax and Nemotron versions).
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped header banners in `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and `README.md` to `v1.2.27`.
+
 ## [v1.2.26] - 2026-05-29
 
 ### 🚀 New Features
