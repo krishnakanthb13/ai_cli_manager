@@ -37,7 +37,7 @@ echo   Launch 4 CLIs in a 2x2 Windows Terminal grid.
 echo.
 echo   --- Presets ---
 echo.
-echo     1. Preset Alpha   [Gemini ^| Copilot ^| Codex ^| Qoder]
+echo     1. Preset Alpha   [Copilot ^| Codex ^| Qoder ^| Antigravity]
 echo     2. Preset Beta    [KiloCode ^| Vibe ^| OpenCode ^| Qwen]
 echo.
 echo   --- Custom ---
@@ -59,13 +59,13 @@ timeout /t 2 >nul
 goto MAIN_MENU
 
 REM ========================================
-REM PRESET ALPHA: Gemini / Copilot / Codex / Qoder
+REM PRESET ALPHA: Copilot / Codex / Qoder / Antigravity
 REM ========================================
 :PRESET_ALPHA
-set "CLI_TL=gemini"
-set "CLI_TR=copilot"
-set "CLI_BL=codex"
-set "CLI_BR=qodercli"
+set "CLI_TL=copilot"
+set "CLI_TR=codex"
+set "CLI_BL=qodercli"
+set "CLI_BR=agy"
 goto ASK_FOLDER
 
 REM ========================================
@@ -90,14 +90,16 @@ echo  =====================================================
 echo.
 echo   Available CLIs:
 echo.
-echo     1.  gemini        9.  nanocode
-echo     2.  jules         10. claude
-echo     3.  vibe          11. codex
-echo     4.  iflow         12. cline
-echo     5.  opencode      13. junie
-echo     6.  qwen          14. kiro-cli
-echo     7.  kilocode      15. qodercli
-echo     8.  copilot       16. agy
+echo     1.  gemini (Dep)  11. codex
+echo     2.  jules          12. cline
+echo     3.  vibe           13. junie
+echo     4.  iflow (Dep)   14. kiro-cli
+echo     5.  opencode       15. qodercli
+echo     6.  qwen           16. agy
+echo     7.  kilocode       17. kimi
+echo     8.  copilot        18. aider
+echo     9.  nanocode       19. interpreter
+echo     10. claude
 echo.
 echo  =====================================================
 echo.
@@ -120,11 +122,11 @@ set "_var=%~2"
 set "_mapped="
 :_PICK_RETRY
 set "_num="
-set /p "_num=  %_prompt% (1-16): "
+set /p "_num=  %_prompt% (1-19): "
 if "!_num!"=="" goto _PICK_RETRY
 call :MAP_NUM !_num!
 if "!_mapped!"=="" (
-    echo   [!] Invalid. Enter a number from 1 to 16.
+    echo   [!] Invalid. Enter a number from 1 to 19.
     goto _PICK_RETRY
 )
 set "!_var!=!_mapped!"
@@ -136,22 +138,25 @@ REM Sets _mapped variable directly.
 REM ========================================
 :MAP_NUM
 set "_mapped="
-if "%~1"=="1"  set "_mapped=gemini"    & exit /b
-if "%~1"=="2"  set "_mapped=jules"     & exit /b
-if "%~1"=="3"  set "_mapped=vibe"      & exit /b
-if "%~1"=="4"  set "_mapped=iflow"     & exit /b
-if "%~1"=="5"  set "_mapped=opencode"  & exit /b
-if "%~1"=="6"  set "_mapped=qwen"      & exit /b
-if "%~1"=="7"  set "_mapped=kilocode"  & exit /b
-if "%~1"=="8"  set "_mapped=copilot"   & exit /b
-if "%~1"=="9"  set "_mapped=nanocode"  & exit /b
-if "%~1"=="10" set "_mapped=claude"    & exit /b
-if "%~1"=="11" set "_mapped=codex"     & exit /b
-if "%~1"=="12" set "_mapped=cline"     & exit /b
-if "%~1"=="13" set "_mapped=junie"     & exit /b
-if "%~1"=="14" set "_mapped=kiro-cli"  & exit /b
-if "%~1"=="15" set "_mapped=qodercli"  & exit /b
-if "%~1"=="16" set "_mapped=agy"       & exit /b
+if "%~1"=="1"  set "_mapped=gemini"       & exit /b
+if "%~1"=="2"  set "_mapped=jules"        & exit /b
+if "%~1"=="3"  set "_mapped=vibe"         & exit /b
+if "%~1"=="4"  set "_mapped=iflow"        & exit /b
+if "%~1"=="5"  set "_mapped=opencode"     & exit /b
+if "%~1"=="6"  set "_mapped=qwen"         & exit /b
+if "%~1"=="7"  set "_mapped=kilocode"     & exit /b
+if "%~1"=="8"  set "_mapped=copilot"      & exit /b
+if "%~1"=="9"  set "_mapped=nanocode"     & exit /b
+if "%~1"=="10" set "_mapped=claude"       & exit /b
+if "%~1"=="11" set "_mapped=codex"        & exit /b
+if "%~1"=="12" set "_mapped=cline"        & exit /b
+if "%~1"=="13" set "_mapped=junie"        & exit /b
+if "%~1"=="14" set "_mapped=kiro-cli"     & exit /b
+if "%~1"=="15" set "_mapped=qodercli"     & exit /b
+if "%~1"=="16" set "_mapped=agy"          & exit /b
+if "%~1"=="17" set "_mapped=kimi"         & exit /b
+if "%~1"=="18" set "_mapped=aider"        & exit /b
+if "%~1"=="19" set "_mapped=interpreter" & exit /b
 exit /b
 
 REM ========================================

@@ -43,6 +43,8 @@ This document describes the technical implementation and architecture of the AI 
 
 ## 🏁 CLI Beast Mode (Grid Architecture)
 
+> **Note (v1.2.27)**: The Beast Mode grid now exposes **19 tools** (options 1–19) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets.
+
 The "Beast Mode" grid (2x2) is implemented differently per platform to ensure native performance:
 
 ### 🖥️ Windows (Windows Terminal)
@@ -111,6 +113,8 @@ A subset of the launcher scripts in `/Batch Files/` and `/Shell Files/` expose a
 |----------|---------------------------------------|
 | `LaunchClaude.bat` / `LaunchClaude.sh` | **Opus**: `claude-opus-4-8`, `claude-opus-4-8[1m]`, `claude-opus-4-7`, `claude-opus-4-7[1m]`, `opusplan` · **Sonnet**: `sonnet`, `sonnet[1m]` · **Haiku**: `haiku` · **Other**: `best` (resolves to most capable, currently Opus), `default` (account-tier default — Opus 4.8 for Max/Team Premium, Sonnet 4.6 for Pro/Enterprise/API). **[v1.2.26]** Opus 4.8 (latest) and Opus 4.8 [1M] were added at the top of the Opus group; the 4.7 entries were repinned from the bare `opus`/`opus[1m]` aliases to the explicit model IDs `claude-opus-4-7`/`claude-opus-4-7[1m]` because the bare `opus` alias now rolls forward to 4.8 and would otherwise launch the wrong version. The `[1m]` suffix activates the 1M-token context window per Anthropic's [model-config docs](https://code.claude.com/docs/en/model-config). Bracketed aliases are kept inside quotes (`"%model%"` / `"$model"`) so the shell does not interpret them as glob/bracket expressions. |
 | `LaunchOpenCode.bat` / `LaunchOpenCode.sh` | OpenCode model list (maintained by the `update_opencode_models` skill in `.agent/skills/`). |
+| `LaunchAider.bat` / `LaunchAider.sh` | Aider CLI launcher — PATH check for `aider`, interactive prompt for directory, spawns via Windows Terminal or `cmd.exe` (Windows) / `spawn_in_terminal` (Linux/macOS). Installs via `pip install aider-chat` if missing. |
+| `LaunchInterpreter.bat` / `LaunchInterpreter.sh` | Open Interpreter CLI launcher — PATH check for `interpreter`, interactive prompt for directory, spawns via Windows Terminal or `cmd.exe` (Windows) / `spawn_in_terminal` (Linux/macOS). Installs via `pip install open-interpreter` if missing. |
 
 Menu labels include the explicit version number (e.g. *Claude Opus 4.8*, *Claude Opus 4.7*, *Claude Sonnet 4.6*, *Claude Haiku 4.5*) so users see at a glance which underlying model an alias resolves to today. Aliases such as `sonnet`/`haiku`/`best` auto-roll forward when Anthropic publishes a new generation, so only their menu strings need a bump; version-pinned entries that must stay on a specific generation (e.g. Opus 4.7) instead use the full `claude-opus-4-7` model ID so they do not drift when the bare alias advances.
 

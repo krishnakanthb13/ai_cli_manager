@@ -34,30 +34,34 @@ fi
 # 2. CLI MAP (numbers -> commands)
 # ========================================
 CLI_NAMES=(
-    ""         # index 0 unused
-    "gemini"   # 1
-    "jules"    # 2
-    "vibe"     # 3
-    "iflow"    # 4
-    "opencode" # 5
-    "qwen"     # 6
-    "kilocode" # 7
-    "copilot"  # 8
-    "nanocode" # 9
-    "claude"   # 10
-    "codex"    # 11
-    "cline"    # 12
-    "junie"    # 13
-    "kiro-cli" # 14
-    "qodercli" # 15
-    "agy"      # 16
+    ""           # index 0 unused
+    "gemini"     # 1
+    "jules"      # 2
+    "vibe"       # 3
+    "iflow"      # 4
+    "opencode"   # 5
+    "qwen"       # 6
+    "kilocode"   # 7
+    "copilot"    # 8
+    "nanocode"   # 9
+    "claude"     # 10
+    "codex"      # 11
+    "cline"      # 12
+    "junie"      # 13
+    "kiro-cli"   # 14
+    "qodercli"   # 15
+    "agy"        # 16
+    "kimi"       # 17
+    "aider"      # 18
+    "interpreter" # 19
 )
 
 CLI_DISPLAY=(
     ""
-    "Gemini"   "Jules"    "Vibe"     "iFlow"    "OpenCode"
-    "Qwen"     "KiloCode" "Copilot"  "NanoCode" "Claude"
-    "Codex"    "Cline"    "Junie"    "Kiro"     "Qoder"    "Antigravity"
+    "Gemini (Dep)" "Jules"       "Vibe"        "iFlow (Dep)" "OpenCode"
+    "Qwen"         "KiloCode"    "Copilot"     "NanoCode"    "Claude"
+    "Codex"        "Cline"       "Junie"       "Kiro"        "Qoder"
+    "Antigravity"  "Kimi"        "Aider"       "Open Interpreter"
 )
 
 # ========================================
@@ -121,7 +125,7 @@ show_menu() {
     echo ""
     echo -e "   ${YELLOW}--- Presets ---${NC}"
     echo ""
-    echo "     1. Preset Alpha   [Gemini | Copilot | Codex | Qoder]"
+    echo "     1. Preset Alpha   [Copilot | Codex | Qoder | Antigravity]"
     echo "     2. Preset Beta    [KiloCode | Vibe | OpenCode | Qwen]"
     echo ""
     echo -e "   ${YELLOW}--- Custom ---${NC}"
@@ -142,14 +146,16 @@ show_cli_list() {
     echo ""
     echo -e " ${CYAN}  Available CLIs:${NC}"
     echo ""
-    echo "     1.  gemini        9.  nanocode"
-    echo "     2.  jules         10. claude"
-    echo "     3.  vibe          11. codex"
-    echo "     4.  iflow         12. cline"
-    echo "     5.  opencode      13. junie"
-    echo "     6.  qwen          14. kiro-cli"
-    echo "     7.  kilocode      15. qodercli"
-    echo "     8.  copilot       16. agy"
+    echo "     1.  gemini (Dep)  11. codex"
+    echo "     2.  jules          12. cline"
+    echo "     3.  vibe           13. junie"
+    echo "     4.  iflow (Dep)   14. kiro-cli"
+    echo "     5.  opencode       15. qodercli"
+    echo "     6.  qwen           16. agy"
+    echo "     7.  kilocode       17. kimi"
+    echo "     8.  copilot        18. aider"
+    echo "     9.  nanocode       19. interpreter"
+    echo "     10. claude"
     echo ""
 }
 
@@ -157,12 +163,12 @@ pick_cli() {
     local label=$1
     local result_var=$2
     while true; do
-        read -p "  $label (1-16): " num
-        if [[ "$num" =~ ^[0-9]+$ ]] && [ "$num" -ge 1 ] && [ "$num" -le 16 ]; then
+        read -p "  $label (1-19): " num
+        if [[ "$num" =~ ^[0-9]+$ ]] && [ "$num" -ge 1 ] && [ "$num" -le 19 ]; then
             eval "$result_var='${CLI_NAMES[$num]}'"
             return
         else
-            echo -e "  ${RED}[!] Invalid.${NC} Enter a number from 1 to 16."
+            echo -e "  ${RED}[!] Invalid.${NC} Enter a number from 1 to 19."
         fi
     done
 }
@@ -242,10 +248,10 @@ while true; do
     show_menu
     case "$choice" in
         1)
-            CLI_TL="gemini"
-            CLI_TR="copilot"
-            CLI_BL="codex"
-            CLI_BR="qodercli"
+            CLI_TL="copilot"
+            CLI_TR="codex"
+            CLI_BL="qodercli"
+            CLI_BR="agy"
             ask_folder
             launch_grid "$CLI_TL" "$CLI_TR" "$CLI_BL" "$CLI_BR" "$LAUNCH_DIR"
             ;;
