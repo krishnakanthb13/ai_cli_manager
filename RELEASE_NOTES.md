@@ -1,5 +1,18 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.29] - 2026-06-23
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped version headers to `v1.2.29` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and `README.md`, and generated a new release banner asset.
+
+## [v1.2.28] - 2026-06-23
+
+### 🚀 New Features & Additions
+- **MiMo Code CLI Support**: Integrated Xiaomi's MiMo Code CLI (`@mimo-ai/cli` as command `mimo`). Added option `20. Launch MiMo Code CLI` to the main menus, version check logic (`npm list -g @mimo-ai/cli`), and install/update setup. Created `LaunchMiMo.bat` and `LaunchMiMo.sh` launchers.
+- **Context Menu Integration**: Added right-click menu options for MiMo Code CLI to Windows Registry and Nautilus scripts.
+- **Icon Conversion**: Converted the user's `mimo.png` into a cache-busted `mimo_v2.ico` using the converter tool.
+- **Beast Mode Grid**: Added option `20. mimo` to Custom Pick menus in both batch and shell grid scripts.
+
 ## [v1.2.27] - 2026-06-18
 
 ### 🚀 New Features & Additions

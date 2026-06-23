@@ -43,7 +43,7 @@ This document describes the technical implementation and architecture of the AI 
 
 ## 🏁 CLI Beast Mode (Grid Architecture)
 
-> **Note (v1.2.27)**: The Beast Mode grid now exposes **19 tools** (options 1–19) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets.
+> **Note (v1.2.28)**: The Beast Mode grid now exposes **20 tools** (options 1–20) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets.
 
 The "Beast Mode" grid (2x2) is implemented differently per platform to ensure native performance:
 
@@ -161,3 +161,10 @@ The project integrates with the following package managers:
   - Wired into main loops: Added options 18 & 19, version validation, smart setup, and Explorer context menu integrations with cache-busted icons.
 - **OpenCode Sync**:
   - Updated model lists in `LaunchOpenCode.bat` / `.sh` to include `minimax-m3-free`, `nemotron-3-ultra-free`, and `north-mini-code-free`.
+
+## 🆕 Version 1.2.28 Updates
+- **Additions**:
+  - Added **MiMo Code CLI** (`@mimo-ai/cli` as command `mimo`) as option 20 in the manager.
+  - Created batch and shell launcher scripts: `LaunchMiMo.bat` and `LaunchMiMo.sh`.
+  - Added to smart installer checks (Option `I`), versions checks (Option `V`), context menu integrations (Option `A`), and grid layouts.
+  - Converted the user's `mimo.png` to cache-busted `mimo_v2.ico` for desktop right-click menu items.

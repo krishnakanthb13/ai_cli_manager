@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.27)
+echo           AI CLI TOOLS MANAGER (v1.2.29)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -83,6 +83,7 @@ echo     16. Launch Antigravity CLI
 echo     17. Launch Kimi Code CLI
 echo     18. Launch Aider CLI
 echo     19. Launch Open Interpreter CLI
+echo     20. Launch MiMo Code CLI
 echo.
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -121,6 +122,7 @@ if "%choice%"=="16" goto LAUNCH_ANTIGRAVITY
 if "%choice%"=="17" goto LAUNCH_KIMI
 if "%choice%"=="18" goto LAUNCH_AIDER
 if "%choice%"=="19" goto LAUNCH_INTERPRETER
+if "%choice%"=="20" goto LAUNCH_MIMO
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -425,6 +427,21 @@ if "%UseWT%"=="1" (
 )
 goto LAUNCH_DONE
 
+:LAUNCH_MIMO
+echo [%time%] === Launching MiMo Code CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC mimo
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k mimo >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k mimo
+) else (
+    echo [%time%] Command: cmd /k mimo (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && mimo"
+)
+goto LAUNCH_DONE
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -577,6 +594,13 @@ for /f "delims=" %%V in ('pip show open-interpreter 2^>nul ^| findstr /B /C:"Ver
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
+echo --- MiMo Code CLI ---
+echo --- MiMo Code CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('npm list -g @mimo-ai/cli --depth=0 2^>nul ^| findstr /C:"-- @mimo-ai/cli@"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
 echo ================================================
 pause
 goto MAIN_MENU
@@ -659,6 +683,9 @@ call :CHECK_NPM "@qoder-ai/qodercli" "Qoder CLI"
 
 echo [Antigravity CLI] Checking...
 call :CHECK_ANTIGRAVITY
+
+echo [MiMo Code CLI] Checking...
+call :CHECK_NPM "@mimo-ai/cli" "MiMo Code CLI"
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -1119,6 +1146,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\interpre
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\interpreter" /v "Icon" /d "%ICONS_DIR%\interpreter_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\interpreter\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k interpreter" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\mimo" /ve /d "Open with MiMo Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\mimo" /v "Icon" /d "%ICONS_DIR%\mimo_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\mimo\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k mimo" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -1196,10 +1227,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\interpreter" /ve /d
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\interpreter" /v "Icon" /d "%ICONS_DIR%\interpreter_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\interpreter\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k interpreter" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\mimo" /ve /d "Open with MiMo Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\mimo" /v "Icon" /d "%ICONS_DIR%\mimo_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\mimo\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k mimo" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi, MiMo >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.

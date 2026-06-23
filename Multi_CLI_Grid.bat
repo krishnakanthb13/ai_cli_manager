@@ -99,7 +99,7 @@ echo     6.  qwen           16. agy
 echo     7.  kilocode       17. kimi
 echo     8.  copilot        18. aider
 echo     9.  nanocode       19. interpreter
-echo     10. claude
+echo     10. claude         20. mimo
 echo.
 echo  =====================================================
 echo.
@@ -122,11 +122,11 @@ set "_var=%~2"
 set "_mapped="
 :_PICK_RETRY
 set "_num="
-set /p "_num=  %_prompt% (1-19): "
+set /p "_num=  %_prompt% (1-20): "
 if "!_num!"=="" goto _PICK_RETRY
 call :MAP_NUM !_num!
 if "!_mapped!"=="" (
-    echo   [!] Invalid. Enter a number from 1 to 19.
+    echo   [!] Invalid. Enter a number from 1 to 20.
     goto _PICK_RETRY
 )
 set "!_var!=!_mapped!"
@@ -157,6 +157,7 @@ if "%~1"=="16" set "_mapped=agy"          & exit /b
 if "%~1"=="17" set "_mapped=kimi"         & exit /b
 if "%~1"=="18" set "_mapped=aider"        & exit /b
 if "%~1"=="19" set "_mapped=interpreter" & exit /b
+if "%~1"=="20" set "_mapped=mimo"        & exit /b
 exit /b
 
 REM ========================================
