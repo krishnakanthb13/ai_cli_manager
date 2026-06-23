@@ -51,10 +51,8 @@ echo.
 echo    [1] Big Pickle
 echo    [2] DeepSeek V4 Flash Free
 echo    [3] Mimo V2.5 Free
-echo    [4] Minimax M3 Free
-echo    [5] Nemotron 3 Ultra Free
-echo    [6] Qwen 3.6 Plus Free
-echo    [7] North Mini Code Free
+echo    [4] Nemotron 3 Ultra Free
+echo    [5] North Mini Code Free
 echo.
 echo    [0] Exit
 echo.
@@ -62,20 +60,18 @@ echo ============================================================
 echo.
 
 set "choice="
-set /p choice="  Enter your choice (0-7): "
+set /p choice="  Enter your choice (0-5): "
 
 if "%choice%"=="0" goto exit
 if "%choice%"=="1" set "model=opencode/big-pickle" & set "modelname=Big Pickle"
 if "%choice%"=="2" set "model=opencode/deepseek-v4-flash-free" & set "modelname=DeepSeek V4 Flash Free"
 if "%choice%"=="3" set "model=opencode/mimo-v2.5-free" & set "modelname=Mimo V2.5 Free"
-if "%choice%"=="4" set "model=opencode/minimax-m3-free" & set "modelname=Minimax M3 Free"
-if "%choice%"=="5" set "model=opencode/nemotron-3-ultra-free" & set "modelname=Nemotron 3 Ultra Free"
-if "%choice%"=="6" set "model=opencode/qwen3.6-plus-free" & set "modelname=Qwen 3.6 Plus Free"
-if "%choice%"=="7" set "model=opencode/north-mini-code-free" & set "modelname=North Mini Code Free"
+if "%choice%"=="4" set "model=opencode/nemotron-3-ultra-free" & set "modelname=Nemotron 3 Ultra Free"
+if "%choice%"=="5" set "model=opencode/north-mini-code-free" & set "modelname=North Mini Code Free"
 
 if not defined model (
     echo.
-    echo  [!] Invalid choice. Please enter a number between 0-7.
+    echo  [!] Invalid choice. Please enter a number between 0-5.
     timeout /t 2 >nul
     goto menu
 )
