@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.27) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.29) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -313,6 +313,8 @@ install_all() {
     install_pip_cli "Aider CLI" "aider-chat"
     echo ""
     install_pip_cli "Open Interpreter CLI" "open-interpreter"
+    echo ""
+    install_npm_cli "MiMo Code CLI" "@mimo-ai/cli"
 
 
     echo ""
@@ -418,6 +420,10 @@ show_versions() {
     echo -e "\n${CYAN}--- Open Interpreter CLI ---${NC}"
     echo -e "\n--- Open Interpreter CLI ---" >> "$LOG_FILE"
     pip3 show open-interpreter 2>/dev/null | grep "Version" | tee -a "$LOG_FILE"
+
+    echo -e "\n${CYAN}--- MiMo Code CLI ---${NC}"
+    echo -e "\n--- MiMo Code CLI ---" >> "$LOG_FILE"
+    npm list -g @mimo-ai/cli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
 
     echo ""
     pause
@@ -557,6 +563,7 @@ add_context_menu_linux() {
     create_script_file "Open with Kimi Code CLI" "kimi"
     create_script_file "Open with Aider CLI" "aider"
     create_script_file "Open with Open Interpreter CLI" "interpreter"
+    create_script_file "Open with MiMo Code CLI" "mimo"
 
     echo ""
 
@@ -671,6 +678,7 @@ while true; do
     echo "  17. Launch Kimi Code CLI"
     echo "  18. Launch Aider CLI"
     echo "  19. Launch Open Interpreter CLI"
+    echo "  20. Launch MiMo Code CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -715,6 +723,7 @@ while true; do
         17) launch_tool "kimi" ;;
         18) launch_tool "aider" ;;
         19) launch_tool "interpreter" ;;
+        20) launch_tool "mimo" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;
