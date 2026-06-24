@@ -10,7 +10,7 @@ echo           ANTHROPIC CLAUDE CLI LAUNCHER
 echo ============================================================
 echo.
 echo  Tool    : Claude CLI (Claude Code)
-echo  Install : powershell "iex (irm https://claude.ai/install.ps1)"
+echo  Install : powershell "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex (irm https://claude.ai/install.ps1')"
 echo  Update  : claude install
 echo.
 echo ============================================================
@@ -26,7 +26,7 @@ if %ERRORLEVEL% neq 0 (
     echo ============================================================
     echo.
     echo  To install, run:
-    echo    powershell "iex (irm https://claude.ai/install.ps1)"
+    echo    powershell "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex (irm https://claude.ai/install.ps1')"
     echo.
     echo  Make sure you run PowerShell with internet access.
     echo.

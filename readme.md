@@ -73,7 +73,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 | **KiloCode** | `@kilocode/cli` | `kilocode` | NPM |
 | **NanoCode** | `nanocode-agent` | `nanocode` | Git + Link |
 | **Junie** | `Official Script` | `junie` | PowerShell / Curl |
-| **Kiro** | `Official Script` | `kiro-cli` | Bash / Curl (Unix only*) |
+| **Kiro** | `Official Script` | `kiro-cli` | PowerShell / Curl |
 | **Qoder** | `@qoder-ai/qodercli` | `qodercli` | NPM |
 | **Antigravity** | `Official Script` | `agy` | PowerShell / Curl |
 | **Aider** | `aider-chat` | `aider` | PIP (Python) |
@@ -82,8 +82,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 
 
 > **Note on Installation**: Smart Install (Option `I`) automatically manages Node.js, Python, and Git. Git-based tools like NanoCode are cloned into the `/Tools` directory and linked via `npm link`. 
-> 
-> *\*Note on Kiro CLI: This tool is not natively supported on Windows. Use WSL or Git Bash for access.*
+
 
 ---
 

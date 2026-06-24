@@ -74,7 +74,7 @@ Uses standard `tmux` commands for session orchestration:
 | `:CHECK_PIP` | Checks and installs/updates a PIP package. Uses PyPI JSON API for latest version lookup. |
 | `:CHECK_NANOCODE` | Specific logic for NanoCode: Clones from GitHub into `Tools/nanocode-2` and runs `npm link`. |
 | `:CHECK_JUNIE` | Logic for Junie: Downloads and executes the official JetBrains installation script (`install.ps1`) via PowerShell. Displays the source URL before running. |
-| `:CHECK_KIRO` | Logic for Kiro: Skipped on Windows (no native support). Refer to Linux script for curl-based install. |
+| `:CHECK_KIRO` | Logic for Kiro: Downloads and executes the official Kiro installation script (`install.ps1`) via PowerShell. |
 | `:CHECK_ANTIGRAVITY` | Logic for Antigravity: Downloads and executes the official Google installation script (`install.ps1`) via PowerShell. |
 | `:CHECK_CLI_EXEC` | **[v1.2.18]** Pre-launch guard. Uses `where` to verify a CLI command is in PATH before a terminal is spawned. Returns exit code 1 and shows a descriptive error if the command is missing. Called by every `:LAUNCH_*` label. |
 | `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. **[v1.2.20]** All `npm list -g` calls use `--depth=0` and `findstr /C:"-- <pkg>@"` to anchor on the npm tree prefix, preventing substring matches against sub-dependencies. Mistral Vibe uses `findstr /B /C:"Version:"` to anchor on the first column. |

@@ -334,23 +334,19 @@ if "%UseWT%"=="1" (
 goto LAUNCH_DONE
 
 :LAUNCH_KIRO
-echo [%time%] === Kiro CLI not natively supported === >> "%LOG_FILE%"
-cls
-echo ============================================================
-echo   Kiro CLI (Unsupported on Native Windows)
-echo ============================================================
-echo.
-echo   [!] Kiro CLI does not have a native Windows version.
-echo.
-echo   Recommended setup for Windows:
-echo     1. WSL (Windows Subsystem for Linux)
-echo     2. Git Bash (with curl and bash)
-echo.
-echo   Check Linux version: ./AI_CLI_Manager.sh
-echo.
-echo ============================================================
-pause
-goto MAIN_MENU
+echo [%time%] === Launching Kiro CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC kiro-cli
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k kiro-cli >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k kiro-cli
+) else (
+    echo [%time%] Command: cmd /k kiro-cli (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && kiro-cli"
+)
+goto LAUNCH_DONE
 
 :LAUNCH_QODER
 echo [%time%] === Launching Qoder CLI === >> "%LOG_FILE%"
@@ -887,10 +883,19 @@ if %errorlevel% neq 0 (
     echo [INFO] Downloading official installer from: https://junie.jetbrains.com/install.ps1
     echo [INFO] This runs JetBrains' official installation script.
     echo [%time%] [INFO] Running Junie official installer >> "%LOG_FILE%"
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://junie.jetbrains.com/install.ps1')"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex (irm 'https://junie.jetbrains.com/install.ps1')"
     if errorlevel 1 (
-        echo [FAILED]
-        echo [%time%] [FAILED] Junie install >> "%LOG_FILE%"
+        echo [INFO] Connection failed. Retrying download with curl.exe...
+        curl.exe -fsSL "https://junie.jetbrains.com/install.ps1" -o "%TEMP%\junie_install.ps1"
+        if not errorlevel 1 (
+            powershell -NoProfile -ExecutionPolicy Bypass -File "%TEMP%\junie_install.ps1"
+            del "%TEMP%\junie_install.ps1" >nul 2>&1
+            echo [INSTALLED] Official Script
+            echo [%time%] [OK] Installed Junie CLI >> "%LOG_FILE%"
+        ) else (
+            echo [FAILED]
+            echo [%time%] [FAILED] Junie install >> "%LOG_FILE%"
+        )
     ) else (
         echo [INSTALLED] Official Script
         echo [%time%] [OK] Installed Junie CLI >> "%LOG_FILE%"
@@ -902,9 +907,34 @@ if %errorlevel% neq 0 (
 exit /b
 
 :CHECK_KIRO
-echo --- Kiro CLI (Skipped) --- >> "%LOG_FILE%"
-echo [SKIP] Kiro CLI does not have a native Windows version.
-echo Use WSL or Git Bash for Linux installation.
+echo --- Kiro CLI --- >> "%LOG_FILE%"
+where kiro-cli >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [MISSING] Installing Kiro CLI...
+    echo [INFO] Downloading official installer from: https://cli.kiro.dev/install.ps1
+    echo [INFO] This runs Kiro's official installation script.
+    echo [%time%] [INFO] Running Kiro official installer >> "%LOG_FILE%"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex (irm 'https://cli.kiro.dev/install.ps1')"
+    if errorlevel 1 (
+        echo [INFO] Connection failed. Retrying download with curl.exe...
+        curl.exe -fsSL "https://cli.kiro.dev/install.ps1" -o "%TEMP%\kiro_install.ps1"
+        if not errorlevel 1 (
+            powershell -NoProfile -ExecutionPolicy Bypass -File "%TEMP%\kiro_install.ps1"
+            del "%TEMP%\kiro_install.ps1" >nul 2>&1
+            echo [INSTALLED] Official Script
+            echo [%time%] [OK] Installed Kiro CLI >> "%LOG_FILE%"
+        ) else (
+            echo [FAILED]
+            echo [%time%] [FAILED] Kiro install >> "%LOG_FILE%"
+        )
+    ) else (
+        echo [INSTALLED] Official Script
+        echo [%time%] [OK] Installed Kiro CLI >> "%LOG_FILE%"
+    )
+) else (
+    echo [OK] Installed
+    echo [%time%] [SKIP] Kiro already installed >> "%LOG_FILE%"
+)
 exit /b
 
 :CHECK_ANTIGRAVITY
@@ -915,10 +945,19 @@ if %errorlevel% neq 0 (
     echo [INFO] Downloading official installer from: https://antigravity.google/cli/install.ps1
     echo [INFO] This runs Google's official installation script.
     echo [%time%] [INFO] Running Antigravity official installer >> "%LOG_FILE%"
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://antigravity.google/cli/install.ps1')"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex (irm 'https://antigravity.google/cli/install.ps1')"
     if errorlevel 1 (
-        echo [FAILED]
-        echo [%time%] [FAILED] Antigravity install >> "%LOG_FILE%"
+        echo [INFO] Connection failed. Retrying download with curl.exe...
+        curl.exe -fsSL "https://antigravity.google/cli/install.ps1" -o "%TEMP%\agy_install.ps1"
+        if not errorlevel 1 (
+            powershell -NoProfile -ExecutionPolicy Bypass -File "%TEMP%\agy_install.ps1"
+            del "%TEMP%\agy_install.ps1" >nul 2>&1
+            echo [INSTALLED] Official Script
+            echo [%time%] [OK] Installed Antigravity CLI >> "%LOG_FILE%"
+        ) else (
+            echo [FAILED]
+            echo [%time%] [FAILED] Antigravity install >> "%LOG_FILE%"
+        )
     ) else (
         echo [INSTALLED] Official Script
         echo [%time%] [OK] Installed Antigravity CLI >> "%LOG_FILE%"
@@ -940,10 +979,19 @@ if %errorlevel% neq 0 (
     echo [INFO] Downloading official installer from: https://claude.ai/install.ps1
     echo [INFO] This runs Anthropic's official installation script.
     echo [%time%] [INFO] Running Claude official installer >> "%LOG_FILE%"
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://claude.ai/install.ps1')"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex (irm 'https://claude.ai/install.ps1')"
     if errorlevel 1 (
-        echo [FAILED]
-        echo [%time%] [FAILED] Claude install >> "%LOG_FILE%"
+        echo [INFO] Connection failed. Retrying download with curl.exe...
+        curl.exe -fsSL "https://claude.ai/install.ps1" -o "%TEMP%\claude_install.ps1"
+        if not errorlevel 1 (
+            powershell -NoProfile -ExecutionPolicy Bypass -File "%TEMP%\claude_install.ps1"
+            del "%TEMP%\claude_install.ps1" >nul 2>&1
+            echo [INSTALLED] Official Script
+            echo [%time%] [OK] Installed Claude CLI >> "%LOG_FILE%"
+        ) else (
+            echo [FAILED]
+            echo [%time%] [FAILED] Claude install >> "%LOG_FILE%"
+        )
     ) else (
         echo [INSTALLED] Official Script
         echo [%time%] [OK] Installed Claude CLI >> "%LOG_FILE%"
@@ -1124,7 +1172,7 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie\co
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchKiro.bat\"\"" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k \"\"%SCRIPT_DIR%Batch Files\LaunchKiro.bat\"\"" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder" /ve /d "Open with Qoder CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
@@ -1205,7 +1253,7 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie\command" /ve 
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchKiro.bat\"\"" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k \"\"%SCRIPT_DIR%Batch Files\LaunchKiro.bat\"\"" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder" /ve /d "Open with Qoder CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
