@@ -17,7 +17,7 @@
 *   **🔥 CLI Beast Mode**: Launch up to 4 AI CLIs simultaneously in a perfectly aligned 2x2 grid (Windows Terminal or tmux).
 *   **Smart Installation**: Automated dependency checks (Node.js, Python, Git, curl) and one-click installs for missing tools.
 *   **Pre-Launch Validation**: Verifies a CLI is actually installed before attempting to launch — clear error messages guide you to fix it.
-*   **Windows Integration**: Add cascading "AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)" menus to your right-click context menu in File Explorer to host all 20+ tools without hitting Windows registry limits.
+*   **Windows Integration**: Add cascading "AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)" menus to your right-click context menu in File Explorer to host all 21+ tools without hitting Windows registry limits.
 *   **Cross-Platform**: Primary focus on Windows (Batch) with robust support for Linux & macOS (Shell).
 *   **Session Awareness**: Comprehensive logging and registry backup utilities for system safety.
 
@@ -49,7 +49,7 @@
 2.  **Select Directory**: Enter the path to your project folder when prompted.
 3.  **Go!**: The grid opens instantly in that directory. 
 
-> **Note**: Beast Mode supports all **20 tools** (options 1–20), matching the main manager menu.
+> **Note**: Beast Mode supports all **21 tools** (options 1–21), matching the main manager menu.
 >
 > **Tip**: In `tmux` (Linux/Mac), use `Ctrl+B` then `D` to detach from the grid without killing your active AI sessions.
 
@@ -79,6 +79,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 | **Aider** | `aider-chat` | `aider` | PIP (Python) |
 | **Open Interpreter** | `open-interpreter` | `interpreter` | PIP (Python) |
 | **MiMo Code** | `@mimo-ai/cli` | `mimo` | NPM |
+| **Freebuff** | `freebuff` | `freebuff` | NPM |
 
 
 > **Note on Installation**: Smart Install (Option `I`) automatically manages Node.js, Python, and Git. Git-based tools like NanoCode are cloned into the `/Tools` directory and linked via `npm link`. 
@@ -92,7 +93,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 *   **`I` Check and Install All**: Scans for all supported tools and installs missing ones automatically.
 *   **`V` Show Versions**: Lists specific installed versions or marks them as `[NOT INSTALLED]`.
 
-### **2. Launch CLIs (`1-20`)**
+### **2. Launch CLIs (`1-21`)**
 
 Launches the selected tool in the current directory (or a specified path) using the best available terminal emulator.
 

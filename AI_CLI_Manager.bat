@@ -84,6 +84,7 @@ echo     17. Launch Kimi Code CLI
 echo     18. Launch Aider CLI
 echo     19. Launch Open Interpreter CLI
 echo     20. Launch MiMo Code CLI
+echo     21. Launch Freebuff CLI
 echo.
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -123,6 +124,7 @@ if "%choice%"=="17" goto LAUNCH_KIMI
 if "%choice%"=="18" goto LAUNCH_AIDER
 if "%choice%"=="19" goto LAUNCH_INTERPRETER
 if "%choice%"=="20" goto LAUNCH_MIMO
+if "%choice%"=="21" goto LAUNCH_FREEBUFF
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -438,6 +440,21 @@ if "%UseWT%"=="1" (
 )
 goto LAUNCH_DONE
 
+:LAUNCH_FREEBUFF
+echo [%time%] === Launching Freebuff CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC freebuff
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k freebuff >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k freebuff
+) else (
+    echo [%time%] Command: cmd /k freebuff (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && freebuff"
+)
+goto LAUNCH_DONE
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -597,6 +614,14 @@ for /f "delims=" %%V in ('npm list -g @mimo-ai/cli --depth=0 2^>nul ^| findstr /
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
+echo --- Freebuff CLI ---
+echo --- Freebuff CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('npm list -g freebuff --depth=0 2^>nul ^| findstr /C:"-- freebuff@"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+
+echo.
 echo ================================================
 pause
 goto MAIN_MENU
@@ -682,6 +707,9 @@ call :CHECK_ANTIGRAVITY
 
 echo [MiMo Code CLI] Checking...
 call :CHECK_NPM "@mimo-ai/cli" "MiMo Code CLI"
+
+echo [Freebuff CLI] Checking...
+call :CHECK_NPM "freebuff" "Freebuff CLI"
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -1204,6 +1232,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\mimo" /v "Icon" /d "%ICONS_DIR%\mimo_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\mimo\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k mimo" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\freebuff" /ve /d "Open with Freebuff CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\freebuff" /v "Icon" /d "%ICONS_DIR%\freebuff_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\freebuff\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k freebuff" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -1285,10 +1317,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\mimo" /ve /
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\mimo" /v "Icon" /d "%ICONS_DIR%\mimo_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\mimo\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k mimo" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\freebuff" /ve /d "Open with Freebuff CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\freebuff" /v "Icon" /d "%ICONS_DIR%\freebuff_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\freebuff\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k freebuff" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iFlow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi, MiMo >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iflow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi, MiMo, Freebuff >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.

@@ -315,6 +315,8 @@ install_all() {
     install_pip_cli "Open Interpreter CLI" "open-interpreter"
     echo ""
     install_npm_cli "MiMo Code CLI" "@mimo-ai/cli"
+    echo ""
+    install_npm_cli "Freebuff CLI" "freebuff"
 
 
     echo ""
@@ -424,6 +426,10 @@ show_versions() {
     echo -e "\n${CYAN}--- MiMo Code CLI ---${NC}"
     echo -e "\n--- MiMo Code CLI ---" >> "$LOG_FILE"
     npm list -g @mimo-ai/cli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+
+    echo -e "\n${CYAN}--- Freebuff CLI ---${NC}"
+    echo -e "\n--- Freebuff CLI ---" >> "$LOG_FILE"
+    npm list -g freebuff --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
 
     echo ""
     pause
@@ -564,6 +570,7 @@ add_context_menu_linux() {
     create_script_file "Open with Aider CLI" "aider"
     create_script_file "Open with Open Interpreter CLI" "interpreter"
     create_script_file "Open with MiMo Code CLI" "mimo"
+    create_script_file "Open with Freebuff CLI" "freebuff"
 
     echo ""
 
@@ -679,6 +686,7 @@ while true; do
     echo "  18. Launch Aider CLI"
     echo "  19. Launch Open Interpreter CLI"
     echo "  20. Launch MiMo Code CLI"
+    echo "  21. Launch Freebuff CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -724,6 +732,7 @@ while true; do
         18) launch_tool "aider" ;;
         19) launch_tool "interpreter" ;;
         20) launch_tool "mimo" ;;
+        21) launch_tool "freebuff" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;
