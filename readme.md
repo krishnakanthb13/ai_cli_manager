@@ -17,7 +17,7 @@
 *   **🔥 CLI Beast Mode**: Launch up to 4 AI CLIs simultaneously in a perfectly aligned 2x2 grid (Windows Terminal or tmux).
 *   **Smart Installation**: Automated dependency checks (Node.js, Python, Git, curl) and one-click installs for missing tools.
 *   **Pre-Launch Validation**: Verifies a CLI is actually installed before attempting to launch — clear error messages guide you to fix it.
-*   **Windows Integration**: Add a cascading "Open with AI CLI" menu to your right-click context menu in File Explorer.
+*   **Windows Integration**: Add cascading "AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)" menus to your right-click context menu in File Explorer to host all 20+ tools without hitting Windows registry limits.
 *   **Cross-Platform**: Primary focus on Windows (Batch) with robust support for Linux & macOS (Shell).
 *   **Session Awareness**: Comprehensive logging and registry backup utilities for system safety.
 
@@ -97,8 +97,8 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 Launches the selected tool in the current directory (or a specified path) using the best available terminal emulator.
 
 ### **3. Context Menu Integration**
-*   **`A` Add to Windows Context Menu**: (Pro-Tip 🔥) Adds a right-click "Open with AI CLI" menu to Explorer.
-    - **How to use**: Right-click any folder or empty space > Hover over "Open with AI CLI" > Select your agent.
+*   **`A` Add to Windows Context Menu**: (Pro-Tip 🔥) Adds cascading "AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)" menus to Explorer.
+    - **How to use**: Right-click any folder or empty space > Hover over "AI CLI Manager (Primary)" or "AI CLI Manager (Secondary)" > Select your agent.
 *   **`B` Remove Menu**: Cleanly uninstalls registry entries.
 *   **`C` Registry Backup**: **Highly Recommended** before using Option `A`. Saves a `.reg` file to the `Log Files` folder.
 

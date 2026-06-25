@@ -32,7 +32,7 @@ This document describes the technical implementation and architecture of the AI 
 1. **Auto-Elevation Module**: Ensures the script runs with administrative privileges for registry modifications.
 2. **Logging System**: A centralized logging mechanism using WMIC for cross-locale timestamping and storage in `Log Files/`.
 3. **Dependency Manager**: Checks for Node.js, Python, and Git; installs missing CLI tools via `npm`, `pip`, or `git clone`.
-4. **Registry Integrator**: Adds cascading context menus to Windows Explorer via `reg.exe`.
+4. **Registry Integrator**: Adds cascading context menus ("AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)") to Windows Explorer via `reg.exe` (split into two menus to bypass the Windows 16-item limit).
 5. **CLI Wrapper**: Launches external terminal applications with proper directory context.
 
 ### Main Components (Linux/macOS)
@@ -78,8 +78,8 @@ Uses standard `tmux` commands for session orchestration:
 | `:CHECK_ANTIGRAVITY` | Logic for Antigravity: Downloads and executes the official Google installation script (`install.ps1`) via PowerShell. |
 | `:CHECK_CLI_EXEC` | **[v1.2.18]** Pre-launch guard. Uses `where` to verify a CLI command is in PATH before a terminal is spawned. Returns exit code 1 and shows a descriptive error if the command is missing. Called by every `:LAUNCH_*` label. |
 | `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. **[v1.2.20]** All `npm list -g` calls use `--depth=0` and `findstr /C:"-- <pkg>@"` to anchor on the npm tree prefix, preventing substring matches against sub-dependencies. Mistral Vibe uses `findstr /B /C:"Version:"` to anchor on the first column. |
-| `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "Open with AI CLI" menu. Uses `%SCRIPT_DIR%` for absolute Kiro launcher path with double-double-quoting for space-safe registry values. |
-| `:REMOVE_CONTEXT_MENU` | Performs `reg delete` to clean up registry entries. |
+| `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)" menus. Splits the tools to bypass the Windows 16-item cascading menu limit. Uses `%SCRIPT_DIR%` for absolute launcher paths with double-double-quoting for space-safe registry values. |
+| `:REMOVE_CONTEXT_MENU` | Performs `reg delete` to clean up registry entries for both Primary and Secondary menus. |
 | `:BACKUP_REGISTRY` | Exports relevant registry keys to a `.reg` file for safety. **[v1.2.20]** Generates a fresh `wmic` timestamp at backup time so multiple backups in one session don't overwrite each other. |
 | `:RESTART_EXPLORER` | Restarts the `explorer.exe` process. **[v1.2.20]** Polls `tasklist` with a 10-retry (≈10 s) cap before proceeding with a logged `[WARN]` to avoid infinite waits if explorer fails to terminate. |
 | `:DEEP_REFRESH_ICONS` | Force-clears Windows Icon Cache by deleting `.db` files and restarting Explorer. Uses the same bounded poll-loop as `:RESTART_EXPLORER`. |
