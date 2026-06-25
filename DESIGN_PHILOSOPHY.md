@@ -35,6 +35,6 @@ The **AI CLI Manager** acts as a "Command Center" for these AI terminal applicat
 
 The ideal workflow with AI CLI Manager:
 1. **Right-click** a project folder in File Explorer.
-2. Select **Open with AI CLI** -> **[Selected Agent]**.
+2. Select **AI CLI Manager (Primary)** or **AI CLI Manager (Secondary)** -> **[Selected Agent]**.
 3. Terminal opens **exactly** in that folder, ready to code.
 4. No manual `cd` commands, no remembering package names.

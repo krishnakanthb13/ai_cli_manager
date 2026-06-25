@@ -1106,178 +1106,184 @@ echo Adding registry keys...
 echo [%time%] Creating root menu keys with MUIVerb... >> "%LOG_FILE%"
 
 REM Directory Background (right-click empty space)
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "MUIVerb" /d "AI CLI Manager" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "Icon" /d "%ICONS_DIR%\darkterminal_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /v "SubCommands" /t REG_SZ /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary" /v "MUIVerb" /d "AI CLI Manager (Primary)" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary" /v "MUIVerb" /d "AI CLI Manager (Secondary)" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary" /v "Icon" /d "%ICONS_DIR%\darkterminal_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary" /v "Icon" /d "%ICONS_DIR%\darkterminal_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary" /v "SubCommands" /t REG_SZ /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary" /v "SubCommands" /t REG_SZ /f >nul
 
 REM Directory (right-click folder)
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "MUIVerb" /d "AI CLI Manager" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "Icon" /d "%ICONS_DIR%\darkterminal_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /v "SubCommands" /t REG_SZ /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary" /v "MUIVerb" /d "AI CLI Manager (Primary)" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary" /v "MUIVerb" /d "AI CLI Manager (Secondary)" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary" /v "Icon" /d "%ICONS_DIR%\darkterminal_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary" /v "Icon" /d "%ICONS_DIR%\darkterminal_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary" /v "SubCommands" /t REG_SZ /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary" /v "SubCommands" /t REG_SZ /f >nul
 
 echo [%time%] Adding submenus with cmd.exe /c start wt.exe format... >> "%LOG_FILE%"
 
 REM Add submenu items for Directory Background
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchGemini_deprecated.bat\"\"" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\gemini\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchGemini_deprecated.bat\"\"" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /ve /d "Open with Jules CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k jules" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\jules" /ve /d "Open with Jules CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k jules" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /ve /d "Open with Mistral Vibe CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k vibe" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\vibe" /ve /d "Open with Mistral Vibe CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k vibe" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI (Deprecated)" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchIFlow_deprecated.bat\"\"" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\iflow" /ve /d "Open with iFlow CLI (Deprecated)" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\iflow\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchIFlow_deprecated.bat\"\"" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\opencode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k opencode" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\opencode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k opencode" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen" /ve /d "Open with Qwen Code CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen" /v "Icon" /d "%ICONS_DIR%\qwen_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qwen\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k qwen" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\qwen" /ve /d "Open with Qwen Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\qwen" /v "Icon" /d "%ICONS_DIR%\qwen_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\qwen\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k qwen" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode" /ve /d "Open with KiloCode CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kilocode" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\kilocode" /ve /d "Open with KiloCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kilocode" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /ve /d "Open with GitHub Copilot CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k copilot" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\copilot" /ve /d "Open with GitHub Copilot CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k copilot" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\claude" /ve /d "Open with Claude CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\claude" /v "Icon" /d "%ICONS_DIR%\claude_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\claude\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k claude" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\claude" /ve /d "Open with Claude CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\claude" /v "Icon" /d "%ICONS_DIR%\claude_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\claude\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k claude" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\openai" /ve /d "Open with OpenAI Codex CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\openai" /v "Icon" /d "%ICONS_DIR%\codex_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\openai\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k codex" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\openai" /ve /d "Open with OpenAI Codex CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\openai" /v "Icon" /d "%ICONS_DIR%\codex_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\openai\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k codex" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode" /ve /d "Open with NanoCode CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode" /v "Icon" /d "%ICONS_DIR%\nanocode_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\nanocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k nanocode" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\nanocode" /ve /d "Open with NanoCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\nanocode" /v "Icon" /d "%ICONS_DIR%\nanocode_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\nanocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k nanocode" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\cline" /ve /d "Open with Cline CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\cline" /v "Icon" /d "%ICONS_DIR%\cline_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\cline\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k cline" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\cline" /ve /d "Open with Cline CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\cline" /v "Icon" /d "%ICONS_DIR%\cline_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\cline\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k cline" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie" /ve /d "Open with Junie CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie" /v "Icon" /d "%ICONS_DIR%\junie_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\junie\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k junie" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\junie" /ve /d "Open with Junie CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\junie" /v "Icon" /d "%ICONS_DIR%\junie_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\junie\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k junie" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k \"\"%SCRIPT_DIR%Batch Files\LaunchKiro.bat\"\"" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\kiro\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k \"\"%SCRIPT_DIR%Batch Files\LaunchKiro.bat\"\"" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder" /ve /d "Open with Qoder CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\qoder\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k qodercli" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\qoder" /ve /d "Open with Qoder CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\qoder\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k qodercli" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\antigravity" /ve /d "Open with Antigravity CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\antigravity" /v "Icon" /d "%ICONS_DIR%\antigravity_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\antigravity\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k agy" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\antigravity" /ve /d "Open with Antigravity CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\antigravity" /v "Icon" /d "%ICONS_DIR%\antigravity_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\antigravity\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k agy" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kimi" /ve /d "Open with Kimi Code CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kimi" /v "Icon" /d "%ICONS_DIR%\kimi_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\kimi\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kimi" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\kimi" /ve /d "Open with Kimi Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\kimi" /v "Icon" /d "%ICONS_DIR%\kimi_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\kimi\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k kimi" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\aider" /ve /d "Open with Aider CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\aider" /v "Icon" /d "%ICONS_DIR%\aider_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\aider\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k aider" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\aider" /ve /d "Open with Aider CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\aider" /v "Icon" /d "%ICONS_DIR%\aider_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\aider\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k aider" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\interpreter" /ve /d "Open with Open Interpreter CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\interpreter" /v "Icon" /d "%ICONS_DIR%\interpreter_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\interpreter\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k interpreter" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\interpreter" /ve /d "Open with Open Interpreter CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\interpreter" /v "Icon" /d "%ICONS_DIR%\interpreter_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\interpreter\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k interpreter" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\mimo" /ve /d "Open with MiMo Code CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\mimo" /v "Icon" /d "%ICONS_DIR%\mimo_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu\shell\mimo\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k mimo" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\mimo" /ve /d "Open with MiMo Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\mimo" /v "Icon" /d "%ICONS_DIR%\mimo_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\mimo\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k mimo" /f >nul
 
 REM Add submenu items for Directory (folder right-click)
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\gemini\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchGemini_deprecated.bat\" \"%%1\"\"" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchGemini_deprecated.bat\" \"%%1\"\"" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /ve /d "Open with Jules CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k jules" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\jules" /ve /d "Open with Jules CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\jules" /v "Icon" /d "%ICONS_DIR%\jules_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\jules\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k jules" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /ve /d "Open with Mistral Vibe CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k vibe" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\vibe" /ve /d "Open with Mistral Vibe CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\vibe" /v "Icon" /d "%ICONS_DIR%\mistral_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\vibe\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k vibe" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /ve /d "Open with iFlow CLI (Deprecated)" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\iflow\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchIFlow_deprecated.bat\" \"%%1\"\"" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\iflow" /ve /d "Open with iFlow CLI (Deprecated)" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\iflow" /v "Icon" /d "%ICONS_DIR%\iflow_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\iflow\command" /ve /d "cmd.exe /c \"\"%SCRIPT_DIR%Batch Files\LaunchIFlow_deprecated.bat\" \"%%1\"\"" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\opencode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k opencode" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\opencode" /ve /d "Open with OpenCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\opencode" /v "Icon" /d "%ICONS_DIR%\opencode_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\opencode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k opencode" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen" /ve /d "Open with Qwen Code CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen" /v "Icon" /d "%ICONS_DIR%\qwen_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qwen\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k qwen" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\qwen" /ve /d "Open with Qwen Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\qwen" /v "Icon" /d "%ICONS_DIR%\qwen_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\qwen\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k qwen" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /ve /d "Open with KiloCode CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kilocode" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\kilocode" /ve /d "Open with KiloCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\kilocode" /v "Icon" /d "%ICONS_DIR%\kilocode_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\kilocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kilocode" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /ve /d "Open with GitHub Copilot CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k copilot" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\copilot" /ve /d "Open with GitHub Copilot CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\copilot" /v "Icon" /d "%ICONS_DIR%\github_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\copilot\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k copilot" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\claude" /ve /d "Open with Claude CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\claude" /v "Icon" /d "%ICONS_DIR%\claude_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\claude\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k claude" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\claude" /ve /d "Open with Claude CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\claude" /v "Icon" /d "%ICONS_DIR%\claude_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\claude\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k claude" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\openai" /ve /d "Open with OpenAI Codex CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\openai" /v "Icon" /d "%ICONS_DIR%\codex_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\openai\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k codex" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\openai" /ve /d "Open with OpenAI Codex CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\openai" /v "Icon" /d "%ICONS_DIR%\codex_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\openai\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k codex" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode" /ve /d "Open with NanoCode CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode" /v "Icon" /d "%ICONS_DIR%\nanocode_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\nanocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k nanocode" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\nanocode" /ve /d "Open with NanoCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\nanocode" /v "Icon" /d "%ICONS_DIR%\nanocode_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\nanocode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k nanocode" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\cline" /ve /d "Open with Cline CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\cline" /v "Icon" /d "%ICONS_DIR%\cline_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\cline\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k cline" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\cline" /ve /d "Open with Cline CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\cline" /v "Icon" /d "%ICONS_DIR%\cline_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\cline\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k cline" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie" /ve /d "Open with Junie CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie" /v "Icon" /d "%ICONS_DIR%\junie_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\junie\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k junie" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\junie" /ve /d "Open with Junie CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\junie" /v "Icon" /d "%ICONS_DIR%\junie_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\junie\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k junie" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kiro\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k \"\"%SCRIPT_DIR%Batch Files\LaunchKiro.bat\"\"" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\kiro" /ve /d "Open with Kiro CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\kiro" /v "Icon" /d "%ICONS_DIR%\kiro_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\kiro\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k \"\"%SCRIPT_DIR%Batch Files\LaunchKiro.bat\"\"" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder" /ve /d "Open with Qoder CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\qoder\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k qodercli" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\qoder" /ve /d "Open with Qoder CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\qoder" /v "Icon" /d "%ICONS_DIR%\qoder_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\qoder\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k qodercli" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\antigravity" /ve /d "Open with Antigravity CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\antigravity" /v "Icon" /d "%ICONS_DIR%\antigravity_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\antigravity\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k agy" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\antigravity" /ve /d "Open with Antigravity CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\antigravity" /v "Icon" /d "%ICONS_DIR%\antigravity_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\antigravity\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k agy" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kimi" /ve /d "Open with Kimi Code CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kimi" /v "Icon" /d "%ICONS_DIR%\kimi_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\kimi\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kimi" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\kimi" /ve /d "Open with Kimi Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\kimi" /v "Icon" /d "%ICONS_DIR%\kimi_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\kimi\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k kimi" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\aider" /ve /d "Open with Aider CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\aider" /v "Icon" /d "%ICONS_DIR%\aider_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\aider\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k aider" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\aider" /ve /d "Open with Aider CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\aider" /v "Icon" /d "%ICONS_DIR%\aider_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\aider\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k aider" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\interpreter" /ve /d "Open with Open Interpreter CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\interpreter" /v "Icon" /d "%ICONS_DIR%\interpreter_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\interpreter\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k interpreter" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\interpreter" /ve /d "Open with Open Interpreter CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\interpreter" /v "Icon" /d "%ICONS_DIR%\interpreter_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\interpreter\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k interpreter" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\mimo" /ve /d "Open with MiMo Code CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\mimo" /v "Icon" /d "%ICONS_DIR%\mimo_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu\shell\mimo\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k mimo" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\mimo" /ve /d "Open with MiMo Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\mimo" /v "Icon" /d "%ICONS_DIR%\mimo_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\mimo\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k mimo" /f >nul
 
 echo.
 echo [SUCCESS] Context menu updated!
@@ -1321,8 +1327,12 @@ if /i not "%confirm%"=="Y" (
 echo.
 echo Removing registry keys...
 echo [%time%] Deleting HKCR\Directory\Background\shell\AI_CLI_Menu >> "%LOG_FILE%"
+reg delete "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary" /f >nul 2>&1
+reg delete "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary" /f >nul 2>&1
 reg delete "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu" /f >nul 2>&1
 echo [%time%] Deleting HKCR\Directory\shell\AI_CLI_Menu >> "%LOG_FILE%"
+reg delete "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary" /f >nul 2>&1
+reg delete "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary" /f >nul 2>&1
 reg delete "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu" /f >nul 2>&1
 
 echo.
