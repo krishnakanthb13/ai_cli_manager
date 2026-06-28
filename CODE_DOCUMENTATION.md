@@ -43,7 +43,7 @@ This document describes the technical implementation and architecture of the AI 
 
 ## 🏁 CLI Beast Mode (Grid Architecture)
 
-> **Note (v1.2.28)**: The Beast Mode grid now exposes **20 tools** (options 1–20) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets.
+> **Note (v1.2.34)**: The Beast Mode grid now exposes **22 tools** (options 1–22) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets.
 
 The "Beast Mode" grid (2x2) is implemented differently per platform to ensure native performance:
 
@@ -168,3 +168,13 @@ The project integrates with the following package managers:
   - Created batch and shell launcher scripts: `LaunchMiMo.bat` and `LaunchMiMo.sh`.
   - Added to smart installer checks (Option `I`), versions checks (Option `V`), context menu integrations (Option `A`), and grid layouts.
   - Converted the user's `mimo.png` to cache-busted `mimo_v2.ico` for desktop right-click menu items.
+
+## 🆕 Version 1.2.34 Updates
+- **Additions**:
+  - Added **Freebuff CLI** (`freebuff`) as option 21 in the manager.
+  - Added **Perch AI CLI** (`perchai-cli` as command `perch`) as option 22 in the manager.
+  - Created batch and shell launcher scripts for Perch AI: `LaunchPerchAI.bat` and `LaunchPerchAI.sh`.
+  - Updated main batch and shell manager menus, installer checks, version checks, cascading Windows registry right-click menu, and Nautilus scripts.
+  - Generated and integrated a stylized `perch.png` and cache-busted `perch_v2.ico` for Windows Registry context menu item icons.
+  - Wired into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom quadrants selection to allow orchestrating Perch AI in Beast Mode.
+

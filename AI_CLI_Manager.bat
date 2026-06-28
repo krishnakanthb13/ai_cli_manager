@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.29)
+echo           AI CLI TOOLS MANAGER (v1.2.34)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -85,6 +85,7 @@ echo     18. Launch Aider CLI
 echo     19. Launch Open Interpreter CLI
 echo     20. Launch MiMo Code CLI
 echo     21. Launch Freebuff CLI
+echo     22. Launch Perch AI CLI
 echo.
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -125,6 +126,7 @@ if "%choice%"=="18" goto LAUNCH_AIDER
 if "%choice%"=="19" goto LAUNCH_INTERPRETER
 if "%choice%"=="20" goto LAUNCH_MIMO
 if "%choice%"=="21" goto LAUNCH_FREEBUFF
+if "%choice%"=="22" goto LAUNCH_PERCHAI
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -455,6 +457,21 @@ if "%UseWT%"=="1" (
 )
 goto LAUNCH_DONE
 
+:LAUNCH_PERCHAI
+echo [%time%] === Launching Perch AI CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC perch
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k perch >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k perch
+) else (
+    echo [%time%] Command: cmd /k perch (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && perch"
+)
+goto LAUNCH_DONE
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -620,6 +637,13 @@ set "_result="
 for /f "delims=" %%V in ('npm list -g freebuff --depth=0 2^>nul ^| findstr /C:"-- freebuff@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
+echo.
+echo --- Perch AI CLI ---
+echo --- Perch AI CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('npm list -g perchai-cli --depth=0 2^>nul ^| findstr /C:"-- perchai-cli@"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
 
 echo.
 echo ================================================
@@ -710,6 +734,9 @@ call :CHECK_NPM "@mimo-ai/cli" "MiMo Code CLI"
 
 echo [Freebuff CLI] Checking...
 call :CHECK_NPM "freebuff" "Freebuff CLI"
+
+echo [Perch AI CLI] Checking...
+call :CHECK_NPM "perchai-cli" "Perch AI CLI"
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -1236,6 +1263,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\freebuff" /v "Icon" /d "%ICONS_DIR%\freebuff_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\freebuff\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k freebuff" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\perchai" /ve /d "Open with Perch AI CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\perchai" /v "Icon" /d "%ICONS_DIR%\perch_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\perchai\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k perch" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -1321,10 +1352,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\freebuff" /
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\freebuff" /v "Icon" /d "%ICONS_DIR%\freebuff_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\freebuff\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k freebuff" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\perchai" /ve /d "Open with Perch AI CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\perchai" /v "Icon" /d "%ICONS_DIR%\perch_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\perchai\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k perch" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iflow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi, MiMo, Freebuff >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iflow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi, MiMo, Freebuff, PerchAI >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.

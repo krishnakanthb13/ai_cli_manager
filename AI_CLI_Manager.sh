@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.29) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.34) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -317,6 +317,8 @@ install_all() {
     install_npm_cli "MiMo Code CLI" "@mimo-ai/cli"
     echo ""
     install_npm_cli "Freebuff CLI" "freebuff"
+    echo ""
+    install_npm_cli "Perch AI CLI" "perchai-cli"
 
 
     echo ""
@@ -430,6 +432,10 @@ show_versions() {
     echo -e "\n${CYAN}--- Freebuff CLI ---${NC}"
     echo -e "\n--- Freebuff CLI ---" >> "$LOG_FILE"
     npm list -g freebuff --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+
+    echo -e "\n${CYAN}--- Perch AI CLI ---${NC}"
+    echo -e "\n--- Perch AI CLI ---" >> "$LOG_FILE"
+    npm list -g perchai-cli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
 
     echo ""
     pause
@@ -571,6 +577,7 @@ add_context_menu_linux() {
     create_script_file "Open with Open Interpreter CLI" "interpreter"
     create_script_file "Open with MiMo Code CLI" "mimo"
     create_script_file "Open with Freebuff CLI" "freebuff"
+    create_script_file "Open with Perch AI CLI" "perch"
 
     echo ""
 
@@ -687,6 +694,7 @@ while true; do
     echo "  19. Launch Open Interpreter CLI"
     echo "  20. Launch MiMo Code CLI"
     echo "  21. Launch Freebuff CLI"
+    echo "  22. Launch Perch AI CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -733,6 +741,7 @@ while true; do
         19) launch_tool "interpreter" ;;
         20) launch_tool "mimo" ;;
         21) launch_tool "freebuff" ;;
+        22) launch_tool "perch" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;

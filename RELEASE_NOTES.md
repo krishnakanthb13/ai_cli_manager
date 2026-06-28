@@ -1,9 +1,16 @@
 # AI CLI Manager - Release Notes
 
-## [v1.2.29] - 2026-06-23
+## [v1.2.34] - 2026-06-28
+
+### 🚀 New Features & Additions
+- **Perch AI CLI Support**: Integrated Perch AI CLI (`perchai-cli` as command `perch`). Added option `22. Launch Perch AI CLI` to the main menus, programmed automated version checks (`npm list -g perchai-cli`), and install/update setup. Created `LaunchPerchAI.bat` and `LaunchPerchAI.sh` launchers.
+- **Freebuff CLI Support**: Integrated Freebuff CLI (`freebuff` command and package). Added option `21. Launch Freebuff CLI` to the main menus, version check validation, and installer configurations.
+- **Context Menu Integration**: Added right-click menu options for Perch AI and Freebuff to Windows Registry and Nautilus scripts.
+- **Icon Generation**: Generated a custom stylized `perch.png` and created a cache-busted `perch_v2.ico` using the converter tool.
+- **Beast Mode Grid**: Integrated both `freebuff` and `perch` commands into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` Custom Pick quadrant maps.
 
 ### 🧹 Housekeeping
-- **Version Sync**: Bumped version headers to `v1.2.29` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and `README.md`, and generated a new release banner asset.
+- **Version Sync**: Bumped version headers to `v1.2.34` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and `README.md`, and generated a new release banner asset.
 
 ## [v1.2.28] - 2026-06-23
 
