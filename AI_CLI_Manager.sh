@@ -319,6 +319,8 @@ install_all() {
     install_npm_cli "Freebuff CLI" "freebuff"
     echo ""
     install_npm_cli "Perch AI CLI" "perchai-cli"
+    echo ""
+    install_npm_cli "CommandCode CLI" "command-code"
 
 
     echo ""
@@ -436,6 +438,10 @@ show_versions() {
     echo -e "\n${CYAN}--- Perch AI CLI ---${NC}"
     echo -e "\n--- Perch AI CLI ---" >> "$LOG_FILE"
     npm list -g perchai-cli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+
+    echo -e "\n${CYAN}--- CommandCode CLI ---${NC}"
+    echo -e "\n--- CommandCode CLI ---" >> "$LOG_FILE"
+    npm list -g command-code --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
 
     echo ""
     pause
@@ -578,6 +584,7 @@ add_context_menu_linux() {
     create_script_file "Open with MiMo Code CLI" "mimo"
     create_script_file "Open with Freebuff CLI" "freebuff"
     create_script_file "Open with Perch AI CLI" "perch"
+    create_script_file "Open with CommandCode CLI" "commandcode"
 
     echo ""
 
@@ -695,6 +702,7 @@ while true; do
     echo "  20. Launch MiMo Code CLI"
     echo "  21. Launch Freebuff CLI"
     echo "  22. Launch Perch AI CLI"
+    echo "  23. Launch CommandCode CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -742,6 +750,7 @@ while true; do
         20) launch_tool "mimo" ;;
         21) launch_tool "freebuff" ;;
         22) launch_tool "perch" ;;
+        23) launch_tool "commandcode" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;

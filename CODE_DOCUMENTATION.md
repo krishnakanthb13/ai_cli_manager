@@ -173,8 +173,9 @@ The project integrates with the following package managers:
 - **Additions**:
   - Added **Freebuff CLI** (`freebuff`) as option 21 in the manager.
   - Added **Perch AI CLI** (`perchai-cli` as command `perch`) as option 22 in the manager.
-  - Created batch and shell launcher scripts for Perch AI: `LaunchPerchAI.bat` and `LaunchPerchAI.sh`.
+  - Added **CommandCode CLI** (`command-code` as command `commandcode`) as option 23 in the manager.
+  - Created batch and shell launcher scripts for Perch AI and CommandCode: `LaunchPerchAI.bat`, `LaunchPerchAI.sh`, `LaunchCommandCode.bat`, and `LaunchCommandCode.sh`.
   - Updated main batch and shell manager menus, installer checks, version checks, cascading Windows registry right-click menu, and Nautilus scripts.
-  - Generated and integrated a stylized `perch.png` and cache-busted `perch_v2.ico` for Windows Registry context menu item icons.
-  - Wired into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom quadrants selection to allow orchestrating Perch AI in Beast Mode.
+  - Generated and integrated stylized icons (`perch.png` and `commandcode.png`) and their respective cache-busted `.ico` files for Windows Registry context menu item icons.
+  - Wired into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom quadrants selection to allow orchestrating Perch AI and CommandCode in Beast Mode.
 

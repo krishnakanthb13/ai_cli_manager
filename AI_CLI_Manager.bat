@@ -86,6 +86,7 @@ echo     19. Launch Open Interpreter CLI
 echo     20. Launch MiMo Code CLI
 echo     21. Launch Freebuff CLI
 echo     22. Launch Perch AI CLI
+echo     23. Launch CommandCode CLI
 echo.
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -127,6 +128,7 @@ if "%choice%"=="19" goto LAUNCH_INTERPRETER
 if "%choice%"=="20" goto LAUNCH_MIMO
 if "%choice%"=="21" goto LAUNCH_FREEBUFF
 if "%choice%"=="22" goto LAUNCH_PERCHAI
+if "%choice%"=="23" goto LAUNCH_COMMANDCODE
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -472,6 +474,21 @@ if "%UseWT%"=="1" (
 )
 goto LAUNCH_DONE
 
+:LAUNCH_COMMANDCODE
+echo [%time%] === Launching CommandCode CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC commandcode
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k commandcode >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k commandcode
+) else (
+    echo [%time%] Command: cmd /k commandcode (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && commandcode"
+)
+goto LAUNCH_DONE
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -644,6 +661,13 @@ set "_result="
 for /f "delims=" %%V in ('npm list -g perchai-cli --depth=0 2^>nul ^| findstr /C:"-- perchai-cli@"') do set "_result=%%V"
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
+echo.
+echo --- CommandCode CLI ---
+echo --- CommandCode CLI --- >> "%LOG_FILE%"
+set "_result="
+for /f "delims=" %%V in ('npm list -g command-code --depth=0 2^>nul ^| findstr /C:"-- command-code@"') do set "_result=%%V"
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
 
 echo.
 echo ================================================
@@ -737,6 +761,9 @@ call :CHECK_NPM "freebuff" "Freebuff CLI"
 
 echo [Perch AI CLI] Checking...
 call :CHECK_NPM "perchai-cli" "Perch AI CLI"
+
+echo [CommandCode CLI] Checking...
+call :CHECK_NPM "command-code" "CommandCode CLI"
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -1267,6 +1294,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\perchai" /v "Icon" /d "%ICONS_DIR%\perch_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\perchai\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k perch" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\commandcode" /ve /d "Open with CommandCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\commandcode" /v "Icon" /d "%ICONS_DIR%\commandcode_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\commandcode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k commandcode" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -1356,10 +1387,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\perchai" /v
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\perchai" /v "Icon" /d "%ICONS_DIR%\perch_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\perchai\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k perch" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\commandcode" /ve /d "Open with CommandCode CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\commandcode" /v "Icon" /d "%ICONS_DIR%\commandcode_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\commandcode\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k commandcode" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iflow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi, MiMo, Freebuff, PerchAI >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iflow, OpenCode, Qwen, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi, MiMo, Freebuff, PerchAI, CommandCode >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.
