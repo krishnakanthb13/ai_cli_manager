@@ -1,13 +1,30 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.36] - 2026-07-03
+
+### 🚀 New Features & Additions
+- **CommandCode CLI Support**: Integrated CommandCode CLI (`command-code` as command `commandcode`). Added option `23. Launch CommandCode CLI` to the main menus, programmed automated version checks (`npm list -g command-code`), and install/update setup. Created `LaunchCommandCode.bat` and `LaunchCommandCode.sh` launchers.
+- **Pi CLI Support**: Integrated Pi CLI (`@earendil-works/pi-coding-agent` as command `pi`). Added option `24. Launch Pi CLI` to the main menus, programmed automated version checks (`npm list -g @earendil-works/pi-coding-agent`), and install/update setup. Created `LaunchPi.bat` and `LaunchPi.sh` launchers.
+- **Icon Generation**: Generated custom stylized `commandcode.png` and `pi.png` icons, and created cache-busted `commandcode_v2.ico` and `pi_v2.ico` files using the converter tool.
+- **Beast Mode Grid**: Integrated `commandcode` and `pi` commands into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` Custom Pick quadrant maps.
+
+### ⚡ Improvements & Cleanups
+- **Qwen Code CLI Re-categorization**: Moved the Qwen Code CLI (`qwen`) explorer context menu options from the Primary cascading menu to the Secondary cascading menu to prevent option crowding.
+- **Name Standardizations**: Refactored display naming across all menus, launcher scripts, checklists, and documentations to use consistent camel-cased naming (`OpenCode`, `KiloCode`, `NanoCode`, `CommandCode`).
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped version headers to `v1.2.36` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and `README.md`.
+
 ## [v1.2.34] - 2026-06-28
 
 ### 🚀 New Features & Additions
 - **Perch AI CLI Support**: Integrated Perch AI CLI (`perchai-cli` as command `perch`). Added option `22. Launch Perch AI CLI` to the main menus, programmed automated version checks (`npm list -g perchai-cli`), and install/update setup. Created `LaunchPerchAI.bat` and `LaunchPerchAI.sh` launchers.
+- **CommandCode CLI Support**: Integrated CommandCode CLI (`command-code` as command `commandcode`). Added option `23. Launch CommandCode CLI` to the main menus, programmed automated version checks (`npm list -g command-code`), and install/update setup. Created `LaunchCommandCode.bat` and `LaunchCommandCode.sh` launchers.
+- **Pi CLI Support**: Integrated Pi CLI (`@earendil-works/pi-coding-agent` as command `pi`). Added option `24. Launch Pi CLI` to the main menus, programmed automated version checks (`npm list -g @earendil-works/pi-coding-agent`), and install/update setup. Created `LaunchPi.bat` and `LaunchPi.sh` launchers.
 - **Freebuff CLI Support**: Integrated Freebuff CLI (`freebuff` command and package). Added option `21. Launch Freebuff CLI` to the main menus, version check validation, and installer configurations.
-- **Context Menu Integration**: Added right-click menu options for Perch AI and Freebuff to Windows Registry and Nautilus scripts.
-- **Icon Generation**: Generated a custom stylized `perch.png` and created a cache-busted `perch_v2.ico` using the converter tool.
-- **Beast Mode Grid**: Integrated both `freebuff` and `perch` commands into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` Custom Pick quadrant maps.
+- **Context Menu Integration**: Added right-click menu options for Perch AI, Freebuff, CommandCode, and Pi to Windows Registry and Nautilus scripts.
+- **Icon Generation**: Generated custom stylized `perch.png`, `commandcode.png`, and `pi.png` icons, and created cache-busted `perch_v2.ico`, `commandcode_v2.ico`, and `pi_v2.ico` files using the converter tool.
+- **Beast Mode Grid**: Integrated `freebuff`, `perch`, `commandcode`, and `pi` commands into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` Custom Pick quadrant maps.
 
 ### 🧹 Housekeeping
 - **Version Sync**: Bumped version headers to `v1.2.34` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and `README.md`, and generated a new release banner asset.

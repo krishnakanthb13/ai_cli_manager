@@ -43,7 +43,7 @@ This document describes the technical implementation and architecture of the AI 
 
 ## 🏁 CLI Beast Mode (Grid Architecture)
 
-> **Note (v1.2.34)**: The Beast Mode grid now exposes **22 tools** (options 1–22) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets.
+> **Note (v1.2.36)**: The Beast Mode grid now exposes **24 tools** (options 1–24) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets.
 
 The "Beast Mode" grid (2x2) is implemented differently per platform to ensure native performance:
 
@@ -173,9 +173,18 @@ The project integrates with the following package managers:
 - **Additions**:
   - Added **Freebuff CLI** (`freebuff`) as option 21 in the manager.
   - Added **Perch AI CLI** (`perchai-cli` as command `perch`) as option 22 in the manager.
-  - Added **CommandCode CLI** (`command-code` as command `commandcode`) as option 23 in the manager.
-  - Created batch and shell launcher scripts for Perch AI and CommandCode: `LaunchPerchAI.bat`, `LaunchPerchAI.sh`, `LaunchCommandCode.bat`, and `LaunchCommandCode.sh`.
+  - Created batch and shell launcher scripts for Perch AI: `LaunchPerchAI.bat` and `LaunchPerchAI.sh`.
   - Updated main batch and shell manager menus, installer checks, version checks, cascading Windows registry right-click menu, and Nautilus scripts.
-  - Generated and integrated stylized icons (`perch.png` and `commandcode.png`) and their respective cache-busted `.ico` files for Windows Registry context menu item icons.
-  - Wired into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom quadrants selection to allow orchestrating Perch AI and CommandCode in Beast Mode.
+  - Generated and integrated stylized icon `perch.png` and its respective cache-busted `.ico` file for Windows Registry context menu item icons.
+  - Wired into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom quadrants selection to allow orchestrating Perch AI in Beast Mode.
+
+## 🆕 Version 1.2.36 Updates
+- **Additions**:
+  - Added **CommandCode CLI** (`command-code` as command `commandcode`) as option 23 in the manager.
+  - Added **Pi CLI** (`@earendil-works/pi-coding-agent` as command `pi`) as option 24 in the manager.
+  - Created batch and shell launcher scripts for CommandCode and Pi: `LaunchCommandCode.bat`, `LaunchCommandCode.sh`, `LaunchPi.bat`, and `LaunchPi.sh`.
+  - Re-categorized **Qwen Code CLI** Explorer context menu items from Primary to Secondary registry bindings in `AI_CLI_Manager.bat`.
+  - Standardized CLI display naming to camel-case (`OpenCode`, `KiloCode`, `NanoCode`, `CommandCode`) across all launcher files, menus, and documentations.
+  - Generated and integrated stylized icons (`commandcode.png` and `pi.png`) and their respective cache-busted `.ico` files.
+  - Wired CommandCode and Pi into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` Custom Pick layout mappings.
 

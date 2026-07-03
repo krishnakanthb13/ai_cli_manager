@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.34) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.36) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -321,6 +321,8 @@ install_all() {
     install_npm_cli "Perch AI CLI" "perchai-cli"
     echo ""
     install_npm_cli "CommandCode CLI" "command-code"
+    echo ""
+    install_npm_cli "Pi CLI" "@earendil-works/pi-coding-agent"
 
 
     echo ""
@@ -357,11 +359,11 @@ show_versions() {
     echo -e "\n${CYAN}--- KiloCode CLI ---${NC}"
     echo -e "\n--- KiloCode CLI ---" >> "$LOG_FILE"
     npm list -g @kilocode/cli --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
-    
+ 
     echo -e "\n${CYAN}--- GitHub Copilot CLI ---${NC}"
     echo -e "\n--- GitHub Copilot CLI ---" >> "$LOG_FILE"
     npm list -g @github/copilot --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
-
+ 
     echo -e "\n${CYAN}--- Claude CLI ---${NC}"
     echo -e "\n--- Claude CLI ---" >> "$LOG_FILE"
     if command -v claude &> /dev/null; then
@@ -369,15 +371,15 @@ show_versions() {
     else
         echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
     fi
-
+ 
     echo -e "\n${CYAN}--- OpenAI Codex CLI ---${NC}"
     echo -e "\n--- OpenAI Codex CLI ---" >> "$LOG_FILE"
     npm list -g @openai/codex --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
-
+ 
     echo -e "\n${CYAN}--- NanoCode CLI ---${NC}"
     echo -e "\n--- NanoCode CLI ---" >> "$LOG_FILE"
     npm list -g nanocode-agent --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
-
+ 
     echo -e "\n${CYAN}--- Cline CLI ---${NC}"
     echo -e "\n--- Cline CLI ---" >> "$LOG_FILE"
     npm list -g cline --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
@@ -442,6 +444,10 @@ show_versions() {
     echo -e "\n${CYAN}--- CommandCode CLI ---${NC}"
     echo -e "\n--- CommandCode CLI ---" >> "$LOG_FILE"
     npm list -g command-code --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+
+    echo -e "\n${CYAN}--- Pi CLI ---${NC}"
+    echo -e "\n--- Pi CLI ---" >> "$LOG_FILE"
+    npm list -g @earendil-works/pi-coding-agent --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
 
     echo ""
     pause
@@ -585,6 +591,7 @@ add_context_menu_linux() {
     create_script_file "Open with Freebuff CLI" "freebuff"
     create_script_file "Open with Perch AI CLI" "perch"
     create_script_file "Open with CommandCode CLI" "commandcode"
+    create_script_file "Open with Pi CLI" "pi"
 
     echo ""
 
@@ -703,6 +710,7 @@ while true; do
     echo "  21. Launch Freebuff CLI"
     echo "  22. Launch Perch AI CLI"
     echo "  23. Launch CommandCode CLI"
+    echo "  24. Launch Pi CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -751,6 +759,7 @@ while true; do
         21) launch_tool "freebuff" ;;
         22) launch_tool "perch" ;;
         23) launch_tool "commandcode" ;;
+        24) launch_tool "pi" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;
