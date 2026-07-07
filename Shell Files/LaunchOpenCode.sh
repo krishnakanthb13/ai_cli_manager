@@ -31,13 +31,14 @@ while true; do
     echo "   [3] Mimo V2.5 Free"
     echo "   [4] Nemotron 3 Ultra Free"
     echo "   [5] North Mini Code Free"
+    echo "   [6] HY3 Free [API]"
     echo ""
     echo "   [0] Exit"
     echo ""
     echo "============================================================"
     echo ""
     
-    read -p " Enter your choice (0-5): " choice
+    read -p " Enter your choice (0-6): " choice
     
     case $choice in
         0) exit 0 ;;
@@ -46,9 +47,10 @@ while true; do
         3) model="opencode/mimo-v2.5-free"; modelname="Mimo V2.5 Free" ;;
         4) model="opencode/nemotron-3-ultra-free"; modelname="Nemotron 3 Ultra Free" ;;
         5) model="opencode/north-mini-code-free"; modelname="North Mini Code Free" ;;
+        6) model="opencode/hy3-free"; modelname="HY3 Free" ;;
         *) 
             echo ""
-            echo " ❌ Invalid choice. Please enter a number between 0-5."
+            echo " ❌ Invalid choice. Please enter a number between 0-6."
             sleep 2
             continue
             ;;
