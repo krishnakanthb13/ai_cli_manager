@@ -1,5 +1,18 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.37] - 2026-07-07
+
+### 🚀 New Features & Additions
+- **Reasonix CLI Support**: Integrated Reasonix CLI (`reasonix` package as command `reasonix`). Added option `25. Launch Reasonix CLI` to the main menus, programmed automated version checks (`npm list -g reasonix@next`), and install/update setup. Created `LaunchReasonix.bat` and `LaunchReasonix.sh` launchers.
+- **Icon Generation**: Generated a custom stylized `reasonix.png` icon, and created a cache-busted `reasonix_v2.ico` file using the converter tool.
+- **Beast Mode Grid**: Integrated `reasonix` command into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` Custom Pick quadrant maps.
+
+### ⚡ Improvements & Cleanups
+- **Context Menu Re-categorization**: Moved the Kimi Code CLI (`kimi`), CommandCode CLI (`commandcode`), Pi CLI (`pi`), and Reasonix CLI (`reasonix`) Explorer context menu options from the Primary cascading menu to the Secondary cascading menu to prevent option crowding.
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped version headers to `v1.2.37` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, and `README.md`.
+
 ## [v1.2.36] - 2026-07-03
 
 ### 🚀 New Features & Additions

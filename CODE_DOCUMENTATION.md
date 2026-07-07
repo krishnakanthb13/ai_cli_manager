@@ -43,7 +43,7 @@ This document describes the technical implementation and architecture of the AI 
 
 ## 🏁 CLI Beast Mode (Grid Architecture)
 
-> **Note (v1.2.36)**: The Beast Mode grid now exposes **24 tools** (options 1–24) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets.
+> **Note (v1.2.37)**: The Beast Mode grid now exposes **25 tools** (options 1–25) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets.
 
 The "Beast Mode" grid (2x2) is implemented differently per platform to ensure native performance:
 
@@ -187,4 +187,13 @@ The project integrates with the following package managers:
   - Standardized CLI display naming to camel-case (`OpenCode`, `KiloCode`, `NanoCode`, `CommandCode`) across all launcher files, menus, and documentations.
   - Generated and integrated stylized icons (`commandcode.png` and `pi.png`) and their respective cache-busted `.ico` files.
   - Wired CommandCode and Pi into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` Custom Pick layout mappings.
+
+## 🆕 Version 1.2.37 Updates
+- **Additions**:
+  - Added **Reasonix CLI** (`reasonix` package as command `reasonix`) as option 25 in the manager.
+  - Created batch and shell launcher scripts: `LaunchReasonix.bat` and `LaunchReasonix.sh`.
+  - Updated main batch and shell manager menus, installer checks, version checks, Windows Registry cascading menus, and Nautilus scripts.
+  - Generated and integrated stylized icon `reasonix.png` and its respective cache-busted `reasonix_v2.ico` file for Windows Registry context menu item icons.
+  - Wired into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom quadrants selection to allow orchestrating Reasonix in Beast Mode.
+
 
