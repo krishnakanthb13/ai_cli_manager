@@ -1,5 +1,15 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.39] - 2026-07-10
+
+### 🚀 New Features & Additions
+- **Cursor CLI Support**: Integrated Cursor CLI (`cursor` package as command `agent`). Added option `26. Launch Cursor CLI` to the main menus, version check systems, install/update routines, and launcher scripts (`LaunchCursor.bat` / `LaunchCursor.sh`).
+- **Beast Mode Grid**: Fully integrated Cursor CLI (`agent` command) into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom picker layout mapping as option 26.
+- **Context Menu Integration**: Added Cursor CLI to the Secondary cascading context menu options for Windows right-click menus (Background and Directory).
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped version headers to `v1.2.39` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, `README.md`, `CODE_DOCUMENTATION.md`, and `RELEASE_NOTES.md`.
+
 ## [v1.2.37] - 2026-07-07
 
 ### 🚀 New Features & Additions

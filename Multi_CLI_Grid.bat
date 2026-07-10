@@ -102,7 +102,7 @@ echo     1.  gemini (Dep)  11. codex
     echo     10. claude         20. mimo
     echo     21. freebuff       22. perch
     echo     23. commandcode    24. pi
-    echo     25. reasonix
+    echo     25. reasonix       26. cursor
 echo.
 echo  =====================================================
 echo.
@@ -125,11 +125,11 @@ set "_var=%~2"
 set "_mapped="
 :_PICK_RETRY
 set "_num="
-set /p "_num=  %_prompt% (1-25): "
+set /p "_num=  %_prompt% (1-26): "
 if "!_num!"=="" goto _PICK_RETRY
 call :MAP_NUM !_num!
 if "!_mapped!"=="" (
-    echo   [!] Invalid. Enter a number from 1 to 25.
+    echo   [!] Invalid. Enter a number from 1 to 26.
     goto _PICK_RETRY
 )
 set "!_var!=!_mapped!"
@@ -166,6 +166,7 @@ if "%~1"=="22" set "_mapped=perch"       & exit /b
 if "%~1"=="23" set "_mapped=commandcode" & exit /b
 if "%~1"=="24" set "_mapped=pi"          & exit /b
 if "%~1"=="25" set "_mapped=reasonix"    & exit /b
+if "%~1"=="26" set "_mapped=agent"       & exit /b
 exit /b
 
 REM ========================================

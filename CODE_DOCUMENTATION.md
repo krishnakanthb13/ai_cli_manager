@@ -43,7 +43,7 @@ This document describes the technical implementation and architecture of the AI 
 
 ## 🏁 CLI Beast Mode (Grid Architecture)
 
-> **Note (v1.2.37)**: The Beast Mode grid now exposes **25 tools** (options 1–25) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets.
+> **Note (v1.2.39)**: The Beast Mode grid now exposes **26 tools** (options 1–26) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets. Option 26 integrates Cursor CLI (`agent`).
 
 The "Beast Mode" grid (2x2) is implemented differently per platform to ensure native performance:
 
@@ -195,5 +195,13 @@ The project integrates with the following package managers:
   - Updated main batch and shell manager menus, installer checks, version checks, Windows Registry cascading menus, and Nautilus scripts.
   - Generated and integrated stylized icon `reasonix.png` and its respective cache-busted `reasonix_v2.ico` file for Windows Registry context menu item icons.
   - Wired into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom quadrants selection to allow orchestrating Reasonix in Beast Mode.
+
+## 🆕 Version 1.2.39 Updates
+- **Additions**:
+  - Verified and finalized **Cursor CLI** (`cursor` package as command `agent`, matching official CLI specs) as option 26 in the manager.
+  - Integrated standalone launcher scripts: `LaunchCursor.bat` and `LaunchCursor.sh`.
+  - Fully wired Cursor CLI into the Beast Mode launchers `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` as option 26.
+  - Synced documentation and version numbers across the scripts and files to `v1.2.39`.
+
 
 

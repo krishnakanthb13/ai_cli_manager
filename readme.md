@@ -7,7 +7,7 @@
 ![Release Banner](assets/release_banner-v1.2.37.2.png)
 
 ## Overview
-**AI CLI Manager (v1.2.37)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
+**AI CLI Manager (v1.2.39)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
 
 
 ---

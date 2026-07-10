@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.37) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.39) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -325,6 +325,28 @@ install_all() {
     install_npm_cli "Pi CLI" "@earendil-works/pi-coding-agent"
     echo ""
     install_npm_cli "Reasonix CLI" "reasonix@next"
+    echo ""
+    echo "[Cursor CLI] Checking..."
+    if ! command -v agent &> /dev/null; then
+        echo -e "${YELLOW}[MISSING]${NC} Installing Cursor CLI..."
+        if ! command -v curl &> /dev/null; then
+            echo -e "${RED}[FAILED]${NC} curl not found. Install curl first."
+            log "ERROR" "Cursor install failed: curl missing"
+        else
+            echo -e "${CYAN}[INFO]${NC} Downloading from: https://cursor.com/install -fsS | bash"
+            curl https://cursor.com/install -fsS | bash
+            if [ "${PIPESTATUS[0]}" -eq 0 ] && [ "${PIPESTATUS[1]}" -eq 0 ]; then
+                echo -e "${GREEN}[INSTALLED]${NC}"
+                log "SUCCESS" "Cursor CLI installed"
+            else
+                echo -e "${RED}[FAILED]${NC}"
+                log "ERROR" "Cursor install failed"
+            fi
+        fi
+    else
+        echo -e "${GREEN}[OK] Installed${NC}"
+        log "INFO" "Cursor already installed"
+    fi
 
 
     echo ""
@@ -454,6 +476,14 @@ show_versions() {
     echo -e "\n${CYAN}--- Reasonix CLI ---${NC}"
     echo -e "\n--- Reasonix CLI ---" >> "$LOG_FILE"
     npm list -g reasonix@next --depth=0 2>/dev/null | tee -a "$LOG_FILE" | head -n 2
+
+    echo -e "\n${CYAN}--- Cursor CLI ---${NC}"
+    echo -e "\n--- Cursor CLI ---" >> "$LOG_FILE"
+    if command -v agent &> /dev/null; then
+        echo "[INSTALLED]" | tee -a "$LOG_FILE"
+    else
+        echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
+    fi
 
     echo ""
     pause
@@ -599,6 +629,7 @@ add_context_menu_linux() {
     create_script_file "Open with CommandCode CLI" "commandcode"
     create_script_file "Open with Pi CLI" "pi"
     create_script_file "Open with Reasonix CLI" "reasonix"
+    create_script_file "Open with Cursor CLI" "agent"
 
     echo ""
 
@@ -719,6 +750,7 @@ while true; do
     echo "  23. Launch CommandCode CLI"
     echo "  24. Launch Pi CLI"
     echo "  25. Launch Reasonix CLI"
+    echo "  26. Launch Cursor CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -769,6 +801,7 @@ while true; do
         23) launch_tool "commandcode" ;;
         24) launch_tool "pi" ;;
         25) launch_tool "reasonix" ;;
+        26) launch_tool "agent" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;

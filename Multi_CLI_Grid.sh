@@ -60,6 +60,7 @@ CLI_NAMES=(
     "commandcode" # 23
     "pi"          # 24
     "reasonix"    # 25
+    "agent"       # 26
 )
 
 CLI_DISPLAY=(
@@ -69,7 +70,7 @@ CLI_DISPLAY=(
     "Codex"        "Cline"       "Junie"       "Kiro"        "Qoder"
     "Antigravity"  "Kimi"        "Aider"       "Open Interpreter"
     "MiMo Code"    "Freebuff"    "Perch AI"    "CommandCode" "Pi"
-    "Reasonix"
+    "Reasonix"     "Cursor"
 )
 
 # ========================================
@@ -166,7 +167,7 @@ show_cli_list() {
     echo "     10. claude         20. mimo"
     echo "     21. freebuff       22. perch"
     echo "     23. commandcode    24. pi"
-    echo "     25. reasonix"
+    echo "     25. reasonix       26. cursor"
     echo ""
 }
 
@@ -174,12 +175,12 @@ pick_cli() {
     local label=$1
     local result_var=$2
     while true; do
-        read -p "  $label (1-25): " num
-        if [[ "$num" =~ ^[0-9]+$ ]] && [ "$num" -ge 1 ] && [ "$num" -le 25 ]; then
+        read -p "  $label (1-26): " num
+        if [[ "$num" =~ ^[0-9]+$ ]] && [ "$num" -ge 1 ] && [ "$num" -le 26 ]; then
             eval "$result_var='${CLI_NAMES[$num]}'"
             return
         else
-            echo -e "  ${RED}[!] Invalid.${NC} Enter a number from 1 to 25."
+            echo -e "  ${RED}[!] Invalid.${NC} Enter a number from 1 to 26."
         fi
     done
 }
