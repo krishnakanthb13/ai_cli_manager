@@ -61,6 +61,7 @@ CLI_NAMES=(
     "pi"          # 24
     "reasonix"    # 25
     "agent"       # 26
+    "grok"        # 27
 )
 
 CLI_DISPLAY=(
@@ -70,7 +71,7 @@ CLI_DISPLAY=(
     "Codex"        "Cline"       "Junie"       "Kiro"        "Qoder"
     "Antigravity"  "Kimi"        "Aider"       "Open Interpreter"
     "MiMo Code"    "Freebuff"    "Perch AI"    "CommandCode" "Pi"
-    "Reasonix"     "Cursor"
+    "Reasonix"     "Cursor"      "Grok"
 )
 
 # ========================================
@@ -155,19 +156,16 @@ show_cli_list() {
     echo ""
     echo -e " ${CYAN}  Available CLIs:${NC}"
     echo ""
-    echo "     1.  gemini (Dep)  11. codex"
-    echo "     2.  jules          12. cline"
-    echo "     3.  vibe           13. junie"
-    echo "     4.  iflow (Dep)   14. kiro-cli"
-    echo "     5.  opencode       15. qodercli"
-    echo "     6.  qwen           16. agy"
-    echo "     7.  kilocode       17. kimi"
+    echo "     1.  gemini (Dep)  11. codex          21. freebuff"
+    echo "     2.  jules          12. cline          22. perch"
+    echo "     3.  vibe           13. junie          23. commandcode"
+    echo "     4.  iflow (Dep)   14. kiro-cli       24. pi"
+    echo "     5.  opencode       15. qodercli       25. reasonix"
+    echo "     6.  qwen           16. agy            26. cursor"
+    echo "     7.  kilocode       17. kimi           27. grok"
     echo "     8.  copilot        18. aider"
     echo "     9.  nanocode       19. interpreter"
     echo "     10. claude         20. mimo"
-    echo "     21. freebuff       22. perch"
-    echo "     23. commandcode    24. pi"
-    echo "     25. reasonix       26. cursor"
     echo ""
 }
 
@@ -175,12 +173,12 @@ pick_cli() {
     local label=$1
     local result_var=$2
     while true; do
-        read -p "  $label (1-26): " num
-        if [[ "$num" =~ ^[0-9]+$ ]] && [ "$num" -ge 1 ] && [ "$num" -le 26 ]; then
+        read -p "  $label (1-27): " num
+        if [[ "$num" =~ ^[0-9]+$ ]] && [ "$num" -ge 1 ] && [ "$num" -le 27 ]; then
             eval "$result_var='${CLI_NAMES[$num]}'"
             return
         else
-            echo -e "  ${RED}[!] Invalid.${NC} Enter a number from 1 to 26."
+            echo -e "  ${RED}[!] Invalid.${NC} Enter a number from 1 to 27."
         fi
     done
 }

@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.39)
+echo           AI CLI TOOLS MANAGER (v1.2.40)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -90,6 +90,7 @@ echo     23. Launch CommandCode CLI
 echo     24. Launch Pi CLI
 echo     25. Launch Reasonix CLI
 echo     26. Launch Cursor CLI
+echo     27. Launch Grok CLI
 echo.
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -135,6 +136,7 @@ if "%choice%"=="23" goto LAUNCH_COMMANDCODE
 if "%choice%"=="24" goto LAUNCH_PI
 if "%choice%"=="25" goto LAUNCH_REASONIX
 if "%choice%"=="26" goto LAUNCH_CURSOR
+if "%choice%"=="27" goto LAUNCH_GROK
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -540,6 +542,21 @@ if "%UseWT%"=="1" (
 )
 goto LAUNCH_DONE
 
+:LAUNCH_GROK
+echo [%time%] === Launching Grok CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC grok
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k grok >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k grok
+) else (
+    echo [%time%] Command: cmd /k grok (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && grok"
+)
+goto LAUNCH_DONE
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -741,6 +758,14 @@ where agent >nul 2>&1
 if %errorlevel% equ 0 (set "_result=[INSTALLED]") else (set "_result=")
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
+echo.
+echo --- Grok CLI ---
+echo --- Grok CLI --- >> "%LOG_FILE%"
+set "_result="
+where grok >nul 2>&1
+if %errorlevel% equ 0 (set "_result=[INSTALLED]") else (set "_result=")
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
 
 echo.
 echo ================================================
@@ -846,6 +871,9 @@ call :CHECK_NPM "reasonix@next" "Reasonix CLI"
 
 echo [Cursor CLI] Checking...
 call :CHECK_CURSOR
+
+echo [Grok CLI] Checking...
+call :CHECK_GROK
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -1163,6 +1191,37 @@ if %errorlevel% neq 0 (
 )
 exit /b
 
+:CHECK_GROK
+echo --- Grok CLI --- >> "%LOG_FILE%"
+where grok >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [MISSING] Installing Grok CLI...
+    echo [INFO] Downloading official installer from: https://x.ai/cli/install.ps1
+    echo [INFO] This runs xAI's official installation script.
+    echo [%time%] [INFO] Running Grok official installer >> "%LOG_FILE%"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex (irm 'https://x.ai/cli/install.ps1')"
+    if errorlevel 1 (
+        echo [INFO] Connection failed. Retrying download with curl.exe...
+        curl.exe -fsSL "https://x.ai/cli/install.ps1" -o "%TEMP%\grok_install.ps1"
+        if not errorlevel 1 (
+            powershell -NoProfile -ExecutionPolicy Bypass -File "%TEMP%\grok_install.ps1"
+            del "%TEMP%\grok_install.ps1" >nul 2>&1
+            echo [INSTALLED] Official Script
+            echo [%time%] [OK] Installed Grok CLI >> "%LOG_FILE%"
+        ) else (
+            echo [FAILED]
+            echo [%time%] [FAILED] Grok CLI install >> "%LOG_FILE%"
+        )
+    ) else (
+        echo [INSTALLED] Official Script
+        echo [%time%] [OK] Installed Grok CLI >> "%LOG_FILE%"
+    )
+) else (
+    echo [OK] Installed
+    echo [%time%] [SKIP] Grok CLI already installed >> "%LOG_FILE%"
+)
+exit /b
+
 REM ========================================
 REM Check Claude CLI (Official Script)
 REM ========================================
@@ -1423,6 +1482,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shel
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\cursor" /v "Icon" /d "%ICONS_DIR%\cursor_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\cursor\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k agent" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\grok" /ve /d "Open with Grok CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\grok" /v "Icon" /d "%ICONS_DIR%\grok_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\grok\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k grok" /f >nul
+
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /v "Icon" /d "%ICONS_DIR%\gemini_v2.ico" /f >nul
@@ -1528,10 +1591,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\cursor" /
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\cursor" /v "Icon" /d "%ICONS_DIR%\cursor_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\cursor\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k agent" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\grok" /ve /d "Open with Grok CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\grok" /v "Icon" /d "%ICONS_DIR%\grok_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\grok\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k grok" /f >nul
+
 echo.
 echo [SUCCESS] Context menu updated!
 echo [%time%] [SUCCESS] Context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Gemini, Jules, Vibe, iflow, OpenCode, Qwen Code, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi, MiMo, Freebuff, PerchAI, CommandCode, Pi, Reasonix, Cursor >> "%LOG_FILE%"
+echo [%time%] Added: Gemini, Jules, Vibe, iflow, OpenCode, Qwen Code, KiloCode, Copilot, NanoCode, Claude, Cline, Junie, Kiro, Qoder, Antigravity, Kimi, MiMo, Freebuff, PerchAI, CommandCode, Pi, Reasonix, Cursor, Grok >> "%LOG_FILE%"
 echo.
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.

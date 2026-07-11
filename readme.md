@@ -3,11 +3,11 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-![Release Banner](assets/release_banner-v1.2.37.1.png)
-![Release Banner](assets/release_banner-v1.2.37.2.png)
+![Release Banner](assets/release_banner-v1.2.40.1.png)
+![Release Banner](assets/release_banner-v1.2.40.2.png)
 
 ## Overview
-**AI CLI Manager (v1.2.39)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
+**AI CLI Manager (v1.2.40)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
 
 
 ---
@@ -84,6 +84,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 | **CommandCode** | `command-code` | `commandcode` | NPM |
 | **Pi** | `@earendil-works/pi-coding-agent` | `pi` | NPM |
 | **Reasonix** | `reasonix` | `reasonix` | NPM |
+| **Grok** | `Official Script` | `grok` | PowerShell / Curl |
 
 
 > **Note on Installation**: Smart Install (Option `I`) automatically manages Node.js, Python, and Git. Git-based tools like NanoCode are cloned into the `/Tools` directory and linked via `npm link`. 
@@ -97,7 +98,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 *   **`I` Check and Install All**: Scans for all supported tools and installs missing ones automatically.
 *   **`V` Show Versions**: Lists specific installed versions or marks them as `[NOT INSTALLED]`.
 
-### **2. Launch CLIs (`1-25`)**
+### **2. Launch CLIs (`1-27`)**
 
 Launches the selected tool in the current directory (or a specified path) using the best available terminal emulator.
 
@@ -111,14 +112,15 @@ Launches the selected tool in the current directory (or a specified path) using 
       2. Claude CLI (`claude`)
       3. Freebuff CLI (`freebuff`)
       4. GitHub Copilot CLI (`copilot`)
-      5. Jules CLI (`jules`)
-      6. KiloCode CLI (`kilocode`)
-      7. MiMo Code CLI (`mimo`)
-      8. Mistral Vibe CLI (`vibe`)
-      9. NanoCode CLI (`nanocode`)
-      10. OpenAI Codex CLI (`openai`)
-      11. OpenCode CLI (`opencode`)
-      12. Perch AI CLI (`perchai`)
+      5. Grok CLI (`grok`)
+      6. Jules CLI (`jules`)
+      7. KiloCode CLI (`kilocode`)
+      8. MiMo Code CLI (`mimo`)
+      9. Mistral Vibe CLI (`vibe`)
+      10. NanoCode CLI (`nanocode`)
+      11. OpenAI Codex CLI (`openai`)
+      12. OpenCode CLI (`opencode`)
+      13. Perch AI CLI (`perchai`)
 
       #### **Secondary Cascading Menu (Sorted Alphabetically)**
       1. Aider CLI (`aider`)

@@ -90,19 +90,16 @@ echo  =====================================================
 echo.
 echo   Available CLIs:
 echo.
-echo     1.  gemini (Dep)  11. codex
-    echo     2.  jules          12. cline
-    echo     3.  vibe           13. junie
-    echo     4.  iflow (Dep)   14. kiro-cli
-    echo     5.  opencode       15. qodercli
-    echo     6.  qwen           16. agy
-    echo     7.  kilocode       17. kimi
+echo     1.  gemini (Dep)  11. codex          21. freebuff
+    echo     2.  jules          12. cline          22. perch
+    echo     3.  vibe           13. junie          23. commandcode
+    echo     4.  iflow (Dep)   14. kiro-cli       24. pi
+    echo     5.  opencode       15. qodercli       25. reasonix
+    echo     6.  qwen           16. agy            26. cursor
+    echo     7.  kilocode       17. kimi           27. grok
     echo     8.  copilot        18. aider
     echo     9.  nanocode       19. interpreter
     echo     10. claude         20. mimo
-    echo     21. freebuff       22. perch
-    echo     23. commandcode    24. pi
-    echo     25. reasonix       26. cursor
 echo.
 echo  =====================================================
 echo.
@@ -125,11 +122,11 @@ set "_var=%~2"
 set "_mapped="
 :_PICK_RETRY
 set "_num="
-set /p "_num=  %_prompt% (1-26): "
+set /p "_num=  %_prompt% (1-27): "
 if "!_num!"=="" goto _PICK_RETRY
 call :MAP_NUM !_num!
 if "!_mapped!"=="" (
-    echo   [!] Invalid. Enter a number from 1 to 26.
+    echo   [!] Invalid. Enter a number from 1 to 27.
     goto _PICK_RETRY
 )
 set "!_var!=!_mapped!"
@@ -167,6 +164,7 @@ if "%~1"=="23" set "_mapped=commandcode" & exit /b
 if "%~1"=="24" set "_mapped=pi"          & exit /b
 if "%~1"=="25" set "_mapped=reasonix"    & exit /b
 if "%~1"=="26" set "_mapped=agent"       & exit /b
+if "%~1"=="27" set "_mapped=grok"        & exit /b
 exit /b
 
 REM ========================================

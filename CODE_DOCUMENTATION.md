@@ -43,7 +43,7 @@ This document describes the technical implementation and architecture of the AI 
 
 ## 🏁 CLI Beast Mode (Grid Architecture)
 
-> **Note (v1.2.39)**: The Beast Mode grid now exposes **26 tools** (options 1–26) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets. Option 26 integrates Cursor CLI (`agent`).
+> **Note (v1.2.40)**: The Beast Mode grid now exposes **27 tools** (options 1–27) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets. Option 26 integrates Cursor CLI (`agent`). Option 27 integrates Grok CLI (`grok`).
 
 The "Beast Mode" grid (2x2) is implemented differently per platform to ensure native performance:
 
@@ -202,6 +202,14 @@ The project integrates with the following package managers:
   - Integrated standalone launcher scripts: `LaunchCursor.bat` and `LaunchCursor.sh`.
   - Fully wired Cursor CLI into the Beast Mode launchers `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` as option 26.
   - Synced documentation and version numbers across the scripts and files to `v1.2.39`.
+
+## 🆕 Version 1.2.40 Updates
+- **Additions**:
+  - Integrated and verified **Grok CLI** (`grok` package/command from xAI) as option 27 in the manager.
+  - Mapped installation script routines to official xAI hosts (`curl -fsSL https://x.ai/cli/install.sh | bash` for Linux/macOS and `irm https://x.ai/cli/install.ps1 | iex` for Windows).
+  - Created standalone launcher scripts: `LaunchGrok.bat` and `LaunchGrok.sh`.
+  - Fully integrated Grok CLI into the Beast Mode launchers `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` as option 27.
+  - Synced documentation and version numbers across the scripts and files to `v1.2.40`.
 
 
 

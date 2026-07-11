@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.39) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.40) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -348,6 +348,29 @@ install_all() {
         log "INFO" "Cursor already installed"
     fi
 
+    echo ""
+    echo "[Grok CLI] Checking..."
+    if ! command -v grok &> /dev/null; then
+        echo -e "${YELLOW}[MISSING]${NC} Installing Grok CLI..."
+        if ! command -v curl &> /dev/null; then
+            echo -e "${RED}[FAILED]${NC} curl not found. Install curl first."
+            log "ERROR" "Grok install failed: curl missing"
+        else
+            echo -e "${CYAN}[INFO]${NC} Downloading from: https://x.ai/cli/install.sh"
+            curl -fsSL https://x.ai/cli/install.sh | bash
+            if [ "${PIPESTATUS[0]}" -eq 0 ] && [ "${PIPESTATUS[1]}" -eq 0 ]; then
+                echo -e "${GREEN}[INSTALLED]${NC}"
+                log "SUCCESS" "Grok CLI installed"
+            else
+                echo -e "${RED}[FAILED]${NC}"
+                log "ERROR" "Grok install failed"
+            fi
+        fi
+    else
+        echo -e "${GREEN}[OK] Installed${NC}"
+        log "INFO" "Grok already installed"
+    fi
+
 
     echo ""
     echo -e "${CYAN}=== Completed ===${NC}"
@@ -480,6 +503,14 @@ show_versions() {
     echo -e "\n${CYAN}--- Cursor CLI ---${NC}"
     echo -e "\n--- Cursor CLI ---" >> "$LOG_FILE"
     if command -v agent &> /dev/null; then
+        echo "[INSTALLED]" | tee -a "$LOG_FILE"
+    else
+        echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
+    fi
+
+    echo -e "\n${CYAN}--- Grok CLI ---${NC}"
+    echo -e "\n--- Grok CLI ---" >> "$LOG_FILE"
+    if command -v grok &> /dev/null; then
         echo "[INSTALLED]" | tee -a "$LOG_FILE"
     else
         echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
@@ -630,6 +661,7 @@ add_context_menu_linux() {
     create_script_file "Open with Pi CLI" "pi"
     create_script_file "Open with Reasonix CLI" "reasonix"
     create_script_file "Open with Cursor CLI" "agent"
+    create_script_file "Open with Grok CLI" "grok"
 
     echo ""
 
@@ -751,6 +783,7 @@ while true; do
     echo "  24. Launch Pi CLI"
     echo "  25. Launch Reasonix CLI"
     echo "  26. Launch Cursor CLI"
+    echo "  27. Launch Grok CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -802,6 +835,7 @@ while true; do
         24) launch_tool "pi" ;;
         25) launch_tool "reasonix" ;;
         26) launch_tool "agent" ;;
+        27) launch_tool "grok" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;

@@ -1,5 +1,15 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.40] - 2026-07-11
+
+### 🚀 New Features & Additions
+- **Grok CLI Support**: Fully verified and integrated Grok CLI (`grok` package/command from xAI). Added option `27. Launch Grok CLI` to the main menus, programmed automated version checks, and mapped installation routines to official sources (`curl -fsSL https://x.ai/cli/install.sh | bash` / `irm https://x.ai/cli/install.ps1 | iex`). Created `LaunchGrok.bat` and `LaunchGrok.sh` launchers.
+- **Beast Mode Grid**: Integrated Grok CLI (`grok` command) into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom picker layouts as option 27.
+- **Context Menu Integration**: Added Grok CLI to the Primary cascading context menu options for Windows right-click menus (Background and Directory).
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped version headers to `v1.2.40` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, `README.md`, `CODE_DOCUMENTATION.md`, and `RELEASE_NOTES.md`.
+
 ## [v1.2.39] - 2026-07-10
 
 ### 🚀 New Features & Additions
