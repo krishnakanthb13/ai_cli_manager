@@ -89,6 +89,17 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 
 > **Note on Installation**: Smart Install (Option `I`) automatically manages Node.js, Python, and Git. Git-based tools like NanoCode are cloned into the `/Tools` directory and linked via `npm link`. 
 
+---
+
+## 🔮 Future Candidates
+A list of notable AI CLIs under consideration for future integration:
+
+| Name | Reason (TL;DR) |
+|:---|:---|
+| **Devin CLI** | High-autonomy agent featuring local execution and cloud VM handoff. |
+| **Amazon Q Developer** | Powerful AWS-native assistant with command auto-completion and agentic workflows. |
+| **CrabCode** | Open-source, Rust-based local agentic CLI with a Terminal User Interface (TUI). |
+| **mini-SWE-agent** | Minimalist agentic framework achieving top benchmark results on SWE-bench. |
 
 ---
 
