@@ -7,7 +7,7 @@
 ![Release Banner](assets/release_banner-v1.2.40.2.png)
 
 ## Overview
-**AI CLI Manager (v1.2.40)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
+**AI CLI Manager (v1.2.42)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
 
 
 ---
@@ -17,7 +17,7 @@
 *   **🔥 CLI Beast Mode**: Launch up to 4 AI CLIs simultaneously in a perfectly aligned 2x2 grid (Windows Terminal or tmux).
 *   **Smart Installation**: Automated dependency checks (Node.js, Python, Git, curl) and one-click installs for missing tools.
 *   **Pre-Launch Validation**: Verifies a CLI is actually installed before attempting to launch — clear error messages guide you to fix it.
-*   **Windows Integration**: Add cascading "AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)" menus to your right-click context menu in File Explorer to host all 25+ tools without hitting Windows registry limits.
+*   **Windows Integration**: Add cascading "AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)" menus to your right-click context menu in File Explorer to host all 28 tools without hitting Windows registry limits.
 *   **Cross-Platform**: Primary focus on Windows (Batch) with robust support for Linux & macOS (Shell).
 *   **Session Awareness**: Comprehensive logging and registry backup utilities for system safety.
 
@@ -49,7 +49,7 @@
 2.  **Select Directory**: Enter the path to your project folder when prompted.
 3.  **Go!**: The grid opens instantly in that directory. 
 
-> **Note**: Beast Mode supports all **25 tools** (options 1–25), matching the main manager menu.
+> **Note**: Beast Mode supports all **28 tools** (options 1–28), matching the main manager menu.
 >
 > **Tip**: In `tmux` (Linux/Mac), use `Ctrl+B` then `D` to detach from the grid without killing your active AI sessions.
 
@@ -84,7 +84,9 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 | **CommandCode** | `command-code` | `commandcode` | NPM |
 | **Pi** | `@earendil-works/pi-coding-agent` | `pi` | NPM |
 | **Reasonix** | `reasonix` | `reasonix` | NPM |
+| **Cursor** | `agent` | `agent` | Native / CLI |
 | **Grok** | `Official Script` | `grok` | PowerShell / Curl |
+| **Meta Muse Code (WSL)** | `Official Script` | `muse` | Curl (WSL) |
 
 
 > **Note on Installation**: Smart Install (Option `I`) automatically manages Node.js, Python, and Git. Git-based tools like NanoCode are cloned into the `/Tools` directory and linked via `npm link`. 
@@ -109,44 +111,46 @@ A list of notable AI CLIs under consideration for future integration:
 *   **`I` Check and Install All**: Scans for all supported tools and installs missing ones automatically.
 *   **`V` Show Versions**: Lists specific installed versions or marks them as `[NOT INSTALLED]`.
 
-### **2. Launch CLIs (`1-27`)**
+### **2. Launch CLIs (`1-28`)**
 
 Launches the selected tool in the current directory (or a specified path) using the best available terminal emulator.
 
 ### **3. Context Menu Integration**
 *   **`A` Add to Windows Context Menu**: (Pro-Tip 🔥) Adds cascading "AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)" menus to Explorer.
     - **How to use**: Right-click any folder or empty space > Hover over "AI CLI Manager (Primary)" or "AI CLI Manager (Secondary)" > Select your agent.
-    - **Why two menus?** Windows has a strict built-in registry limit of **16 items per cascading subcommand menu**. To accommodate all 25+ tools, they are separated into two cascading menus:
+    - **Why two menus?** Windows has a strict built-in registry limit of **16 items per cascading subcommand menu**. To accommodate all 28 tools, they are separated into two cascading menus:
       
       #### **Primary Cascading Menu (Sorted Alphabetically)**
       1. Antigravity CLI (`agy`)
       2. Claude CLI (`claude`)
-      3. Freebuff CLI (`freebuff`)
-      4. GitHub Copilot CLI (`copilot`)
-      5. Grok CLI (`grok`)
-      6. Jules CLI (`jules`)
-      7. KiloCode CLI (`kilocode`)
-      8. MiMo Code CLI (`mimo`)
-      9. Mistral Vibe CLI (`vibe`)
-      10. NanoCode CLI (`nanocode`)
-      11. OpenAI Codex CLI (`openai`)
-      12. OpenCode CLI (`opencode`)
-      13. Perch AI CLI (`perchai`)
+      3. CommandCode CLI (`commandcode`)
+      4. Freebuff CLI (`freebuff`)
+      5. GitHub Copilot CLI (`copilot`)
+      6. Grok CLI (`grok`)
+      7. Jules CLI (`jules`)
+      8. KiloCode CLI (`kilocode`)
+      9. MiMo Code CLI (`mimo`)
+      10. Mistral Vibe CLI (`vibe`)
+      11. NanoCode CLI (`nanocode`)
+      12. OpenAI Codex CLI (`openai`)
+      13. OpenCode CLI (`opencode`)
+      14. Perch AI CLI (`perchai`)
+      15. Reasonix CLI (`reasonix`)
 
       #### **Secondary Cascading Menu (Sorted Alphabetically)**
       1. Aider CLI (`aider`)
       2. Cline CLI (`cline`)
-      3. CommandCode CLI (`commandcode`)
+      3. Cursor CLI (`cursor`)
       4. Gemini CLI (`gemini` - Deprecated)
       5. iFlow CLI (`iflow` - Deprecated)
       6. Junie CLI (`junie`)
       7. Kimi Code CLI (`kimi`)
       8. Kiro CLI (`kiro`)
-      9. Open Interpreter CLI (`interpreter`)
-      10. Pi CLI (`pi`)
-      11. Qoder CLI (`qoder`)
-      12. Qwen Code CLI (`qwen`)
-      13. Reasonix CLI (`reasonix`)
+      9. Meta Muse Code CLI (`muse` - WSL)
+      10. Open Interpreter CLI (`interpreter`)
+      11. Pi CLI (`pi`)
+      12. Qoder CLI (`qoder`)
+      13. Qwen Code CLI (`qwen`)
 
 *   **`B` Remove Menu**: Cleanly uninstalls registry entries.
 *   **`C` Registry Backup**: **Highly Recommended** before using Option `A`. Saves a `.reg` file to the `Log Files` folder.

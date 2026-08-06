@@ -1,5 +1,57 @@
 # AI CLI Manager - Social Media Announcements
 
+## [v1.2.42] - 2026-08-06
+
+### 👔 LinkedIn
+🚀 Exciting Update: AI CLI Manager v1.2.42 is officially live!
+
+We are expanding our AI command center with Meta Muse Code CLI support and the latest OpenCode Zen free model suite!
+
+What's New in v1.2.42:
+✅ Meta Muse Code CLI Support: Added option 28 to launch Meta's terminal coding agent (`muse` / WSL).
+✅ OpenCode Models Sync: Updated OpenCode launcher with 8 free models including the new LongCat 2.0 Free (`opencode/longcat-2.0-free`).
+✅ Context Menu Optimization: Promoted CommandCode CLI and Reasonix CLI to the Primary right-click menu, while routing Meta Muse Code CLI (WSL) into the Secondary cascading menu.
+✅ Multi-Platform Launchers: Created `LaunchMuse.bat` and `LaunchMuse.sh` with automatic environment & PATH validation.
+
+Orchestrate 28+ AI coding assistants seamlessly from Windows Terminal, PowerShell, CMD, or Linux/macOS.
+
+Check out the repo and upgrade today!
+
+#OpenSource #Developers #AICoding #Meta #OpenCode #Productivity #GitHub #Terminal #WebDev
+
+---
+
+### 👽 Reddit
+**Subreddits**: r/programming, r/webdev, r/selfhosted, r/opensource
+**Title**: Show r/programming: AI CLI Manager v1.2.42 - Added Meta Muse Code CLI & Updated OpenCode Free Models
+
+Hi everyone,
+
+We just released **AI CLI Manager v1.2.42**!
+
+This release brings support for **Meta Muse Code CLI** (`muse`) as option 28, along with an updated **OpenCode Zen** model selector featuring **LongCat 2.0 Free**.
+
+### 🚀 Highlights of v1.2.42
+*   **Meta Muse Code CLI (`muse`)**: Full launcher support (`LaunchMuse.bat` / `LaunchMuse.sh`) with WSL environment check.
+*   **OpenCode Zen Free Models**: Added `LongCat 2.0 Free` (`opencode/longcat-2.0-free`) alongside Big Pickle, DeepSeek V4 Flash, Mimo 2.5, Laguna S 2.1, Ling 3.0, Nemotron 3 Ultra, and North Mini Code.
+*   **Context Menu Tier Cleanup**: Re-sorted Explorer right-click submenus — moved CommandCode & Reasonix to Primary, and Muse to Secondary.
+
+Check out the project on GitHub:
+[GitHub Repository](https://github.com/krishnakanthb13/ai_cli_manager)
+
+---
+
+### 🐦 X (Twitter)
+🚀 AI CLI Manager v1.2.42 is out! 
+
+💻 Added Meta Muse Code CLI (`muse` / WSL).
+🤖 Updated OpenCode launcher with 8 free models incl. LongCat 2.0 Free!
+⚡ Re-organized Explorer right-click primary/secondary menus.
+
+Upgrade now! 👇
+
+---
+
 ## [v1.2.36] - 2026-07-03
 
 ### 👔 LinkedIn

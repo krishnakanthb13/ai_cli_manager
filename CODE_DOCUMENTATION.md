@@ -43,7 +43,7 @@ This document describes the technical implementation and architecture of the AI 
 
 ## 🏁 CLI Beast Mode (Grid Architecture)
 
-> **Note (v1.2.40)**: The Beast Mode grid now exposes **27 tools** (options 1–27) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets. Option 26 integrates Cursor CLI (`agent`). Option 27 integrates Grok CLI (`grok`).
+> **Note (v1.2.42)**: The Beast Mode grid now exposes **28 tools** (options 1–28) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets. Option 26 integrates Cursor CLI (`agent`). Option 27 integrates Grok CLI (`grok`). Option 28 integrates Meta Muse Code CLI (`muse` - WSL).
 
 The "Beast Mode" grid (2x2) is implemented differently per platform to ensure native performance:
 
@@ -76,6 +76,7 @@ Uses standard `tmux` commands for session orchestration:
 | `:CHECK_JUNIE` | Logic for Junie: Downloads and executes the official JetBrains installation script (`install.ps1`) via PowerShell. Displays the source URL before running. |
 | `:CHECK_KIRO` | Logic for Kiro: Downloads and executes the official Kiro installation script (`install.ps1`) via PowerShell. |
 | `:CHECK_ANTIGRAVITY` | Logic for Antigravity: Downloads and executes the official Google installation script (`install.ps1`) via PowerShell. |
+| `:CHECK_MUSE` | Logic for Meta Muse Code CLI: Checks for `muse` binary; downloads official installer script `install.sh` via curl if missing. |
 | `:CHECK_CLI_EXEC` | **[v1.2.18]** Pre-launch guard. Uses `where` to verify a CLI command is in PATH before a terminal is spawned. Returns exit code 1 and shows a descriptive error if the command is missing. Called by every `:LAUNCH_*` label. |
 | `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. **[v1.2.20]** All `npm list -g` calls use `--depth=0` and `findstr /C:"-- <pkg>@"` to anchor on the npm tree prefix, preventing substring matches against sub-dependencies. Mistral Vibe uses `findstr /B /C:"Version:"` to anchor on the first column. |
 | `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)" menus. Splits the tools to bypass the Windows 16-item cascading menu limit. Uses `%SCRIPT_DIR%` for absolute launcher paths with double-double-quoting for space-safe registry values. |

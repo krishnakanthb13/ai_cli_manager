@@ -1,5 +1,17 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.42] - 2026-08-06
+
+### 🚀 New Features & Additions
+- **Meta Muse Code CLI Integration**: Integrated Meta Muse Code CLI (`muse` command via official installer `curl -fsSL https://dev.meta.ai/install.sh | bash`). Added option `28. Launch Meta Muse Code CLI (WSL)` to main menus, installer checks, version status, and launchers (`LaunchMuse.bat` / `LaunchMuse.sh`).
+- **OpenCode Free Models Update**: Updated OpenCode launchers (`LaunchOpenCode.bat` / `LaunchOpenCode.sh`) with the latest OpenCode Zen free model lineup, including the newly added `LongCat 2.0 Free` (`opencode/longcat-2.0-free`).
+- **Explorer Context Menu Re-categorization**: Re-organized Windows Explorer right-click context menu options to maintain clean organization and respect registry limits:
+  - Moved **CommandCode CLI** and **Reasonix CLI** to the **Primary** cascading menu.
+  - Placed **Meta Muse Code CLI (WSL)** into the **Secondary** cascading menu.
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped version headers to `v1.2.42` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, `README.md`, `CODE_DOCUMENTATION.md`, and `RELEASE_NOTES.md`.
+
 ## [v1.2.40] - 2026-07-11
 
 ### 🚀 New Features & Additions

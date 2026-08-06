@@ -28,7 +28,7 @@ log "INFO" "Session started"
 header() {
     clear
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.40) (Linux/Mac)${NC}"
+    echo -e "${CYAN}   AI CLI TOOLS MANAGER (v1.2.42) (Linux/Mac)${NC}"
     echo -e "${CYAN}================================================${NC}"
 
     echo ""
@@ -371,6 +371,29 @@ install_all() {
         log "INFO" "Grok already installed"
     fi
 
+    echo ""
+    echo "[Meta Muse Code CLI] Checking..."
+    if ! command -v muse &> /dev/null; then
+        echo -e "${YELLOW}[MISSING]${NC} Installing Meta Muse Code CLI..."
+        if ! command -v curl &> /dev/null; then
+            echo -e "${RED}[FAILED]${NC} curl not found. Install curl first."
+            log "ERROR" "Meta Muse Code install failed: curl missing"
+        else
+            echo -e "${CYAN}[INFO]${NC} Downloading from: https://dev.meta.ai/install.sh"
+            curl -fsSL https://dev.meta.ai/install.sh | bash
+            if [ "${PIPESTATUS[0]}" -eq 0 ] && [ "${PIPESTATUS[1]}" -eq 0 ]; then
+                echo -e "${GREEN}[INSTALLED]${NC}"
+                log "SUCCESS" "Meta Muse Code CLI installed"
+            else
+                echo -e "${RED}[FAILED]${NC}"
+                log "ERROR" "Meta Muse Code install failed"
+            fi
+        fi
+    else
+        echo -e "${GREEN}[OK] Installed${NC}"
+        log "INFO" "Meta Muse Code already installed"
+    fi
+
 
     echo ""
     echo -e "${CYAN}=== Completed ===${NC}"
@@ -511,6 +534,14 @@ show_versions() {
     echo -e "\n${CYAN}--- Grok CLI ---${NC}"
     echo -e "\n--- Grok CLI ---" >> "$LOG_FILE"
     if command -v grok &> /dev/null; then
+        echo "[INSTALLED]" | tee -a "$LOG_FILE"
+    else
+        echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
+    fi
+
+    echo -e "\n${CYAN}--- Meta Muse Code CLI ---${NC}"
+    echo -e "\n--- Meta Muse Code CLI ---" >> "$LOG_FILE"
+    if command -v muse &> /dev/null; then
         echo "[INSTALLED]" | tee -a "$LOG_FILE"
     else
         echo "[NOT INSTALLED]" | tee -a "$LOG_FILE"
@@ -662,6 +693,7 @@ add_context_menu_linux() {
     create_script_file "Open with Reasonix CLI" "reasonix"
     create_script_file "Open with Cursor CLI" "agent"
     create_script_file "Open with Grok CLI" "grok"
+    create_script_file "Open with Meta Muse Code CLI" "muse"
 
     echo ""
 
@@ -678,8 +710,8 @@ remove_context_menu_linux() {
     echo ""
     echo -e "${YELLOW}SAFETY INFORMATION:${NC}"
     echo "------------------"
-    echo "This operation will permanently delete the AI CLI scripts folder."
-    echo "It will cleanly remove the 'AI CLI Tools' entry from your right-click menu."
+    echo "This will permanently delete custom AI CLI launcher scripts"
+    echo "from Nautilus's script repository."
     echo ""
     echo -e "${YELLOW}RECOMMENDATION:${NC}"
     echo "1. You can always re-add them using Option A."
@@ -692,9 +724,8 @@ remove_context_menu_linux() {
     echo ""
     log "INFO" "Removing Nautilus scripts"
     
-    dir="$HOME/.local/share/nautilus/scripts/AI CLI Tools"
-    if [ -d "$dir" ]; then
-        rm -rf "$dir"
+    if [ -d "$HOME/.local/share/nautilus/scripts/AI CLI Tools" ]; then
+        rm -rf "$HOME/.local/share/nautilus/scripts/AI CLI Tools"
         echo -e "${GREEN}[SUCCESS] Scripts removed.${NC}"
         log "SUCCESS" "Nautilus scripts removed"
     else
@@ -784,6 +815,7 @@ while true; do
     echo "  25. Launch Reasonix CLI"
     echo "  26. Launch Cursor CLI"
     echo "  27. Launch Grok CLI"
+    echo "  28. Launch Meta Muse Code CLI"
     echo ""
 
     echo -e " ${YELLOW}--- Context Menu ---${NC}"
@@ -836,6 +868,7 @@ while true; do
         25) launch_tool "reasonix" ;;
         26) launch_tool "agent" ;;
         27) launch_tool "grok" ;;
+        28) launch_tool "muse" ;;
         [Aa]) add_context_menu_linux ;;
         [Bb]) remove_context_menu_linux ;;
         [Cc]) restart_nautilus ;;
