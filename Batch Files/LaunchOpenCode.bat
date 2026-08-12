@@ -50,12 +50,12 @@ echo  Select a model to run:
 echo.
 echo    [1] Big Pickle
 echo    [2] DeepSeek V4 Flash Free
-echo    [3] Laguna S 2.1 Free
-echo    [4] Ling-3.0-Flash Free
-echo    [5] LongCat 2.0 Free
-echo    [6] Mimo V2.5 Free
+echo    [3] MiMo-V2.5 Free
+echo    [4] Hy3 Free
+echo    [5] Laguna S 2.1 Free
+echo    [6] Ling-3.0-tiny Free
 echo    [7] Nemotron 3 Ultra Free
-echo    [8] North Mini Code Free
+echo    [8] Nemotron 3.5 Lightning Free
 echo.
 echo    [0] Exit
 echo.
@@ -68,12 +68,12 @@ set /p choice="  Enter your choice (0-8): "
 if "%choice%"=="0" goto exit
 if "%choice%"=="1" set "model=opencode/big-pickle" & set "modelname=Big Pickle"
 if "%choice%"=="2" set "model=opencode/deepseek-v4-flash-free" & set "modelname=DeepSeek V4 Flash Free"
-if "%choice%"=="3" set "model=opencode/laguna-s-2.1-free" & set "modelname=Laguna S 2.1 Free"
-if "%choice%"=="4" set "model=opencode/ling-3.0-flash-free" & set "modelname=Ling-3.0-Flash Free"
-if "%choice%"=="5" set "model=opencode/longcat-2.0-free" & set "modelname=LongCat 2.0 Free"
-if "%choice%"=="6" set "model=opencode/mimo-v2.5-free" & set "modelname=Mimo V2.5 Free"
+if "%choice%"=="3" set "model=opencode/mimo-v2.5-free" & set "modelname=MiMo-V2.5 Free"
+if "%choice%"=="4" set "model=opencode/hy3-free" & set "modelname=Hy3 Free"
+if "%choice%"=="5" set "model=opencode/laguna-s-2.1-free" & set "modelname=Laguna S 2.1 Free"
+if "%choice%"=="6" set "model=opencode/ling-3.0-tiny-free" & set "modelname=Ling-3.0-tiny Free"
 if "%choice%"=="7" set "model=opencode/nemotron-3-ultra-free" & set "modelname=Nemotron 3 Ultra Free"
-if "%choice%"=="8" set "model=opencode/north-mini-code-free" & set "modelname=North Mini Code Free"
+if "%choice%"=="8" set "model=opencode/nemotron-3.5-lightning-free" & set "modelname=Nemotron 3.5 Lightning Free"
 
 if not defined model (
     echo.
