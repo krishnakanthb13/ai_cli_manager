@@ -8,12 +8,13 @@ This document describes the technical implementation and architecture of the AI 
 
 | File | Description |
 |------|-------------|
-| `AI_CLI_Manager.bat` | Main automation script for Windows (Batch). |
+| `AI_CLI_Manager.bat` | Main automation script for Windows (Batch - Full 28 tools). |
+| `AI_CLI_Manager_0.bat` | Focused automation script for Windows (Batch - 12 Curated Primary tools). |
 | `AI_CLI_Manager.sh` | Main automation script for Linux and macOS (Bash). |
 | `Multi_CLI_Grid.bat` | **[NEW]** Beast Mode grid launcher for Windows Terminal. |
 | `Multi_CLI_Grid.sh` | **[NEW]** Beast Mode grid launcher for tmux (Linux/macOS). |
 | `/Batch Files/` | Standalone `.bat` launch scripts for individual tools (Windows). |
-| `/Batch Files/archive/` | Legacy/superseded launcher scripts kept for historical reference (e.g., `AI_CLI_Manager_0.bat`). |
+| `/Batch Files/archive/` | Legacy/superseded launcher scripts kept for historical reference. |
 | `/Shell Files/` | Standalone `.sh` launch scripts for individual tools (Linux/macOS). |
 | `Icons/` | Directory containing tool icons and the conversion script. |
 | `Icons/*_v2.ico` | Standardized icons with `_v2` suffix to bypass Windows Icon Cache (Cache Busting). |
@@ -204,13 +205,16 @@ The project integrates with the following package managers:
   - Fully wired Cursor CLI into the Beast Mode launchers `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` as option 26.
   - Synced documentation and version numbers across the scripts and files to `v1.2.39`.
 
-## 🆕 Version 1.2.40 Updates
-- **Additions**:
-  - Integrated and verified **Grok CLI** (`grok` package/command from xAI) as option 27 in the manager.
-  - Mapped installation script routines to official xAI hosts (`curl -fsSL https://x.ai/cli/install.sh | bash` for Linux/macOS and `irm https://x.ai/cli/install.ps1 | iex` for Windows).
-  - Created standalone launcher scripts: `LaunchGrok.bat` and `LaunchGrok.sh`.
-  - Fully integrated Grok CLI into the Beast Mode launchers `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` as option 27.
-  - Synced documentation and version numbers across the scripts and files to `v1.2.40`.
+## 🆕 Version 1.2.44 Updates
+- **Focused Profile Addition**:
+  - Created `AI_CLI_Manager_0.bat` offering a streamlined 12-tool focused profile (`Antigravity`, `Claude`, `CommandCode`, `Freebuff`, `GitHub Copilot`, `KiloCode`, `MiMo Code`, `Mistral Vibe`, `NanoCode`, `OpenAI Codex`, `OpenCode`, `Perch AI`).
+  - Implements a single unified context menu **`AI CLI Manager (Focus)`** (`AI_CLI_Menu_Focus`) bypassing the 16-item limit without needing multiple cascading parent menus.
+- **Terminal & Exit Resilience**:
+  - Fixed Windows elevation loop by updating the PowerShell UAC elevation dispatch from `cmd /k` to `cmd /c`.
+  - Replaced `exit /b` with absolute `exit` in `:EXIT_SCRIPT` to cleanly close elevated Windows Terminal / CMD instances on termination.
+  - Added case-insensitive input aliasing for `exit`, `quit`, and `q` at the main menu prompt across both `AI_CLI_Manager.bat` and `AI_CLI_Manager_0.bat`.
 
-
-
+- **OpenCode Model Selector Synchronization**:
+  - Synced model options in `LaunchOpenCode.bat` and `LaunchOpenCode.sh` to match the latest OpenCode Zen API (`https://opencode.ai/zen/v1/models`) and docs (`https://opencode.ai/docs/zen/`).
+  - Removed the deprecated/obsolete `ling-3.0-tiny-free` model.
+  - Consolidated selection options to 7 active free models and adjusted selector ranges to `0-7`.

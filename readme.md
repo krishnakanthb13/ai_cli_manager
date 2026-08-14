@@ -26,9 +26,10 @@
 ## 🚀 Quick Start
 
 ### 💻 Windows (Primary)
-1.  **Run**: Double-click `AI_CLI_Manager.bat`.
-2.  **Elevate**: The script automatically requests Administrator privileges for system integrations.
-3.  **Terminal**: Automatically detects **Windows Terminal**; falls back to standard CMD if needed.
+1.  **Full Suite (28 Tools)**: Double-click `AI_CLI_Manager.bat` to launch the complete manager with Primary & Secondary cascading context menus.
+2.  **Focused Suite (12 Tools)**: Double-click `AI_CLI_Manager_0.bat` for a curated setup featuring top primary agents under a single unified **"AI CLI Manager (Focus)"** context menu.
+3.  **Elevate**: The scripts automatically request Administrator privileges (`cmd /c`) for system integrations.
+4.  **Terminal**: Automatically detects **Windows Terminal**; falls back to standard CMD if needed.
 
 ### 🐧 Linux & macOS
 1.  **Permission**: `chmod +x AI_CLI_Manager.sh Multi_CLI_Grid.sh`
@@ -155,9 +156,10 @@ Launches the selected tool in the current directory (or a specified path) using 
 *   **`B` Remove Menu**: Cleanly uninstalls registry entries.
 *   **`C` Registry Backup**: **Highly Recommended** before using Option `A`. Saves a `.reg` file to the `Log Files` folder.
 
-### **4. System Utilities**
+### **4. System Utilities & Exit**
 *   **`D` Restart Explorer**: Instantly applies visual/registry changes.
 *   **`E` Deep Refresh Icons**: Force-clears icon cache if menu icons look broken.
+*   **`0` / `exit` / `quit` / `q`**: Cleanly terminates the manager and closes the terminal window.
 
 ---
 

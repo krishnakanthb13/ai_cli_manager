@@ -53,9 +53,8 @@ echo    [2] DeepSeek V4 Flash Free
 echo    [3] MiMo-V2.5 Free
 echo    [4] Hy3 Free
 echo    [5] Laguna S 2.1 Free
-echo    [6] Ling-3.0-tiny Free
-echo    [7] Nemotron 3 Ultra Free
-echo    [8] Nemotron 3.5 Lightning Free
+echo    [6] Nemotron 3 Ultra Free
+echo    [7] Nemotron 3.5 Lightning Free
 echo.
 echo    [0] Exit
 echo.
@@ -63,7 +62,7 @@ echo ============================================================
 echo.
 
 set "choice="
-set /p choice="  Enter your choice (0-8): "
+set /p choice="  Enter your choice (0-7): "
 
 if "%choice%"=="0" goto exit
 if "%choice%"=="1" set "model=opencode/big-pickle" & set "modelname=Big Pickle"
@@ -71,13 +70,12 @@ if "%choice%"=="2" set "model=opencode/deepseek-v4-flash-free" & set "modelname=
 if "%choice%"=="3" set "model=opencode/mimo-v2.5-free" & set "modelname=MiMo-V2.5 Free"
 if "%choice%"=="4" set "model=opencode/hy3-free" & set "modelname=Hy3 Free"
 if "%choice%"=="5" set "model=opencode/laguna-s-2.1-free" & set "modelname=Laguna S 2.1 Free"
-if "%choice%"=="6" set "model=opencode/ling-3.0-tiny-free" & set "modelname=Ling-3.0-tiny Free"
-if "%choice%"=="7" set "model=opencode/nemotron-3-ultra-free" & set "modelname=Nemotron 3 Ultra Free"
-if "%choice%"=="8" set "model=opencode/nemotron-3.5-lightning-free" & set "modelname=Nemotron 3.5 Lightning Free"
+if "%choice%"=="6" set "model=opencode/nemotron-3-ultra-free" & set "modelname=Nemotron 3 Ultra Free"
+if "%choice%"=="7" set "model=opencode/nemotron-3.5-lightning-free" & set "modelname=Nemotron 3.5 Lightning Free"
 
 if not defined model (
     echo.
-    echo  [!] Invalid choice. Please enter a number between 0-8.
+    echo  [!] Invalid choice. Please enter a number between 0-7.
     timeout /t 2 >nul
     goto menu
 )

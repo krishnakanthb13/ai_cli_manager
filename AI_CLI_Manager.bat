@@ -11,7 +11,7 @@ if %errorlevel% neq 0 (
     echo.
     echo [CRITICAL] Administrator privileges required.
     echo Requesting administrator privileges...
-    powershell -Command "$f='%~f0'; if (Get-Command wt.exe -ErrorAction SilentlyContinue) { Start-Process wt -ArgumentList \"cmd /k `\"$f`\"\" -Verb RunAs } else { Start-Process cmd -ArgumentList '/k', \"`\"$f`\"\" -Verb RunAs }"
+    powershell -Command "$f='%~f0'; if (Get-Command wt.exe -ErrorAction SilentlyContinue) { Start-Process wt -ArgumentList \"cmd /c `\"$f`\"\" -Verb RunAs } else { Start-Process cmd -ArgumentList '/c', \"`\"$f`\"\" -Verb RunAs }"
     exit /b
 )
 
@@ -145,6 +145,9 @@ if /i "%choice%"=="C" goto BACKUP_REGISTRY
 if /i "%choice%"=="D" goto RESTART_EXPLORER
 if /i "%choice%"=="E" goto DEEP_REFRESH_ICONS
 if "%choice%"=="0" goto EXIT_SCRIPT
+if /i "%choice%"=="exit" goto EXIT_SCRIPT
+if /i "%choice%"=="quit" goto EXIT_SCRIPT
+if /i "%choice%"=="q" goto EXIT_SCRIPT
 
 echo [%time%] [WARNING] Invalid choice >> "%LOG_FILE%"
 echo Invalid choice. Press any key...
@@ -1820,4 +1823,4 @@ echo.
 echo [%time%] Session ended >> "%LOG_FILE%"
 echo Goodbye!
 endlocal
-exit /b
+exit

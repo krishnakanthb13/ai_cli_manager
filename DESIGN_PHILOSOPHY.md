@@ -24,6 +24,7 @@ The **AI CLI Manager** acts as a "Command Center" for these AI terminal applicat
 - **Self-Healing**: Provides deep refresh utilities to fix common Windows environment issues like icon cache corruption or terminal shell lag. Process cleanup uses polling rather than fixed sleeps to be reliable on all hardware.
 - **Speed**: Optimized for fast terminal spawning directly in the target folder.
 - **Robustness**: Fallbacks for everything — Windows Terminal → CMD, dependency checks for Node.js/Python/Git/curl, and terminal emulator detection on Linux.
+- **Focus & Modularity**: Offers tailored manager profiles (e.g., `AI_CLI_Manager_0.bat` with a single `AI CLI Manager (Focus)` context menu) for developers who prefer a curated subset of daily-driver agents without registry limits or nested submenus.
 
 ## 👥 Target Users
 
