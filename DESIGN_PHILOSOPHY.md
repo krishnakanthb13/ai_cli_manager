@@ -25,6 +25,7 @@ The **AI CLI Manager** acts as a "Command Center" for these AI terminal applicat
 - **Speed**: Optimized for fast terminal spawning directly in the target folder.
 - **Robustness**: Fallbacks for everything — Windows Terminal → CMD, dependency checks for Node.js/Python/Git/curl, and terminal emulator detection on Linux.
 - **Focus & Modularity**: Offers tailored manager profiles (e.g., `AI_CLI_Manager_0.bat` with a single `AI CLI Manager (Focus)` context menu) for developers who prefer a curated subset of daily-driver agents without registry limits or nested submenus.
+- **Curated Precision**: For CLIs offering dynamic model ecosystems (e.g., Claude or OpenCode), standalone launcher scripts provide interactive model selectors mapped directly to officially verified models and free tiers, removing the cognitive overhead of memorizing ephemeral model identifiers or flag syntax.
 
 ## 👥 Target Users
 

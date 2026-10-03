@@ -1,5 +1,24 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.45] - 2026-10-03
+
+### 🚀 New Features & Additions
+- **AI CLI Manager (Focus) Profile**:
+  - Introduced `AI_CLI_Manager_0.bat` providing a streamlined 12-tool focused setup (`Antigravity`, `Claude`, `CommandCode`, `Freebuff`, `GitHub Copilot`, `KiloCode`, `MiMo Code`, `Mistral Vibe`, `NanoCode`, `OpenAI Codex`, `OpenCode`, and `Perch AI`).
+  - Added dedicated single-tier context menu **`AI CLI Manager (Focus)`** (`AI_CLI_Menu_Focus`) bypassing Windows 16-item limits without cascading submenus.
+- **OpenCode Free Models Synchronization**:
+  - Synchronized `LaunchOpenCode.bat` and `LaunchOpenCode.sh` with the latest OpenCode Zen API (`https://opencode.ai/zen/v1/models`) and official documentation (`https://opencode.ai/docs/zen/`).
+  - Expanded lineup to 14 active free and preview models (`Big Pickle`, `Jev 1.13 Free`, `DeepSeek V4 Flash Free [API]`, `Muse Spark 1.3 Contributor Free`, `Muse Spark 1.2 Contributor Free [API]`, `MiMo-V2.6-Flash Free`, `Space Bunny Free`, `LongCat 2.5 Preview Free`, `MiMo-V2.5 Free`, `Ling 3.0 Flash Fin Free`, `Nemotron 3 Ultra Free`, `Nemotron 3.5 Lightning Free`, `Fledge Alpha Free`, and `Ling 3.1 Flash Free`), adjusting selector range to `0-14`.
+  - Removed obsolete and deprecated models (`hy3-free`, `laguna-s-2.1-free`, and `ling-3.0-tiny-free`).
+  - Appended `[API]` identifier to display names for models available on the API endpoint but unlisted in docs.
+- **Terminal & Elevation Resilience**:
+  - Replaced `cmd /k` with `cmd /c` in PowerShell UAC elevation dispatch to eliminate duplicate elevation loops.
+  - Replaced `exit /b` with absolute `exit` in `:EXIT_SCRIPT` so terminating the manager cleanly closes elevated Windows Terminal and CMD windows.
+  - Added case-insensitive prompt aliasing for `exit`, `quit`, and `q`.
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped version references to `v1.2.44` across `README.md`, `CODE_DOCUMENTATION.md`, `DESIGN_PHILOSOPHY.md`, and `RELEASE_NOTES.md`.
+
 ## [v1.2.42] - 2026-08-06
 
 ### 🚀 New Features & Additions
