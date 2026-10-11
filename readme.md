@@ -7,7 +7,7 @@
 ![Release Banner](assets/release_banner-v1.2.40.2.png)
 
 ## Overview
-**AI CLI Manager (v1.2.45)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
+**AI CLI Manager (v1.2.47)** is a powerful command-line utility designed to simplify the installation, management, and launching of various AI coding assistants. It bridges the gap between different AI tools, providing a unified interface and seamless Windows integration.
 
 
 ---
@@ -27,7 +27,7 @@
 
 ### 💻 Windows (Primary)
 1.  **Full Suite (28 Tools)**: Double-click `AI_CLI_Manager.bat` to launch the complete manager with Primary & Secondary cascading context menus.
-2.  **Focused Suite (12 Tools)**: Double-click `AI_CLI_Manager_0.bat` for a curated setup featuring top primary agents under a single unified **"AI CLI Manager (Focus)"** context menu.
+2.  **Focused Suite (13 Tools)**: Double-click `AI_CLI_Manager_0.bat` for a curated setup featuring top primary agents under a single unified **"AI CLI Manager (Focus)"** context menu.
 3.  **Elevate**: The scripts automatically request Administrator privileges (`cmd /c`) for system integrations.
 4.  **Terminal**: Automatically detects **Windows Terminal**; falls back to standard CMD if needed.
 
@@ -87,7 +87,7 @@ The manager supports a wide range of industry-leading AI models and CLI agents:
 | **Reasonix** | `reasonix` | `reasonix` | NPM |
 | **Cursor** | `agent` | `agent` | Native / CLI |
 | **Grok** | `Official Script` | `grok` | PowerShell / Curl |
-| **Meta Muse Code (WSL)** | `Official Script` | `muse` | Curl (WSL) |
+| **Meta Muse Code** | `Official Script` | `muse` | PowerShell / Curl |
 
 
 > **Note on Installation**: Smart Install (Option `I`) automatically manages Node.js, Python, and Git. Git-based tools like NanoCode are cloned into the `/Tools` directory and linked via `npm link`. 
@@ -130,13 +130,13 @@ Launches the selected tool in the current directory (or a specified path) using 
       6. Grok CLI (`grok`)
       7. Jules CLI (`jules`)
       8. KiloCode CLI (`kilocode`)
-      9. MiMo Code CLI (`mimo`)
-      10. Mistral Vibe CLI (`vibe`)
-      11. NanoCode CLI (`nanocode`)
-      12. OpenAI Codex CLI (`openai`)
-      13. OpenCode CLI (`opencode`)
-      14. Perch AI CLI (`perchai`)
-      15. Reasonix CLI (`reasonix`)
+      9. Meta Muse Code CLI (`muse`)
+      10. MiMo Code CLI (`mimo`)
+      11. Mistral Vibe CLI (`vibe`)
+      12. NanoCode CLI (`nanocode`)
+      13. OpenAI Codex CLI (`openai`)
+      14. OpenCode CLI (`opencode`)
+      15. Perch AI CLI (`perchai`)
 
       #### **Secondary Cascading Menu (Sorted Alphabetically)**
       1. Aider CLI (`aider`)
@@ -147,11 +147,11 @@ Launches the selected tool in the current directory (or a specified path) using 
       6. Junie CLI (`junie`)
       7. Kimi Code CLI (`kimi`)
       8. Kiro CLI (`kiro`)
-      9. Meta Muse Code CLI (`muse` - WSL)
-      10. Open Interpreter CLI (`interpreter`)
-      11. Pi CLI (`pi`)
-      12. Qoder CLI (`qoder`)
-      13. Qwen Code CLI (`qwen`)
+      9. Open Interpreter CLI (`interpreter`)
+      10. Pi CLI (`pi`)
+      11. Qoder CLI (`qoder`)
+      12. Qwen Code CLI (`qwen`)
+      13. Reasonix CLI (`reasonix`)
 
 *   **`B` Remove Menu**: Cleanly uninstalls registry entries.
 *   **`C` Registry Backup**: **Highly Recommended** before using Option `A`. Saves a `.reg` file to the `Log Files` folder.

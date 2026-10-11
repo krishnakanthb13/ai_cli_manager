@@ -76,6 +76,7 @@ echo     9. Launch NanoCode CLI
 echo     10. Launch OpenAI Codex CLI
 echo     11. Launch OpenCode CLI
 echo     12. Launch Perch AI CLI
+echo     13. Launch Meta Muse Code CLI
 echo.
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu [Focus]
@@ -107,6 +108,7 @@ if "%choice%"=="9" goto LAUNCH_NANOCODE
 if "%choice%"=="10" goto LAUNCH_OPENAI
 if "%choice%"=="11" goto LAUNCH_OPENCODE
 if "%choice%"=="12" goto LAUNCH_PERCHAI
+if "%choice%"=="13" goto LAUNCH_MUSE
 if /i "%choice%"=="A" goto ADD_CONTEXT_MENU
 if /i "%choice%"=="B" goto REMOVE_CONTEXT_MENU
 if /i "%choice%"=="C" goto BACKUP_REGISTRY
@@ -305,6 +307,21 @@ if "%UseWT%"=="1" (
 )
 goto LAUNCH_DONE
 
+:LAUNCH_MUSE
+echo [%time%] === Launching Meta Muse Code CLI === >> "%LOG_FILE%"
+set "LAUNCH_DIR=%~1"
+if "%LAUNCH_DIR%"=="" set "LAUNCH_DIR=%USERPROFILE%"
+call :CHECK_CLI_EXEC muse
+if errorlevel 1 goto MAIN_MENU
+if "%UseWT%"=="1" (
+    echo [%time%] Command: wt.exe -d "%LAUNCH_DIR%" cmd /k muse >> "%LOG_FILE%"
+    start wt.exe -d "%LAUNCH_DIR%" cmd /k muse
+) else (
+    echo [%time%] Command: cmd /k muse (in %LAUNCH_DIR%) >> "%LOG_FILE%"
+    start cmd /k "cd /d "%LAUNCH_DIR%" && muse"
+)
+goto LAUNCH_DONE
+
 REM ========================================
 REM SHOW VERSIONS
 REM ========================================
@@ -406,6 +423,14 @@ for /f "delims=" %%V in ('npm list -g perchai-cli --depth=0 2^>nul ^| findstr /C
 if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
 
 echo.
+echo --- Meta Muse Code CLI ---
+echo --- Meta Muse Code CLI --- >> "%LOG_FILE%"
+set "_result="
+where muse >nul 2>&1
+if %errorlevel% equ 0 (set "_result=[INSTALLED]") else (set "_result=")
+if defined _result (echo %_result% & echo [%time%] %_result% >> "%LOG_FILE%") else (echo [NOT INSTALLED] & echo [%time%] [NOT INSTALLED] >> "%LOG_FILE%")
+
+echo.
 echo ================================================
 pause
 goto MAIN_MENU
@@ -476,6 +501,9 @@ call :CHECK_NPM "opencode-ai" "OpenCode CLI"
 
 echo [Perch AI CLI] Checking...
 call :CHECK_NPM "perchai-cli" "Perch AI CLI"
+
+echo [Meta Muse Code CLI] Checking...
+call :CHECK_MUSE
 
 if "%HAS_PYTHON%"=="1" (
     echo [Mistral Vibe] Checking...
@@ -718,6 +746,40 @@ if %errorlevel% neq 0 (
 exit /b
 
 REM ========================================
+REM Check Meta Muse Code CLI (Official Script)
+REM ========================================
+:CHECK_MUSE
+echo --- Meta Muse Code CLI --- >> "%LOG_FILE%"
+where muse >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [MISSING] Installing Meta Muse Code CLI...
+    echo [INFO] Downloading official installer from: https://dev.meta.ai/install.ps1
+    echo [INFO] This runs Meta's official installation script.
+    echo [%time%] [INFO] Running Meta Muse Code official installer >> "%LOG_FILE%"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex (irm 'https://dev.meta.ai/install.ps1')"
+    if errorlevel 1 (
+        echo [INFO] Connection failed. Retrying download with curl.exe...
+        curl.exe -fsSL "https://dev.meta.ai/install.ps1" -o "%TEMP%\muse_install.ps1"
+        if not errorlevel 1 (
+            powershell -NoProfile -ExecutionPolicy Bypass -File "%TEMP%\muse_install.ps1"
+            del "%TEMP%\muse_install.ps1" >nul 2>&1
+            echo [INSTALLED] Official Script
+            echo [%time%] [OK] Installed Meta Muse Code CLI >> "%LOG_FILE%"
+        ) else (
+            echo [FAILED]
+            echo [%time%] [FAILED] Meta Muse Code CLI install >> "%LOG_FILE%"
+        )
+    ) else (
+        echo [INSTALLED] Official Script
+        echo [%time%] [OK] Installed Meta Muse Code CLI >> "%LOG_FILE%"
+    )
+) else (
+    echo [OK] Installed
+    echo [%time%] [SKIP] Meta Muse Code CLI already installed >> "%LOG_FILE%"
+)
+exit /b
+
+REM ========================================
 REM Subroutine: Check if a CLI command exists in PATH
 REM Usage: call :CHECK_CLI_EXEC <command>
 REM Returns: exit code 1 if not found, 0 if found
@@ -862,6 +924,10 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Focus\shell\pe
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Focus\shell\perchai" /v "Icon" /d "%ICONS_DIR%\perch_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Focus\shell\perchai\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k perch" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Focus\shell\muse" /ve /d "Open with Meta Muse Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Focus\shell\muse" /v "Icon" /d "%ICONS_DIR%\muse_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Focus\shell\muse\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k muse" /f >nul
+
 REM ----------------------------------------
 REM Directory (Folder) submenu items
 REM ----------------------------------------
@@ -913,10 +979,14 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Focus\shell\perchai" /ve 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Focus\shell\perchai" /v "Icon" /d "%ICONS_DIR%\perch_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Focus\shell\perchai\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k perch" /f >nul
 
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Focus\shell\muse" /ve /d "Open with Meta Muse Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Focus\shell\muse" /v "Icon" /d "%ICONS_DIR%\muse_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Focus\shell\muse\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k muse" /f >nul
+
 echo.
 echo [SUCCESS] Focus context menu updated!
 echo [%time%] [SUCCESS] Focus context menu added >> "%LOG_FILE%"
-echo [%time%] Added: Antigravity, Claude, CommandCode, Freebuff, GitHub Copilot, KiloCode, MiMo, Mistral Vibe, NanoCode, OpenAI Codex, OpenCode, Perch AI >> "%LOG_FILE%"
+echo [%time%] Added: Antigravity, Claude, CommandCode, Freebuff, GitHub Copilot, KiloCode, Meta Muse Code, MiMo, Mistral Vibe, NanoCode, OpenAI Codex, OpenCode, Perch AI >> "%LOG_FILE%"
 echo.
 echo TIP: Use Option E if the menu icons look old or broken.
 pause

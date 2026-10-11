@@ -1,5 +1,23 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.47] - 2026-10-11
+
+### 🚀 New Features & Enhancements
+- **Meta Muse Code CLI Windows Installer**:
+  - Integrated the newly released official Windows PowerShell installer script (`irm https://dev.meta.ai/install.ps1 | iex`) into `AI_CLI_Manager.bat`, `AI_CLI_Manager_0.bat`, and `LaunchMuse.bat`.
+  - Removed WSL requirement label across manager menus, right-click context menus, and launchers.
+- **Context Menu Tier Reorganization**:
+  - Promoted **Meta Muse Code CLI** (`muse`) to the **Primary** cascading context menu (`AI_CLI_Menu_Primary`).
+  - Moved **Reasonix CLI** (`reasonix`) to the **Secondary** cascading context menu (`AI_CLI_Menu_Secondary`).
+- **Focus Profile Expansion**:
+  - Expanded `AI_CLI_Manager_0.bat` to a 13-tool lineup by integrating Meta Muse Code CLI as option `13`.
+  - Registered `muse` in the unified `AI_CLI_Menu_Focus` single-tier Windows Explorer context menu.
+- **Beast Mode Custom Grid Synchronization**:
+  - Added option `28. muse` to `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom quadrant pickers (range `1-28`).
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped version references to `v1.2.47` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, `README.md`, `CODE_DOCUMENTATION.md`, and `RELEASE_NOTES.md`.
+
 ## [v1.2.45] - 2026-10-03
 
 ### 🚀 New Features & Additions

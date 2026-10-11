@@ -56,7 +56,7 @@ REM ========================================
 :MAIN_MENU
 cls
 echo.
-echo           AI CLI TOOLS MANAGER (v1.2.42)
+echo           AI CLI TOOLS MANAGER (v1.2.47)
 echo ================================================
 echo.
 echo    --- CLI Management ---
@@ -91,7 +91,7 @@ echo     24. Launch Pi CLI
 echo     25. Launch Reasonix CLI
 echo     26. Launch Cursor CLI
 echo     27. Launch Grok CLI
-echo     28. Launch Meta Muse Code CLI (WSL)
+echo     28. Launch Meta Muse Code CLI
 echo.
 echo    --- Context Menu ---
 echo     A. Add to Windows Context Menu
@@ -1261,17 +1261,25 @@ echo --- Meta Muse Code CLI --- >> "%LOG_FILE%"
 where muse >nul 2>&1
 if %errorlevel% neq 0 (
     echo [MISSING] Installing Meta Muse Code CLI...
-    echo [INFO] Downloading official installer from: https://dev.meta.ai/install.sh
+    echo [INFO] Downloading official installer from: https://dev.meta.ai/install.ps1
     echo [INFO] This runs Meta's official installation script.
     echo [%time%] [INFO] Running Meta Muse Code official installer >> "%LOG_FILE%"
-    curl.exe -fsSL "https://dev.meta.ai/install.sh" -o "%TEMP%\muse_install.sh"
-    if not errorlevel 1 (
-        echo [INFO] Installer downloaded to %TEMP%\muse_install.sh
-        echo [INSTALLED] Official Script Downloaded
-        echo [%time%] [OK] Downloaded Meta Muse Code CLI installer >> "%LOG_FILE%"
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex (irm 'https://dev.meta.ai/install.ps1')"
+    if errorlevel 1 (
+        echo [INFO] Connection failed. Retrying download with curl.exe...
+        curl.exe -fsSL "https://dev.meta.ai/install.ps1" -o "%TEMP%\muse_install.ps1"
+        if not errorlevel 1 (
+            powershell -NoProfile -ExecutionPolicy Bypass -File "%TEMP%\muse_install.ps1"
+            del "%TEMP%\muse_install.ps1" >nul 2>&1
+            echo [INSTALLED] Official Script
+            echo [%time%] [OK] Installed Meta Muse Code CLI >> "%LOG_FILE%"
+        ) else (
+            echo [FAILED]
+            echo [%time%] [FAILED] Meta Muse Code CLI install >> "%LOG_FILE%"
+        )
     ) else (
-        echo [FAILED]
-        echo [%time%] [FAILED] Meta Muse Code CLI install >> "%LOG_FILE%"
+        echo [INSTALLED] Official Script
+        echo [%time%] [OK] Installed Meta Muse Code CLI >> "%LOG_FILE%"
     )
 ) else (
     echo [OK] Installed
@@ -1531,9 +1539,9 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shel
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\pi" /v "Icon" /d "%ICONS_DIR%\pi_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\pi\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k pi" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\reasonix" /ve /d "Open with Reasonix CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\reasonix" /v "Icon" /d "%ICONS_DIR%\reasonix_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\reasonix\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k reasonix" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\reasonix" /ve /d "Open with Reasonix CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\reasonix" /v "Icon" /d "%ICONS_DIR%\reasonix_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\reasonix\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k reasonix" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\cursor" /ve /d "Open with Cursor CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\cursor" /v "Icon" /d "%ICONS_DIR%\cursor_v2.ico" /f >nul
@@ -1543,9 +1551,9 @@ reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\grok" /v "Icon" /d "%ICONS_DIR%\grok_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\grok\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k grok" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\muse" /ve /d "Open with Meta Muse Code CLI (WSL)" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\muse" /v "Icon" /d "%ICONS_DIR%\muse_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Secondary\shell\muse\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k muse" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\muse" /ve /d "Open with Meta Muse Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\muse" /v "Icon" /d "%ICONS_DIR%\muse_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\AI_CLI_Menu_Primary\shell\muse\command" /ve /d "cmd.exe /c start wt.exe -d \"%%V\" cmd /k muse" /f >nul
 
 REM Add submenu items for Directory (folder right-click)
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\gemini" /ve /d "Open with Gemini CLI (Deprecated)" /f >nul
@@ -1644,9 +1652,9 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\pi" /ve /
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\pi" /v "Icon" /d "%ICONS_DIR%\pi_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\pi\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k pi" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\reasonix" /ve /d "Open with Reasonix CLI" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\reasonix" /v "Icon" /d "%ICONS_DIR%\reasonix_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\reasonix\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k reasonix" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\reasonix" /ve /d "Open with Reasonix CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\reasonix" /v "Icon" /d "%ICONS_DIR%\reasonix_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\reasonix\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k reasonix" /f >nul
 
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\cursor" /ve /d "Open with Cursor CLI" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\cursor" /v "Icon" /d "%ICONS_DIR%\cursor_v2.ico" /f >nul
@@ -1656,9 +1664,9 @@ reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\grok" /ve /
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\grok" /v "Icon" /d "%ICONS_DIR%\grok_v2.ico" /f >nul
 reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\grok\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k grok" /f >nul
 
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\muse" /ve /d "Open with Meta Muse Code CLI (WSL)" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\muse" /v "Icon" /d "%ICONS_DIR%\muse_v2.ico" /f >nul
-reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Secondary\shell\muse\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k muse" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\muse" /ve /d "Open with Meta Muse Code CLI" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\muse" /v "Icon" /d "%ICONS_DIR%\muse_v2.ico" /f >nul
+reg add "HKEY_CLASSES_ROOT\Directory\shell\AI_CLI_Menu_Primary\shell\muse\command" /ve /d "cmd.exe /c start wt.exe -d \"%%1\" cmd /k muse" /f >nul
 
 echo.
 echo [SUCCESS] Context menu updated!

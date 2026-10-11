@@ -97,7 +97,7 @@ echo     1.  gemini (Dep)  11. codex          21. freebuff
     echo     5.  opencode       15. qodercli       25. reasonix
     echo     6.  qwen           16. agy            26. cursor
     echo     7.  kilocode       17. kimi           27. grok
-    echo     8.  copilot        18. aider
+    echo     8.  copilot        18. aider          28. muse
     echo     9.  nanocode       19. interpreter
     echo     10. claude         20. mimo
 echo.
@@ -122,11 +122,11 @@ set "_var=%~2"
 set "_mapped="
 :_PICK_RETRY
 set "_num="
-set /p "_num=  %_prompt% (1-27): "
+set /p "_num=  %_prompt% (1-28): "
 if "!_num!"=="" goto _PICK_RETRY
 call :MAP_NUM !_num!
 if "!_mapped!"=="" (
-    echo   [!] Invalid. Enter a number from 1 to 27.
+    echo   [!] Invalid. Enter a number from 1 to 28.
     goto _PICK_RETRY
 )
 set "!_var!=!_mapped!"
@@ -165,6 +165,7 @@ if "%~1"=="24" set "_mapped=pi"          & exit /b
 if "%~1"=="25" set "_mapped=reasonix"    & exit /b
 if "%~1"=="26" set "_mapped=agent"       & exit /b
 if "%~1"=="27" set "_mapped=grok"        & exit /b
+if "%~1"=="28" set "_mapped=muse"        & exit /b
 exit /b
 
 REM ========================================

@@ -44,7 +44,7 @@ This document describes the technical implementation and architecture of the AI 
 
 ## 🏁 CLI Beast Mode (Grid Architecture)
 
-> **Note (v1.2.42)**: The Beast Mode grid now exposes **28 tools** (options 1–28) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets. Option 26 integrates Cursor CLI (`agent`). Option 27 integrates Grok CLI (`grok`). Option 28 integrates Meta Muse Code CLI (`muse` - WSL).
+> **Note (v1.2.47)**: The Beast Mode grid now exposes **28 tools** (options 1–28) via `Multi_CLI_Grid.bat` / `Multi_CLI_Grid.sh`, matching the main manager. Preset Alpha has been updated to replace the deprecated Gemini CLI with Antigravity (`agy`). Deprecated entries (Gemini, iFlow) remain in the custom picker for backward compatibility but are labeled `(Dep)` and excluded from presets. Option 26 integrates Cursor CLI (`agent`). Option 27 integrates Grok CLI (`grok`). Option 28 integrates Meta Muse Code CLI (`muse`).
 
 The "Beast Mode" grid (2x2) is implemented differently per platform to ensure native performance:
 
@@ -77,7 +77,7 @@ Uses standard `tmux` commands for session orchestration:
 | `:CHECK_JUNIE` | Logic for Junie: Downloads and executes the official JetBrains installation script (`install.ps1`) via PowerShell. Displays the source URL before running. |
 | `:CHECK_KIRO` | Logic for Kiro: Downloads and executes the official Kiro installation script (`install.ps1`) via PowerShell. |
 | `:CHECK_ANTIGRAVITY` | Logic for Antigravity: Downloads and executes the official Google installation script (`install.ps1`) via PowerShell. |
-| `:CHECK_MUSE` | Logic for Meta Muse Code CLI: Checks for `muse` binary; downloads official installer script `install.sh` via curl if missing. |
+| `:CHECK_MUSE` | Logic for Meta Muse Code CLI: Checks for `muse` binary; downloads and executes official Windows installation script (`install.ps1`) via PowerShell (with curl fallback). |
 | `:CHECK_CLI_EXEC` | **[v1.2.18]** Pre-launch guard. Uses `where` to verify a CLI command is in PATH before a terminal is spawned. Returns exit code 1 and shows a descriptive error if the command is missing. Called by every `:LAUNCH_*` label. |
 | `:SHOW_VERSIONS` | Displays currently installed versions of all managed tools. **[v1.2.20]** All `npm list -g` calls use `--depth=0` and `findstr /C:"-- <pkg>@"` to anchor on the npm tree prefix, preventing substring matches against sub-dependencies. Mistral Vibe uses `findstr /B /C:"Version:"` to anchor on the first column. |
 | `:ADD_CONTEXT_MENU` | Performs `reg add` operations to create the cascading "AI CLI Manager (Primary)" and "AI CLI Manager (Secondary)" menus. Splits the tools to bypass the Windows 16-item cascading menu limit. Uses `%SCRIPT_DIR%` for absolute launcher paths with double-double-quoting for space-safe registry values. |
@@ -207,7 +207,7 @@ The project integrates with the following package managers:
 
 ## 🆕 Version 1.2.44 Updates
 - **Focused Profile Addition**:
-  - Created `AI_CLI_Manager_0.bat` offering a streamlined 12-tool focused profile (`Antigravity`, `Claude`, `CommandCode`, `Freebuff`, `GitHub Copilot`, `KiloCode`, `MiMo Code`, `Mistral Vibe`, `NanoCode`, `OpenAI Codex`, `OpenCode`, `Perch AI`).
+  - Created `AI_CLI_Manager_0.bat` offering a streamlined 13-tool focused profile (`Antigravity`, `Claude`, `CommandCode`, `Freebuff`, `GitHub Copilot`, `KiloCode`, `Meta Muse Code`, `MiMo Code`, `Mistral Vibe`, `NanoCode`, `OpenAI Codex`, `OpenCode`, `Perch AI`).
   - Implements a single unified context menu **`AI CLI Manager (Focus)`** (`AI_CLI_Menu_Focus`) bypassing the 16-item limit without needing multiple cascading parent menus.
 - **Terminal & Exit Resilience**:
   - Fixed Windows elevation loop by updating the PowerShell UAC elevation dispatch from `cmd /k` to `cmd /c`.
@@ -219,3 +219,13 @@ The project integrates with the following package managers:
   - Removed deprecated and obsolete models (`hy3-free`, `laguna-s-2.1-free`, and `ling-3.0-tiny-free`).
   - Expanded selection options to 14 verified free and preview models (`Big Pickle`, `Jev 1.13 Free`, `DeepSeek V4 Flash Free [API]`, `Muse Spark 1.3 Contributor Free`, `Muse Spark 1.2 Contributor Free [API]`, `MiMo-V2.6-Flash Free`, `Space Bunny Free`, `LongCat 2.5 Preview Free`, `MiMo-V2.5 Free`, `Ling 3.0 Flash Fin Free`, `Nemotron 3 Ultra Free`, `Nemotron 3.5 Lightning Free`, `Fledge Alpha Free`, and `Ling 3.1 Flash Free`), adjusting selector range to `0-14`.
   - Added `[API]` identifier to display names for models available on the API endpoint but not listed in docs.
+
+## 🆕 Version 1.2.47 Updates
+- **Meta Muse Code CLI Native Windows Installer**:
+  - Integrated official Windows PowerShell installer script (`https://dev.meta.ai/install.ps1`) into `AI_CLI_Manager.bat` and `LaunchMuse.bat`.
+  - Promoted Meta Muse Code CLI (`muse`) to the Primary cascading context menu (`AI_CLI_Menu_Primary`) and moved Reasonix CLI (`reasonix`) to Secondary (`AI_CLI_Menu_Secondary`).
+- **Focus Profile Expansion**:
+  - Expanded `AI_CLI_Manager_0.bat` to a 13-tool lineup by integrating Meta Muse Code CLI as option 13.
+  - Registered `muse` in the single-tier unified `AI_CLI_Menu_Focus` context menu.
+- **Beast Mode Grid Alignment**:
+  - Added option 28 (`muse`) into `Multi_CLI_Grid.bat` and `Multi_CLI_Grid.sh` custom quadrants pickers (range 1–28).
