@@ -1,5 +1,13 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.49] - 2026-10-15
+
+### 🧹 Housekeeping
+- **OpenCode Skill Source Refresh**:
+  - Updated the `update_opencode_models` skill and workflow to read from the current OpenCode endpoints (docs: `https://opencode.ai/v2/docs/console/models/`; models: `https://opencode.ai/inference/v1/models`, with `/zen/v1/models` retained as a fallback).
+  - Re-ran the skill against the refreshed endpoints; the 14-model free lineup is unchanged, so `LaunchOpenCode.bat` / `LaunchOpenCode.sh` required no edits.
+- **Version Sync**: Bumped version references to `v1.2.49` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, `README.md`, `CODE_DOCUMENTATION.md`, and `RELEASE_NOTES.md`.
+
 ## [v1.2.48] - 2026-10-15
 
 ### 🚀 New Features & Additions

@@ -236,3 +236,8 @@ The project integrates with the following package managers:
   - Added `DeepSeek V4.1 Flash Free` (`deepseek-v4.1-flash-free`), `Cat Jam Free` (`cat-jam-free`), and `MiMo-V2.5 Free` (`mimo-v2.5-free`).
   - Removed discontinued `Ling 3.0 Flash Fin Free` (`ling-3.0-flash-fin-free`) and `Ling 3.1 Flash Free` (`ling-3.1-flash-free`).
   - Advanced the selector range to `0-14` across both launchers.
+
+## 🆕 Version 1.2.49 Updates
+- **Skill & Workflow Source Refresh**:
+  - Updated `.agent/skills/update_opencode_models/SKILL.md` and `.agent/workflows/update_opencode_models.md` to the current OpenCode source endpoints (docs: `https://opencode.ai/v2/docs/console/models/`; models: `https://opencode.ai/inference/v1/models`, with `https://opencode.ai/zen/v1/models` retained as a fallback).
+  - Re-verified the OpenCode free-model lineup against the refreshed endpoints; the 14-model set was unchanged, so no launcher edits were required.
