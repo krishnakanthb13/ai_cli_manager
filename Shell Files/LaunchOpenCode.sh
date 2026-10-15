@@ -35,17 +35,18 @@ while true; do
     echo "   [7] Space Bunny Free"
     echo "   [8] LongCat 2.5 Preview Free"
     echo "   [9] Step 5 Preview Free"
-    echo "   [10] Ling 3.0 Flash Fin Free"
-    echo "   [11] Nemotron 3 Ultra Free"
-    echo "   [12] Nemotron 3.5 Lightning Free"
-    echo "   [13] Ling 3.1 Flash Free"
+    echo "   [10] DeepSeek V4.1 Flash Free"
+    echo "   [11] Cat Jam Free"
+    echo "   [12] Nemotron 3 Ultra Free"
+    echo "   [13] Nemotron 3.5 Lightning Free"
+    echo "   [14] MiMo-V2.5 Free"
     echo ""
     echo "   [0] Exit"
     echo ""
     echo "============================================================"
     echo ""
     
-    read -p " Enter your choice (0-13): " choice
+    read -p " Enter your choice (0-14): " choice
     
     case $choice in
         0) exit 0 ;;
@@ -58,13 +59,14 @@ while true; do
         7) model="opencode/space-bunny-free"; modelname="Space Bunny Free" ;;
         8) model="opencode/longcat-2.5-preview-free"; modelname="LongCat 2.5 Preview Free" ;;
         9) model="opencode/step-5-preview-free"; modelname="Step 5 Preview Free" ;;
-        10) model="opencode/ling-3.0-flash-fin-free"; modelname="Ling 3.0 Flash Fin Free" ;;
-        11) model="opencode/nemotron-3-ultra-free"; modelname="Nemotron 3 Ultra Free" ;;
-        12) model="opencode/nemotron-3.5-lightning-free"; modelname="Nemotron 3.5 Lightning Free" ;;
-        13) model="opencode/ling-3.1-flash-free"; modelname="Ling 3.1 Flash Free" ;;
+        10) model="opencode/deepseek-v4.1-flash-free"; modelname="DeepSeek V4.1 Flash Free" ;;
+        11) model="opencode/cat-jam-free"; modelname="Cat Jam Free" ;;
+        12) model="opencode/nemotron-3-ultra-free"; modelname="Nemotron 3 Ultra Free" ;;
+        13) model="opencode/nemotron-3.5-lightning-free"; modelname="Nemotron 3.5 Lightning Free" ;;
+        14) model="opencode/mimo-v2.5-free"; modelname="MiMo-V2.5 Free" ;;
         *) 
             echo ""
-            echo " ❌ Invalid choice. Please enter a number between 0-13."
+            echo " ❌ Invalid choice. Please enter a number between 0-14."
             sleep 2
             continue
             ;;

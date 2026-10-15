@@ -1,5 +1,18 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.48] - 2026-10-15
+
+### 🚀 New Features & Additions
+- **OpenCode Free Models Synchronization**:
+  - Re-synchronized `LaunchOpenCode.bat` and `LaunchOpenCode.sh` with the latest OpenCode Zen API (`https://opencode.ai/zen/v1/models`) and official documentation (`https://opencode.ai/docs/zen/`).
+  - Added three free models: `DeepSeek V4.1 Flash Free` (`deepseek-v4.1-flash-free`), `Cat Jam Free` (`cat-jam-free`), and `MiMo-V2.5 Free` (`mimo-v2.5-free`).
+  - Removed discontinued models `Ling 3.0 Flash Fin Free` (`ling-3.0-flash-fin-free`) and `Ling 3.1 Flash Free` (`ling-3.1-flash-free`).
+  - Advanced the selector range to `0-14`; the `Muse Spark 1.2 Contributor Free [API]` entry remains tagged as API-only.
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped version references to `v1.2.48` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, `README.md`, `CODE_DOCUMENTATION.md`, and `RELEASE_NOTES.md`.
+- **Docs Sync**: Updated the per-CLI launcher table in `CODE_DOCUMENTATION.md` to reflect the new 14-model OpenCode lineup.
+
 ## [v1.2.47] - 2026-10-11
 
 ### 🚀 New Features & Enhancements

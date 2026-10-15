@@ -57,10 +57,11 @@ echo    [6] MiMo-V2.6-Flash Free
 echo    [7] Space Bunny Free
 echo    [8] LongCat 2.5 Preview Free
 echo    [9] Step 5 Preview Free
-echo    [10] Ling 3.0 Flash Fin Free
-echo    [11] Nemotron 3 Ultra Free
-echo    [12] Nemotron 3.5 Lightning Free
-echo    [13] Ling 3.1 Flash Free
+echo    [10] DeepSeek V4.1 Flash Free
+echo    [11] Cat Jam Free
+echo    [12] Nemotron 3 Ultra Free
+echo    [13] Nemotron 3.5 Lightning Free
+echo    [14] MiMo-V2.5 Free
 echo.
 echo    [0] Exit
 echo.
@@ -68,7 +69,7 @@ echo ============================================================
 echo.
 
 set "choice="
-set /p choice="  Enter your choice (0-13): "
+set /p choice="  Enter your choice (0-14): "
 
 if "%choice%"=="0" goto exit
 if "%choice%"=="1" set "model=opencode/big-pickle" & set "modelname=Big Pickle"
@@ -80,14 +81,15 @@ if "%choice%"=="6" set "model=opencode/mimo-v2.6-flash-free" & set "modelname=Mi
 if "%choice%"=="7" set "model=opencode/space-bunny-free" & set "modelname=Space Bunny Free"
 if "%choice%"=="8" set "model=opencode/longcat-2.5-preview-free" & set "modelname=LongCat 2.5 Preview Free"
 if "%choice%"=="9" set "model=opencode/step-5-preview-free" & set "modelname=Step 5 Preview Free"
-if "%choice%"=="10" set "model=opencode/ling-3.0-flash-fin-free" & set "modelname=Ling 3.0 Flash Fin Free"
-if "%choice%"=="11" set "model=opencode/nemotron-3-ultra-free" & set "modelname=Nemotron 3 Ultra Free"
-if "%choice%"=="12" set "model=opencode/nemotron-3.5-lightning-free" & set "modelname=Nemotron 3.5 Lightning Free"
-if "%choice%"=="13" set "model=opencode/ling-3.1-flash-free" & set "modelname=Ling 3.1 Flash Free"
+if "%choice%"=="10" set "model=opencode/deepseek-v4.1-flash-free" & set "modelname=DeepSeek V4.1 Flash Free"
+if "%choice%"=="11" set "model=opencode/cat-jam-free" & set "modelname=Cat Jam Free"
+if "%choice%"=="12" set "model=opencode/nemotron-3-ultra-free" & set "modelname=Nemotron 3 Ultra Free"
+if "%choice%"=="13" set "model=opencode/nemotron-3.5-lightning-free" & set "modelname=Nemotron 3.5 Lightning Free"
+if "%choice%"=="14" set "model=opencode/mimo-v2.5-free" & set "modelname=MiMo-V2.5 Free"
 
 if not defined model (
     echo.
-    echo  [!] Invalid choice. Please enter a number between 0-13.
+    echo  [!] Invalid choice. Please enter a number between 0-14.
     timeout /t 2 >nul
     goto menu
 )
