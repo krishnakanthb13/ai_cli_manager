@@ -1,12 +1,4 @@
 ---
-description: Update OpenCode launchers with the latest free models
+description: Localized skill to sync OpenCode launchers with the latest free models, update docs/version, and publish.
 ---
-
-# Update OpenCode Models Workflow
-
-This workflow ensures the OpenCode launchers are up to date with the latest free models provided by the OpenCode Zen API.
-
-1. Fetch latest free model listings by reading the content from `https://opencode.ai/v2/docs/console/models/` and `https://opencode.ai/inference/v1/models` (or `https://opencode.ai/zen/v1/models`).
-2. Identify all models provided for free.
-3. Update `Batch Files/LaunchOpenCode.bat` model selector echo statements and their corresponding assignments under the `if` choices.
-4. Update `Shell Files/LaunchOpenCode.sh` model selector menu and case statement to exactly match the `.bat` file list.
+1. Run the update_opencode_models skill.
