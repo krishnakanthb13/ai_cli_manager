@@ -1,5 +1,18 @@
 # AI CLI Manager - Release Notes
 
+## [v1.2.50] - 2026-10-17
+
+### 🚀 New Features & Additions
+- **OpenCode Free Models Synchronization**:
+  - Re-synchronized `LaunchOpenCode.bat` and `LaunchOpenCode.sh` with the latest OpenCode Console docs (`https://opencode.ai/v2/docs/console/models/`) and models endpoint (`https://opencode.ai/inference/v1/models`).
+  - Added four free models: `GLM-5.3-Flash Free` (`glm-5.3-flash-free`), `Beam Free` (`beam-free`), `LL Alpha Free` (`ll-alpha-free`), and `Nemotron 3.5 Super VL Free` (`nemotron-3.5-super-vl-free`).
+  - Removed discontinued models `Cat Jam Free` (`cat-jam-free`), `Step 5 Preview Free` (`step-5-preview-free`), and `Muse Spark 1.2 Contributor Free` (`muse-spark-1.2-contributor-free`).
+  - Reordered the selector alphabetically by display name with `Big Pickle` pinned first; the range advances to `0-15`. No entries carry the `[API]` tag this cycle, since every free model in the API list is also documented.
+
+### 🧹 Housekeeping
+- **Version Sync**: Bumped version references to `v1.2.50` across `AI_CLI_Manager.bat`, `AI_CLI_Manager.sh`, `README.md`, `CODE_DOCUMENTATION.md`, and `RELEASE_NOTES.md`.
+- **Docs Sync**: Updated the per-CLI launcher table in `CODE_DOCUMENTATION.md` to reflect the new 15-model OpenCode lineup.
+
 ## [v1.2.49] - 2026-10-15
 
 ### 🧹 Housekeeping

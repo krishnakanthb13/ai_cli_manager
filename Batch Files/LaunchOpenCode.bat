@@ -49,19 +49,20 @@ echo.
 echo  Select a model to run:
 echo.
 echo    [1] Big Pickle
-echo    [2] Jev 1.13 Free
-echo    [3] Exo Free
-echo    [4] Muse Spark 1.3 Contributor Free
-echo    [5] Muse Spark 1.2 Contributor Free [API]
-echo    [6] MiMo-V2.6-Flash Free
-echo    [7] Space Bunny Free
+echo    [2] Beam Free
+echo    [3] DeepSeek V4.1 Flash Free
+echo    [4] Exo Free
+echo    [5] GLM-5.3-Flash Free
+echo    [6] Jev 1.13 Free
+echo    [7] LL Alpha Free
 echo    [8] LongCat 2.5 Preview Free
-echo    [9] Step 5 Preview Free
-echo    [10] DeepSeek V4.1 Flash Free
-echo    [11] Cat Jam Free
+echo    [9] MiMo-V2.5 Free
+echo    [10] MiMo-V2.6-Flash Free
+echo    [11] Muse Spark 1.3 Contributor Free
 echo    [12] Nemotron 3 Ultra Free
 echo    [13] Nemotron 3.5 Lightning Free
-echo    [14] MiMo-V2.5 Free
+echo    [14] Nemotron 3.5 Super VL Free
+echo    [15] Space Bunny Free
 echo.
 echo    [0] Exit
 echo.
@@ -69,27 +70,28 @@ echo ============================================================
 echo.
 
 set "choice="
-set /p choice="  Enter your choice (0-14): "
+set /p choice="  Enter your choice (0-15): "
 
 if "%choice%"=="0" goto exit
 if "%choice%"=="1" set "model=opencode/big-pickle" & set "modelname=Big Pickle"
-if "%choice%"=="2" set "model=opencode/jev-1.13-free" & set "modelname=Jev 1.13 Free"
-if "%choice%"=="3" set "model=opencode/exo-free" & set "modelname=Exo Free"
-if "%choice%"=="4" set "model=opencode/muse-spark-1.3-contributor-free" & set "modelname=Muse Spark 1.3 Contributor Free"
-if "%choice%"=="5" set "model=opencode/muse-spark-1.2-contributor-free" & set "modelname=Muse Spark 1.2 Contributor Free [API]"
-if "%choice%"=="6" set "model=opencode/mimo-v2.6-flash-free" & set "modelname=MiMo-V2.6-Flash Free"
-if "%choice%"=="7" set "model=opencode/space-bunny-free" & set "modelname=Space Bunny Free"
+if "%choice%"=="2" set "model=opencode/beam-free" & set "modelname=Beam Free"
+if "%choice%"=="3" set "model=opencode/deepseek-v4.1-flash-free" & set "modelname=DeepSeek V4.1 Flash Free"
+if "%choice%"=="4" set "model=opencode/exo-free" & set "modelname=Exo Free"
+if "%choice%"=="5" set "model=opencode/glm-5.3-flash-free" & set "modelname=GLM-5.3-Flash Free"
+if "%choice%"=="6" set "model=opencode/jev-1.13-free" & set "modelname=Jev 1.13 Free"
+if "%choice%"=="7" set "model=opencode/ll-alpha-free" & set "modelname=LL Alpha Free"
 if "%choice%"=="8" set "model=opencode/longcat-2.5-preview-free" & set "modelname=LongCat 2.5 Preview Free"
-if "%choice%"=="9" set "model=opencode/step-5-preview-free" & set "modelname=Step 5 Preview Free"
-if "%choice%"=="10" set "model=opencode/deepseek-v4.1-flash-free" & set "modelname=DeepSeek V4.1 Flash Free"
-if "%choice%"=="11" set "model=opencode/cat-jam-free" & set "modelname=Cat Jam Free"
+if "%choice%"=="9" set "model=opencode/mimo-v2.5-free" & set "modelname=MiMo-V2.5 Free"
+if "%choice%"=="10" set "model=opencode/mimo-v2.6-flash-free" & set "modelname=MiMo-V2.6-Flash Free"
+if "%choice%"=="11" set "model=opencode/muse-spark-1.3-contributor-free" & set "modelname=Muse Spark 1.3 Contributor Free"
 if "%choice%"=="12" set "model=opencode/nemotron-3-ultra-free" & set "modelname=Nemotron 3 Ultra Free"
 if "%choice%"=="13" set "model=opencode/nemotron-3.5-lightning-free" & set "modelname=Nemotron 3.5 Lightning Free"
-if "%choice%"=="14" set "model=opencode/mimo-v2.5-free" & set "modelname=MiMo-V2.5 Free"
+if "%choice%"=="14" set "model=opencode/nemotron-3.5-super-vl-free" & set "modelname=Nemotron 3.5 Super VL Free"
+if "%choice%"=="15" set "model=opencode/space-bunny-free" & set "modelname=Space Bunny Free"
 
 if not defined model (
     echo.
-    echo  [!] Invalid choice. Please enter a number between 0-14.
+    echo  [!] Invalid choice. Please enter a number between 0-15.
     timeout /t 2 >nul
     goto menu
 )
